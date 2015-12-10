@@ -9,7 +9,7 @@ package main;
  *
  * @author Erik
  */
-public class Main {
+public class LD34Main {
     public static void main(String[] args) {
         System.out.println("Es läuft!");
     }
