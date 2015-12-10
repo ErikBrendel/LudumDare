@@ -1,3 +1,0 @@
-test commit 2
-Hallo Git Welt #2
-danke!
