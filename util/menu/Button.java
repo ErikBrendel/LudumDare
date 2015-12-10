@@ -1,7 +1,7 @@
 package util.menu;
 
-import controls.Mouse;
-import geometry.Bounding;
+import util.controls.Mouse;
+import util.geometry.Bounding;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
