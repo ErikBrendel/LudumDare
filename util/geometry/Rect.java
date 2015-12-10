@@ -1,4 +1,4 @@
-package geometry;
+package util.geometry;
 
 public class Rect extends Bounding {
 

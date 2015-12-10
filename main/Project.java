@@ -6,14 +6,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-
 import javax.swing.JFrame;
-
-import controls.KeyBoard;
-import controls.Mouse;
-import java.awt.Toolkit;
+import util.controls.KeyBoard;
+import util.controls.Mouse;
 
 public abstract class Project extends Canvas implements Runnable {
 

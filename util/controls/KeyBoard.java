@@ -1,4 +1,4 @@
-package controls;
+package util.controls;
 
 
 import java.awt.event.KeyEvent;
@@ -43,7 +43,7 @@ public class KeyBoard implements KeyListener{
 
 	
 	
-	//unnötig
+	//unnoetig
 	@Override
 	public void keyTyped(KeyEvent arg0) {}
 	

@@ -1,10 +1,9 @@
-package controls;
-
-import geometry.Point;
+package util.controls;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import util.geometry.Point;
 
 public class Mouse implements MouseListener, MouseMotionListener {
 	private static boolean[] keys = new boolean[16];

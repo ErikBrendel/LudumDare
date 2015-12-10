@@ -1,4 +1,4 @@
-package menu;
+package util.menu;
 
 import java.awt.Graphics2D;
 

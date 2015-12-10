@@ -1,10 +1,9 @@
-package menu;
+package util.menu;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-
-import controls.Mouse;
+import util.controls.Mouse;
 
 public class Menu {
 	private ArrayList<MenuState> menuStates;

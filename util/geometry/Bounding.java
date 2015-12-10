@@ -1,4 +1,4 @@
-package geometry;
+package util.geometry;
 
 public abstract class Bounding {
 	protected float x, y; // upper left corner

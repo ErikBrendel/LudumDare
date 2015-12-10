@@ -2,9 +2,8 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-
-import controls.KeyBoard;
-import controls.Mouse;
+import util.controls.KeyBoard;
+import util.controls.Mouse;
 
 public class Main extends Project {
 
