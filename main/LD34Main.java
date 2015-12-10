@@ -11,6 +11,6 @@ package main;
  */
 public class LD34Main {
     public static void main(String[] args) {
-        System.out.println("Es läuft!");
+        System.out.println("Es läuft bei beiden!");
     }
 }
