@@ -11,6 +11,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
@@ -22,6 +23,8 @@ public class TextBoxView extends View {
 
     private String text;
     private ArrayList<String> lines = null;
+    private int scrollProgress = 0;
+    private final Object scrollLock = new Object();
     private Font font;
 
     public TextBoxView(String text) {
@@ -43,24 +46,45 @@ public class TextBoxView extends View {
     }
 
     @Override
+    public boolean onKeyPressed(KeyEvent e) {
+        synchronized (scrollLock) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                scrollProgress++;
+            }
+            return true;
+        }
+    }
+
+    @Override
     protected void paint(Graphics2D g) {
-        Font oldFont = g.getFont();
-        g.setFont(font);
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getSize().x, getSize().y);
-        g.setColor(Color.WHITE);
-        g.fillRect(5, 5, getSize().x - 10, getSize().y - 10);
+        synchronized (scrollLock) {
+            Font oldFont = g.getFont();
+            g.setFont(font);
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, getSize().x, getSize().y);
+            g.setColor(Color.WHITE);
+            g.fillRect(5, 5, getSize().x - 10, getSize().y - 10);
 
-        g.setColor(Color.BLACK);
-        //g.drawString(text, 20, 100);
-        if (lines == null) {
-            lines = splitIntoLines(text, g, getSize().x - 20);
-        }
-        for (int i = 0; i < lines.size(); i++) {
-            g.drawString(lines.get(i), 10, g.getFont().getSize() + (i * g.getFont().getSize()));
-        }
+            g.setColor(Color.BLACK);
+            //g.drawString(text, 20, 100);
+            if (lines == null) {
+                lines = splitIntoLines(text, g, getSize().x - 20);
+            }
+            int end = lines.size() - scrollProgress;
+            
+            int linesVisible = (int)(getSize().y / (double) g.getFont().getSize());
+            
+            if (end <= linesVisible - 2) {
+                canBeRemoved = true;
+                return;
+            }
+            end = Math.min(end, linesVisible);
+            for (int i = 0; i < end; i++) {
+                g.drawString(lines.get(i + scrollProgress), 10, g.getFont().getSize() + (i * g.getFont().getSize()));
+            }
 
-        g.setFont(oldFont);
+            g.setFont(oldFont);
+        }
     }
 
     public static final ArrayList<String> splitIntoLines(String fulltext, Graphics2D g, int maxPixelSize) {
@@ -75,8 +99,7 @@ public class TextBoxView extends View {
 
         while (counter < words.length) {
             String line = words[counter];
-            
-            
+
             while (counter < words.length - 1 && getSize(g, line).getWidth() + getSize(g, words[counter + 1]).getWidth() < maxPixelSize) {
                 counter++;
                 line += words[counter];

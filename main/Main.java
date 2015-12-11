@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import util.controls.KeyBoard;
 import util.controls.Mouse;
@@ -13,6 +14,11 @@ public class Main extends Project {
     private static final long serialVersionUID = 1L;
     
     private ArrayList<View> viewList = new ArrayList<>();
+    private static Main main = null;
+    
+    public static Main get() {
+        return main;
+    }
 
     public Main() {
         super();
@@ -20,6 +26,7 @@ public class Main extends Project {
 
     @Override
     public void init() {
+        main = this;
         View test = new View(100, 100, 500, 500) {
 
             @Override
@@ -63,6 +70,12 @@ public class Main extends Project {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, 1600, 900);
         
+        for (int i = 0; i < viewList.size(); i++) {
+            if (viewList.get(i).canBeRemoved()) {
+                viewList.remove(i);
+                i--;
+            }
+        }
         for (View v: viewList) {
             v.draw(g);
         }
@@ -72,12 +85,16 @@ public class Main extends Project {
         viewList.add(v);
     }
     
-    public void removeView(View v) {
-        viewList.remove(v);
-    }
-    
     public void clearViewList() {
         viewList.clear();
+    }
+    
+    public void onKeyPressed(KeyEvent e) {
+        for (View v: viewList) {
+            if (v.onKeyPressed(e)) {
+                return;
+            }
+        }
     }
 
     public static void main(String[] args) {

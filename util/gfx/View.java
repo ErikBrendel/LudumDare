@@ -8,6 +8,7 @@ package util.gfx;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -17,6 +18,7 @@ public abstract class View {
 
     private Point startPoint = null;
     private Point viewSize = null;
+    protected boolean canBeRemoved = false;
 
     public View() {
         this(new Point(0, 0), null);
@@ -33,6 +35,10 @@ public abstract class View {
     public View(Point pos, Point size) {
         startPoint = pos;
         this.viewSize = size;
+    }
+    
+    public boolean canBeRemoved() {
+        return canBeRemoved;
     }
 
     public final void draw(Graphics2D g) {
@@ -53,4 +59,12 @@ public abstract class View {
 
     protected abstract void paint(Graphics2D g);
 
+    /**
+     *
+     * @param e
+     * @return true if handled, false if this event should be passed to lower views
+     */
+    public boolean onKeyPressed(KeyEvent e) {
+        return false;
+    }
 }

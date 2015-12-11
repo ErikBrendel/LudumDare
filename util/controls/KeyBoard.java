@@ -2,6 +2,7 @@ package util.controls;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import main.Main;
 
 public class KeyBoard implements KeyListener {
 
@@ -32,7 +33,7 @@ public class KeyBoard implements KeyListener {
         if (keyCode >= 0 && keyCode < keys.length) {
             keys[keyCode] = true;
         }
-
+        Main.get().onKeyPressed(e);
     }
 
     @Override
