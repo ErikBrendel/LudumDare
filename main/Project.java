@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
@@ -105,6 +106,9 @@ public abstract class Project extends Canvas implements Runnable {
             return;
         }
         Graphics2D g = (Graphics2D) bs.getDrawGraphics();
+        
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         g.translate(offsetX, offsetY);
         g.scale(scale, scale);
