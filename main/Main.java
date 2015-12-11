@@ -8,6 +8,7 @@ import util.controls.KeyBoard;
 import util.controls.Mouse;
 import util.gfx.TextBoxView;
 import util.gfx.View;
+import util.menu.Menu;
 
 public class Main extends Project {
 
@@ -15,6 +16,8 @@ public class Main extends Project {
     
     private ArrayList<View> viewList = new ArrayList<>();
     private static Main main = null;
+    
+    private Menu m;
     
     public static Main get() {
         return main;
@@ -46,12 +49,15 @@ public class Main extends Project {
         };
         addViewOnTop(test2);
         addViewOnTop(new TextBoxView("test mama ich schreibe einfach mal ein bisschen um zu gucken ob der linebreak geht trololol.."));
+        m = new Menu();
+        addViewOnTop(m);
+        
     }
 
     @Override
     public void update() {
         if (isFocusOwner()) {
-
+            m.update(timeSinceLastFrame);
         } else {
             KeyBoard.setAllReleased();
             Mouse.setAllReleased();
