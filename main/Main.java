@@ -30,24 +30,6 @@ public class Main extends Project {
     @Override
     public void init() {
         main = this;
-        View test = new View(100, 100, 500, 500) {
-
-            @Override
-            protected void paint(Graphics2D g) {
-                g.setColor(Color.red);
-                g.fillRect(-100, 0, this.getSize().x - 1, 900);
-            }
-        };
-        addViewOnTop(test);
-        View test2 = new View(120, 120) {
-
-            @Override
-            protected void paint(Graphics2D g) {
-                g.setColor(Color.blue);
-                g.fillRect(0, 0, 1000, 1000);
-            }
-        };
-        addViewOnTop(test2);
         addViewOnTop(new TextBoxView("test mama ich schreibe einfach mal ein bisschen um zu gucken ob der linebreak geht trololol.."));
         m = new Menu();
         addViewOnTop(m);

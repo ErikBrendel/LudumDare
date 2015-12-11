@@ -4,8 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import util.controls.Mouse;
+import util.gfx.View;
 
-public class Menu {
+public class Menu extends View{
 
     private ArrayList<MenuState> menuStates;
     private int currentState = 0;
@@ -15,6 +16,7 @@ public class Menu {
 
     public Menu() {
         menuStates = new ArrayList<>();
+        menuStates.add(new MainMenu());
     }
 
     public void update(float timeSinceLastFrame) {
@@ -31,7 +33,8 @@ public class Menu {
         }
     }
 
-    public void render(Graphics2D g) {
+    @Override
+    protected void paint(Graphics2D g) {
         if (transitionState == 0) {
             menuStates.get(currentState).render(g);
             t.render(g);

@@ -21,7 +21,7 @@ public abstract class View {
     protected boolean canBeRemoved = false;
 
     public View() {
-        this(new Point(0, 0), null);
+        this(new Point(0, 0), new Point(1600, 900));
     }
 
     public View(int x, int y, int w, int h) {
