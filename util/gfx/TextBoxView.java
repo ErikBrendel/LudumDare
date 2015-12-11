@@ -62,10 +62,10 @@ public class TextBoxView extends View {
             g.setFont(font);
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, getSize().x, getSize().y);
-            g.setColor(Color.WHITE);
+            g.setColor(new Color(30, 30, 30));
             g.fillRect(5, 5, getSize().x - 10, getSize().y - 10);
 
-            g.setColor(Color.BLACK);
+            g.setColor(new Color(200, 200, 220));
             //g.drawString(text, 20, 100);
             if (lines == null) {
                 lines = splitIntoLines(text, g, getSize().x - 20);
