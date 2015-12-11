@@ -21,8 +21,13 @@ import java.util.ArrayList;
  */
 public class TextBoxView extends View {
 
+    public static final int msPerLetter = 20;
+
     private String text;
     private ArrayList<String> lines = null;
+    private long startTypingAnimation = Long.MIN_VALUE; //moment when typing animation started
+    private boolean onlyAnimateLastLine = false;
+    private boolean isAnimating = false; //only needed to skip animation if there is any
     private int scrollProgress = 0;
     private final Object scrollLock = new Object();
     private Font font;
@@ -49,7 +54,13 @@ public class TextBoxView extends View {
     public boolean onKeyPressed(KeyEvent e) {
         synchronized (scrollLock) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                scrollProgress++;
+                if (!isAnimating) { //check if not animating at moment
+                    scrollProgress++;
+                    startTypingAnimation = System.currentTimeMillis();
+                    onlyAnimateLastLine = true;
+                } else {
+                    startTypingAnimation = System.currentTimeMillis() - 10000;
+                }
             }
             return true;
         }
@@ -70,17 +81,35 @@ public class TextBoxView extends View {
             if (lines == null) {
                 lines = splitIntoLines(text, g, getSize().x - 20);
             }
+            if (startTypingAnimation < 0) {
+                startTypingAnimation = System.currentTimeMillis();
+            }
+            int visibleLetterCount = (int) ((System.currentTimeMillis() - startTypingAnimation) / msPerLetter);
+            int displayedLetterCount = 0;
+            isAnimating = false;
+
             int end = lines.size() - scrollProgress;
-            
-            int linesVisible = (int)(getSize().y / (double) g.getFont().getSize());
-            
+
+            int linesVisible = (int) (getSize().y / (double) g.getFont().getSize());
+
             if (end <= linesVisible - 2) {
                 canBeRemoved = true;
                 return;
             }
             end = Math.min(end, linesVisible);
             for (int i = 0; i < end; i++) {
-                g.drawString(lines.get(i + scrollProgress), 10, g.getFont().getSize() + (i * g.getFont().getSize()));
+                String lineNow = lines.get(i + scrollProgress);
+                if (!onlyAnimateLastLine || i == linesVisible - 1) {
+                    if (lineNow.length() > visibleLetterCount - displayedLetterCount) {
+                        int len = visibleLetterCount - displayedLetterCount;
+                        lineNow = lineNow.substring(0, len);
+                        displayedLetterCount += len;
+                        isAnimating = true;
+                    } else {
+                        displayedLetterCount += lineNow.length();
+                    }
+                }
+                g.drawString(lineNow, 10, g.getFont().getSize() + (i * g.getFont().getSize()));
             }
 
             g.setFont(oldFont);
