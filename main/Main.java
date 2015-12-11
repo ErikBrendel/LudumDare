@@ -38,7 +38,7 @@ public class Main extends Project {
             }
         };
         addViewOnTop(test2);
-        addViewOnTop(new TextBoxView("test"));
+        addViewOnTop(new TextBoxView("test mama ich schreibe einfach mal ein bisschen um zu gucken ob der linebreak geht trololol.."));
     }
 
     @Override
