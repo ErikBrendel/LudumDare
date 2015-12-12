@@ -18,7 +18,7 @@ public class GfxLoader {
     public static BufferedImage loadImage(String dateiname) {
         try {
             BufferedImage img = ImageIO.read(GfxLoader.class.getClass().getResourceAsStream("/resources/" + dateiname + ".png"));
-            return getCompatibelImage(img);
+            return getCompatibleImage(img);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -121,7 +121,7 @@ public class GfxLoader {
         return null; //todo if width is bigger than height
     }
 
-    public static BufferedImage getCompatibelImage(BufferedImage img) {
+    public static BufferedImage getCompatibleImage(BufferedImage img) {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = env.getDefaultScreenDevice();
         GraphicsConfiguration config = device.getDefaultConfiguration();
