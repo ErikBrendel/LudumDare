@@ -52,7 +52,7 @@ public class Asteroid {
                 render = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation);
             } else {
                 float factor = Math.abs(height);
-                System.err.println("factor = " + factor);
+                //System.err.println("factor = " + factor);
                 BufferedImage render1 = GfxLoader.rotateImageDegree(allRawImages[id], rotation); //factor == 0
                 BufferedImage render2 = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation); //factor == 1
                 //render = GfxLoader.combine(render1, render2, factor);
