@@ -46,4 +46,7 @@ public class Background {
         g.drawImage(stars1, -s1xPos, 0, null);
         
     }
+    public int update(float timeSinceLastFrame) {
+        return 0;
+    }
 }
