@@ -15,4 +15,7 @@ public class Background {
     public void render(Graphics2D g) {
         
     }
+    public int update(float timeSinceLastFrame) {
+        return 0;
+    }
 }
