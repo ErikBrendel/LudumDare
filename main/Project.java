@@ -33,6 +33,7 @@ public abstract class Project extends Canvas implements Runnable {
 
     public Project() {
         t = new Thread(this);
+        t.setName("repaint-Thread");
         preInit(3200, 1800);
         start();
     }
