@@ -3,6 +3,7 @@ package util.menu;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import logic.Game;
 import util.controls.Mouse;
 import util.gfx.View;
 
@@ -17,6 +18,7 @@ public class Menu extends View{
     public Menu() {
         menuStates = new ArrayList<>();
         menuStates.add(new MainMenu());
+        menuStates.add(new Game());
     }
 
     public void update(float timeSinceLastFrame) {
