@@ -15,7 +15,6 @@ import util.menu.MenuState;
 public class Game extends MenuState {
 
     private static final float FOCUS_FADE_AINMATION_S = 0.25f;
-    private static final float FOCUS_FADE_AINMATION_S = 0.2f;
 
     private TextBoxView welcomeBox;
 
