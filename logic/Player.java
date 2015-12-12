@@ -8,6 +8,7 @@ package logic;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import util.controls.KeyBoard;
 import util.geometry.Bounding;
 import util.geometry.Rect;
@@ -35,6 +36,7 @@ public class Player {
     private int x, health;
     private float y, speedy;
     
+    private float timeAnimation;
     private int currentLook = 0;
     private Bounding b;
 
@@ -62,12 +64,22 @@ public class Player {
             speedy = 0;
         }
         b.setY(y);
+        timeAnimation += timeSinceLastFrame;
+        if(timeAnimation >= 0.05){
+            timeAnimation = 0;
+            currentLook++;
+            currentLook %= 3;
+        }
     }
     
     public void render(Graphics2D g){
         g.drawImage(looks[currentLook], x, (int) y, null);
     }
 
+    public BufferedImage getImage(){
+        return looks[currentLook];
+    }
+    
     public Bounding getBounding() {
         return b;
     }  
