@@ -34,7 +34,7 @@ public class Layer {
         Point offset = new Point(0, 0);
 
         if (height != 0) {
-            imgSize = imgSize.multiply(1 - (0.2f * height));
+            imgSize = imgSize.multiply(1 - (0.15f * height));
             offset = new Point(1600, 900).minus(imgSize).multiply(0.5f);
         }
 
