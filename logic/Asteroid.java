@@ -22,7 +22,7 @@ public class Asteroid {
     private Point moveVector;
     private double rotateSpeed;
     private Bounding b;
-    private BufferedImage lastImage = null;
+    private BufferedImage render = null;
     private boolean canBeRemoved = false;
 
     private Asteroid(int id) {
@@ -35,7 +35,7 @@ public class Asteroid {
     }
 
     public BufferedImage getLastImage() {
-        return lastImage;
+        return render;
     }
     
     public boolean canBeRemoved() {
@@ -56,7 +56,6 @@ public class Asteroid {
         int dX = location.getIntX();
         int dY = location.getIntY();
 
-        BufferedImage render;
         if (height == 0) {
             render = GfxLoader.rotateImageDegree(allRawImages[id], rotation);
         } else {
@@ -76,14 +75,13 @@ public class Asteroid {
                 g.drawImage(render2, dX, dY, null);
                 g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 
-                lastImage = render1;
+                render = render1;
                 return;
             }
         }
         g.drawImage(render, dX, dY, null);
         b.setWidth(render.getWidth());
         b.setHeight(render.getHeight());
-        lastImage = render;
     }
 
     public int update(float timeSinceLastFrame) {
