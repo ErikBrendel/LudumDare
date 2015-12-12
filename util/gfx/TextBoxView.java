@@ -33,11 +33,11 @@ public class TextBoxView extends View {
     private Font font;
 
     public TextBoxView(String text) {
-        this(text, 20, 450, 1560, 430, new Font("Helvetica", Font.PLAIN, 120));
+        this(text, 20, 550, 1560, 330, new Font("Helvetica", Font.PLAIN, 100));
     }
 
     public TextBoxView(String text, Font f) {
-        this(text, 20, 450, 1560, 430, f);
+        this(text, 20, 550, 1560, 330, f);
     }
 
     public TextBoxView(String text, int x, int y, int w, int h, Font f) {
