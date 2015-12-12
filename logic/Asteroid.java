@@ -11,7 +11,7 @@ import util.gfx.GfxLoader;
  */
 public class Asteroid {
 
-    private int rotation = 0;
+    private float rotation = 0;
 
     private final int id;
     private final boolean front;
