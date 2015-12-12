@@ -32,7 +32,7 @@ public class Background {
     public void render(Graphics2D g) {
         g.drawImage(background, 0, 0, null);
         int s0xPos = (int)(timeSinceStart * 10) % 3200;
-        
+       
         if(s0xPos >= 1600){
             g.drawImage(stars0, -s0xPos + 3200, 0, null);
         }        
