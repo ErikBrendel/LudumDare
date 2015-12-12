@@ -37,9 +37,10 @@ public class Game extends MenuState {
 
     @Override
     public boolean onKeyDown(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
             animateFocus = true;
-            if (focus < 0) {
+                System.err.println("focus = " + focus);
+            if (focus < 0.5f) {
                 animateFocusUp = true;
             } else {
                 animateFocusUp = false;

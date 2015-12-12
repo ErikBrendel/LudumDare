@@ -42,7 +42,7 @@ public class Player {
     
     
     public void update(float timeSinceLastFrame){
-        if(KeyBoard.isKeyDown(KeyEvent.VK_CONTROL)){
+        if(KeyBoard.isKeyDown(KeyEvent.VK_SPACE)){
             speedy -= UPSPEED * timeSinceLastFrame;
         }
         speedy += GRAVITY * timeSinceLastFrame;
