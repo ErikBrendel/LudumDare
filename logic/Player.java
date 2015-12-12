@@ -32,7 +32,7 @@ public class Player {
     private final int UPSPEED = 3500;
     private final int GRAVITY = 2000;
     
-    private int x;
+    private int x, health;
     private float y, speedy;
     
     private int currentLook = 0;
@@ -42,6 +42,7 @@ public class Player {
         x = 100;
         y = 400;
         b = new Rect(x, y, 300, 100);
+        health = 100;
     }    
     
     public void update(float timeSinceLastFrame){
@@ -70,5 +71,17 @@ public class Player {
     public Bounding getBounding() {
         return b;
     }  
+
+    public int getHealth() {
+        return health;
+    }    
+    
+    void damage(int damage) {
+        health -= damage;
+        if(health <= 0){
+            //Lost Game
+            health = 0;
+        }
+    }
     
 }
