@@ -5,10 +5,10 @@
  */
 package logic;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 import util.controls.KeyBoard;
 import util.geometry.Bounding;
 import util.geometry.Rect;
@@ -30,8 +30,8 @@ public class Player {
         }
     }
     
-    private final int UPSPEED = 3500;
-    private final int GRAVITY = 2000;
+    private final int UPSPEED = 3000;
+    private final int GRAVITY = 1500;
     
     private int x, health;
     private float y, speedy;
@@ -40,11 +40,14 @@ public class Player {
     private int currentLook = 0;
     private Bounding b;
 
+    private BufferedImage look;
+    
     public Player() {
         x = 100;
         y = 400;
-        b = new Rect(x, y, 300, 100);
+        b = new Rect(x, y, 300, 200);
         health = 100;
+        look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
     }    
     
     public void update(float timeSinceLastFrame){
@@ -52,6 +55,14 @@ public class Player {
             speedy -= UPSPEED * timeSinceLastFrame;
         }
         speedy += GRAVITY * timeSinceLastFrame;
+        
+        if(speedy > 1000){
+            speedy = 1000;
+        }
+        if(speedy < -1000){
+            speedy = -1000;
+        }
+        
         y += speedy * timeSinceLastFrame;
         
         if(y < 0){
@@ -59,8 +70,8 @@ public class Player {
             speedy = 0;
         }
         
-        if(y > 800){
-            y = 800;
+        if(y > 700){
+            y = 700;
             speedy = 0;
         }
         b.setY(y);
@@ -73,11 +84,16 @@ public class Player {
     }
     
     public void render(Graphics2D g){
-        g.drawImage(looks[currentLook], x, (int) y, null);
+        look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
+        Graphics g2 = look.createGraphics();
+        g2.drawImage(looks[currentLook], 0, 50, null);
+        g2.dispose();
+        look = GfxLoader.rotateImageDegree(look, speedy / 50);
+        g.drawImage(look, x, (int) y, null);
     }
 
     public BufferedImage getImage(){
-        return looks[currentLook];
+        return look;
     }
     
     public Bounding getBounding() {
