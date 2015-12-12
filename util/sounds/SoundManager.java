@@ -37,15 +37,11 @@ public class SoundManager implements Runnable {
 	}
 
 	public static void playSound(Sounds s) {
-		if (playSounds) {
-			sounds.get(s.id).play();
-		}
+		playSound(s.id);
 	}
 
-	public static void playMusic(Music m) {
-		if (playMusic) {
-			music.get(m.id).loop();
-		}
+	public static void playMusic(Music m) {		
+		playMusic(m.id);
 	}
 
 	public static void stopMusic(Music m) {
@@ -60,6 +56,7 @@ public class SoundManager implements Runnable {
 
 	public static void playMusic(int id) {
 		if (playMusic) {
+            System.out.println("util.sounds.SoundManager.playMusic()");
 			music.get(id).loop();
 		}
 	}
@@ -70,7 +67,12 @@ public class SoundManager implements Runnable {
 
 	@SuppressWarnings("unused")
 	private static AudioClip loadClip(String name) {
+            try{
 		return Applet.newAudioClip(SoundManager.class.getClass().getResource("/resources/" + name + ".au"));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
 	}
 
 	public static void setPlayMusic(boolean playMusic) {
