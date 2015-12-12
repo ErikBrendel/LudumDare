@@ -3,6 +3,7 @@ package logic;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import util.menu.MenuState;
 
 /**
@@ -81,9 +82,12 @@ public class Game extends MenuState {
         layers[0].update(timeSinceLastFrame);
         layers[1].update(timeSinceLastFrame);
         
-        for (int i = 0; i < layers[(int) (focus + 0.5)].getAsteroids().size(); i++) {
-            if (player.getBounding().intersects(layers[(int) (focus + 0.5)].getAsteroids().get(i).getB())) {
-                player.damage(layers[(int) (focus + 0.5)].getAsteroids().get(i).getDamage());
+        ArrayList<Asteroid> asteroids = layers[(int) (focus + 0.5)].getAsteroids();
+        
+        for (int i = 0; i < asteroids.size(); i++) {
+            if (player.getBounding().intersects(asteroids.get(i).getB())) {
+                //System.err.println("COLLIDE!");
+                player.damage(asteroids.get(i).getDamage());
             }
         }
         player.update(timeSinceLastFrame);
