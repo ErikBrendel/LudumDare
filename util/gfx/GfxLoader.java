@@ -126,29 +126,64 @@ public class GfxLoader {
         GraphicsDevice device = env.getDefaultScreenDevice();
         GraphicsConfiguration config = device.getDefaultConfiguration();
         BufferedImage buffy = config.createCompatibleImage(img.getWidth(), img.getHeight(), Transparency.TRANSLUCENT);
-        
+
         Graphics2D g = buffy.createGraphics();
         g.drawImage(img, 0, 0, null);
-        
+
         return buffy;
     }
 
-    public static BufferedImage combine(BufferedImage img1, BufferedImage img2, float factor) {
-        BufferedImage combine = new BufferedImage(img1.getWidth(), img2.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        
-        /*for (int x = 0; x < combine.getWidth(); x++) {
-            for (int y = 0; y < combine.getHeight(); y++) {
-                Color c1 = new Color(img1.getRGB(x, y), true);
-                Color c2 = new Color(img2.getRGB(x, y), true);
-                int r = (int)((c1.getRed() * (1 - factor)) + (c2.getRed() * factor))/2;
-                int g = (int)((c1.getGreen()* (1 - factor)) + (c2.getGreen() * factor))/2;
-                int b = (int)((c1.getBlue()* (1 - factor)) + (c2.getBlue() * factor))/2;
-                int a = (int)((c1.getAlpha()* (1 - factor)) + (c2.getAlpha() * factor))/2;
-                combine.setRGB(x, y, new Color(r, g, b, a).getRGB());
+    public static boolean intersect(BufferedImage img1, BufferedImage img2, int offsetX, int offsetY) {
+        int secStartX = Math.max(0, offsetX);
+        int secStartY = Math.max(0, offsetY);
+
+        int secEndX = Math.min(img1.getWidth(), img2.getWidth()+ offsetX/**/);
+        int secEndY = Math.min(img1.getHeight(), img2.getHeight()+ offsetY/**/);
+
+        int widthX = secEndX - secStartX - 1;
+        int widthY = secEndY - secStartY - 1;
+
+        widthX = Math.abs(widthX);
+        widthY = Math.abs(widthY);
+
+        if (widthX <= 0 || widthY <= 0) {
+            return false;
+        }
+
+        if (secStartX + widthX > img1.getWidth() || secStartY + widthY > img1.getHeight()) {
+            return false;
+        }
+
+        if (secStartX + widthX - offsetX > img2.getWidth() || secStartY + widthY - offsetY > img2.getHeight()) {
+            return false;
+        }
+
+        BufferedImage sec1 = img1.getSubimage(secStartX, secStartY, widthX, widthY);
+        BufferedImage sec2 = img2.getSubimage(secStartX - offsetX, secStartY - offsetY, widthX, widthY);
+        return intersect(sec1, sec2);
+        //return sec1;
+    }
+
+
+    /**
+     * please make both images have the same size
+     *
+     * @param img1
+     * @param img2
+     * @return
+     */
+    public static boolean intersect(BufferedImage img1, BufferedImage img2) {
+        for (int x = 0; x < img1.getWidth(); x++) {
+            for (int y = 0; y < img1.getHeight(); y++) {
+                if ((img1.getRGB(x, y) & 0xFF000000) != 0x00) {
+                    if ((img2.getRGB(x, y) & 0xFF000000) != 0x00) {
+                        return true;
+                    }
+                }/* */
+
             }
-        }/**/
-        
-        return combine;
+        }
+        return false;
     }
 
 }

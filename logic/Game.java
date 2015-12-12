@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import util.gfx.GfxLoader;
 import util.menu.MenuState;
 
 /**
@@ -17,8 +18,7 @@ public class Game extends MenuState {
     private Background bg;
     private Layer[] layers = new Layer[2];
     private HUD hud;
-    
-    
+
     private float focus = 0;
     private boolean animateFocus = false;
     private boolean animateFocusUp;
@@ -38,6 +38,25 @@ public class Game extends MenuState {
         player.render(g);
         layers[1].render(g, 1f - focus);
         hud.draw(g);
+        
+        /*ArrayList<Asteroid> asteroids = layers[(int) (focus + 0.5)].getAsteroids();
+        for (int i = 0; i < asteroids.size(); i++) {
+            Asteroid a = asteroids.get(i);
+            if (player.getBounding().intersects(a.getB())) {
+                //todo check actual intersection
+                int vX =  (int)(a.getB().getX() - player.getBounding().getX());
+                int vY =  (int)(a.getB().getY() - player.getBounding().getY());
+                BufferedImage img = GfxLoader.intersect(player.getImage(), a.getLastImage(), vX, vY);
+                if (img != null) {
+                    g.setColor(Color.red);
+                    //g.fillRect(0, 0, img.getWidth() + 20, img.getHeight() + 20);
+                    //g.drawImage(img, 10, 10, null);
+                }
+                
+                
+
+            }
+        }/**/
     }
 
     @Override
@@ -81,13 +100,25 @@ public class Game extends MenuState {
         bg.update(timeSinceLastFrame);
         layers[0].update(timeSinceLastFrame);
         layers[1].update(timeSinceLastFrame);
-        
+
         ArrayList<Asteroid> asteroids = layers[(int) (focus + 0.5)].getAsteroids();
-        
+
         for (int i = 0; i < asteroids.size(); i++) {
-            if (player.getBounding().intersects(asteroids.get(i).getB())) {
-                //System.err.println("COLLIDE!");
-                player.damage(asteroids.get(i).getDamage());
+            Asteroid a = asteroids.get(i);
+            if (player.getBounding().intersects(a.getB())) {
+                //todo check actual intersection
+                
+                int vX =  (int)(a.getB().getX() - player.getBounding().getX());
+                int vY =  (int)(a.getB().getY() - player.getBounding().getY());
+
+                if (GfxLoader.intersect(player.getImage(), a.getLastImage(), vX, vY)) {
+                    System.err.println("COLLIDE!");
+                    player.damage(a.getDamage());
+
+                }/**/
+                
+                
+
             }
         }
         player.update(timeSinceLastFrame);

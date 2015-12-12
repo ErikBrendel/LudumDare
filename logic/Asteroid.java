@@ -22,6 +22,7 @@ public class Asteroid {
     private Point moveVector;
     private double rotateSpeed;
     private Bounding b;
+    private BufferedImage lastImage = null;
 
     private Asteroid(int id) {
         this.id = id;
@@ -30,6 +31,10 @@ public class Asteroid {
 
     public Bounding getB() {
         return b;
+    }
+
+    public BufferedImage getLastImage() {
+        return lastImage;
     }
 
     public int getDamage() {
@@ -62,12 +67,14 @@ public class Asteroid {
                 g.drawImage(render2, dX, dY, null);
                 g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 
+                lastImage = render1;
                 return;
             }
         }
         g.drawImage(render, dX, dY, null);
         b.setWidth(render.getWidth());
         b.setHeight(render.getHeight());
+        lastImage = render;
     }
 
     public int update(float timeSinceLastFrame) {
@@ -104,7 +111,7 @@ public class Asteroid {
     public static Asteroid createRandomShape() {
         Asteroid a = new Asteroid(new Random().nextInt(asteroidCount));
         Random r = new Random();
-        a.location = new Point(1700, -200 + r.nextInt(1100));
+        a.location = new Point(1000, -200 + r.nextInt(1100));
         a.moveVector = new Point(-100, 40 - r.nextInt(80));
         a.rotateSpeed = -100 + r.nextInt(200);
         return a;
