@@ -44,7 +44,7 @@ public class Player {
     
     public Player() {
         x = 100;
-        y = 400;
+        y = 200;
         b = new Rect(x, y, 300, 200);
         health = 100;
         look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);

@@ -41,6 +41,9 @@ public class MainMenu extends MenuState {
     
     @Override
     public void render(Graphics2D g) {
+        //todo make bg image
+        g.setColor(new Color(255, 255, 0));
+        g.fillRect(0, 0, 1600, 900);
         b.render(g);
     }
     
