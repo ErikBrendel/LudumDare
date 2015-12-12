@@ -21,6 +21,7 @@ public class Menu extends View{
         menuStates.add(new MainMenu());
         menuStates.add(new Game());
         menuStates.add(new Options());
+        menuStates.add(new Credits());
     }
 
     public void update(float timeSinceLastFrame) {

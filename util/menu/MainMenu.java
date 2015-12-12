@@ -46,6 +46,21 @@ public class MainMenu extends MenuState {
         }        
     };
     
+    private Button credits = new Button("Credits", new Circle(800, 750, 100)) {
+        @Override
+        public void render(Graphics2D g) {
+            if (selected) {                
+                g.setColor(Color.GRAY);
+            } else {
+                g.setColor(Color.DARK_GRAY);
+            }
+            g.setFont(new Font("Helvetica", 0, 30));
+            g.fillOval((int) b.getX(), (int) b.getY(), (int) b.getWidth(), (int) b.getHeight());
+            g.setColor(Color.BLACK);
+            g.drawString(title, (int) b.getX() + 30, (int) b.getY() + 90);
+        }        
+    };
+    
     @Override
     public int update(float timeSinceLastFrame) {
         if (start.update()) {
@@ -54,6 +69,9 @@ public class MainMenu extends MenuState {
         if(options.update()){
             return 2;
         }
+        if(credits.update()){
+            return 3;
+        }
         return 0;
     }
     
@@ -61,6 +79,7 @@ public class MainMenu extends MenuState {
     public void render(Graphics2D g) {
         start.render(g);
         options.render(g);
+        credits.render(g);
     }
     
 }
