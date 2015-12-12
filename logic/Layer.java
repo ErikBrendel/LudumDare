@@ -17,10 +17,8 @@ public class Layer {
     public Layer() {
     }
 
-    public void moveEverything() {
-        for (Asteroid a : asteroids) {
-            a.move();
-        }
+    public ArrayList<Asteroid> getAsteroids() {
+        return asteroids;
     }
 
     /**

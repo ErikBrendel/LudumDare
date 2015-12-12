@@ -31,12 +31,6 @@ public class Asteroid {
     public Bounding getB() {
         return b;
     }
-    
-    
-
-    public void move() {
-
-    }
 
     public int getDamage() {
         return 1;
