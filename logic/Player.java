@@ -103,7 +103,7 @@ public class Player {
         Graphics g2 = look.createGraphics();
         g2.drawImage(looks[currentLook], 0, 50, null);
         
-        int damageState = damageOverlays.length + 1 - (int)((health / 100f) * (damageOverlays.length + 1));
+        int damageState = (int)Math.round((1f - (health / 100f)) * (damageOverlays.length));
         for (int i = 0; i < damageState; i++) {
             g2.drawImage(damageOverlays[i], 0, 50, null);
         }
