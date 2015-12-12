@@ -47,6 +47,16 @@ public class Player {
         }
         speedy += GRAVITY * timeSinceLastFrame;
         y += speedy * timeSinceLastFrame;
+        
+        if(y < 0){
+            y = 0;
+            speedy = 0;
+        }
+        
+        if(y > 800){
+            y = 800;
+            speedy = 0;
+        }
     }
     
     public void render(Graphics2D g){
