@@ -3,6 +3,7 @@ package util.sounds;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.util.LinkedList;
+import util.gfx.GfxLoader;
 
 public class SoundManager implements Runnable {
 	private static LinkedList<AudioClip> sounds;
@@ -69,7 +70,7 @@ public class SoundManager implements Runnable {
 
 	@SuppressWarnings("unused")
 	private static AudioClip loadClip(String name) {
-		return Applet.newAudioClip(SoundManager.class.getResource("/resources/" + name + ".au"));
+		return Applet.newAudioClip(SoundManager.class.getClass().getResource("/resources/" + name + ".au"));
 	}
 
 	public static void setPlayMusic(boolean playMusic) {
@@ -97,9 +98,9 @@ public class SoundManager implements Runnable {
 
 	@Override
 	public void run() {
-		sounds = new LinkedList<AudioClip>();
+		sounds = new LinkedList<>();
 		// sounds.add(loadClip("Test"));
-		music = new LinkedList<AudioClip>();
+		music = new LinkedList<>();
                 music.add(loadClip("music"));
 		playMusic = true;
 		playSounds = true;
