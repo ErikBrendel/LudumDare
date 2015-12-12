@@ -17,11 +17,19 @@ import util.gfx.GfxLoader;
 public class Player {
     
     private static BufferedImage[] looks;
+    private static BufferedImage[] damageOverlays;
 
     static{
-        looks = new BufferedImage[3];
-        for(int i = 0; i < 3; i++){
+        int lookCount = 3;
+        int damageOverlayCount = 1;
+        
+        looks = new BufferedImage[lookCount];
+        for(int i = 0; i < lookCount; i++){
             looks[i] = GfxLoader.loadImage("player_" + i);
+        }
+        damageOverlays = new BufferedImage[damageOverlayCount];
+        for(int i = 0; i < damageOverlayCount; i++){
+            damageOverlays[i] = GfxLoader.loadImage("damage_" + i);
         }
     }
     
@@ -94,6 +102,12 @@ public class Player {
         look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
         Graphics g2 = look.createGraphics();
         g2.drawImage(looks[currentLook], 0, 50, null);
+        
+        int damageState = (int)Math.round((1f - (health / 100f)) * (damageOverlays.length));
+        for (int i = 0; i < damageState; i++) {
+            g2.drawImage(damageOverlays[i], 0, 50, null);
+        }
+        
         g2.dispose();
         look = GfxLoader.rotateImageDegree(look, speedy / 50);
         g.drawImage(look, x, (int) y, null);
