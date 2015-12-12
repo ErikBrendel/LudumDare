@@ -3,6 +3,7 @@ package logic;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import util.geometry.Point;
 import util.gfx.GfxLoader;
 
 /**
@@ -14,10 +15,15 @@ public class Asteroid {
 
     private final int id;
     private final boolean front;
+    
+    private Point location;
+    private Point moveVector;
+    private double rotateSpeed;
 
     private Asteroid(int id, boolean front) {
         this.id = id;
         this.front = front;
+        rotateSpeed = 100;
     }
 
     public void move() {
@@ -31,9 +37,8 @@ public class Asteroid {
     public void render(Graphics2D g, boolean focus) {
 
         //todo calc draw coords
-        int dX = 100;
-        int dY = 100;
-        rotation++;
+        int dX = location.getIntX();
+        int dY = location.getIntY();
 
         BufferedImage render;
         if (focus) {
@@ -46,6 +51,12 @@ public class Asteroid {
             }
         }
         g.drawImage(render, dX, dY, null);
+    }
+    
+    public int update(float timeSinceLastFrame) {
+        rotation += rotateSpeed * timeSinceLastFrame;
+        location = location.plus(moveVector.multiply(timeSinceLastFrame));
+        return 0;
     }
 
     //
@@ -72,7 +83,10 @@ public class Asteroid {
      * @return
      */
     public static Asteroid createRandomShape(boolean front) {
-        return new Asteroid(new Random().nextInt(asteroidCount), front);
+        Asteroid a = new Asteroid(new Random().nextInt(asteroidCount), front);
+        a.location = new Point(1400, 200);
+        a.moveVector = new Point(-100, 30f);
+        return a;
     }
 
 }

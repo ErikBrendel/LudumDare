@@ -26,5 +26,24 @@ public class Point extends Bounding {
     public void setY(float y) {
         this.y = y;
     }
+    
+    public int getIntX() {
+        return (int) Math.round(x);
+    }
+    public int getIntY() {
+        return (int) Math.round(y);
+    }
+    
+    public Point plus(Point p2) {
+        return new Point(x + p2.x, y + p2.y);
+    }
+    
+    public Point multiply(float factor) {
+        return new Point(x * factor, y * factor);
+    }
+    
+    public Point minus(Point p2) {
+        return new Point(x - p2.x, y - p2.y);
+    }
 
 }

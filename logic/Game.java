@@ -38,6 +38,8 @@ public class Game extends MenuState {
             init();
         }
         bg.update(timeSinceLastFrame);
+        layers[0].update(timeSinceLastFrame);
+        layers[1].update(timeSinceLastFrame);
         return 1;
     }
 

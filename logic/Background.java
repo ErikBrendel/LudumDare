@@ -44,6 +44,8 @@ public class Background {
             g.drawImage(stars1, -s1xPos + 3200, 0, null);
         }        
         g.drawImage(stars1, -s1xPos, 0, null);
-        
+        /* */
+        //g.setColor(Color.GRAY);
+        //g.fillRect(0, 0, 1600, 900);
     }
 }
