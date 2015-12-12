@@ -1,7 +1,6 @@
 package logic;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -102,8 +101,8 @@ public class Asteroid {
             }
         }
         g.drawImage(render, dX, dY, null);
-        g.setColor(Color.red);
-        g.drawRect((int)b.getX(), (int)b.getY(), (int)b.getWidth(), (int)b.getHeight());
+        //g.setColor(Color.red);
+        //g.drawRect((int)b.getX(), (int)b.getY(), (int)b.getWidth(), (int)b.getHeight());
         b.setWidth(render.getWidth());
         b.setHeight(render.getHeight());
     }
@@ -132,7 +131,7 @@ public class Asteroid {
         for (int i = 0; i < asteroidCount; i++) {
             allRawImages[i] = GfxLoader.loadImage("asteroid_" + (i));
             allBlurImages[i] = GfxLoader.loadImage("asteroid_" + (i) + "_blur");
-            allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.6);
+            allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.4);
 
         }
     }

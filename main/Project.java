@@ -107,15 +107,15 @@ public abstract class Project extends Canvas implements Runnable {
             return;
         }
         Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-  
+
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         g.translate(offsetX, offsetY);
         g.scale(scale, scale);
-        
+
         g.setColor(new Color(20, 20, 30));
-        
+
         g.fillRect(0, 0, 1600, 900);
 
         doRenderStuff(g);

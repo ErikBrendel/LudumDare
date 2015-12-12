@@ -140,8 +140,8 @@ public class GfxLoader {
         int secEndX = Math.min(img1.getWidth(), img2.getWidth()+ offsetX/**/);
         int secEndY = Math.min(img1.getHeight(), img2.getHeight()+ offsetY/**/);
 
-        int widthX = secEndX - secStartX - 1;
-        int widthY = secEndY - secStartY - 1;
+        int widthX = secEndX - secStartX;
+        int widthY = secEndY - secStartY;
 
         widthX = Math.abs(widthX);
         widthY = Math.abs(widthY);
@@ -175,8 +175,8 @@ public class GfxLoader {
     public static boolean intersect(BufferedImage img1, BufferedImage img2) {
         for (int x = 0; x < img1.getWidth(); x++) {
             for (int y = 0; y < img1.getHeight(); y++) {
-                if (new Color(img1.getRGB(x, y), true).getAlpha() > 128) { 
-                    if (new Color(img2.getRGB(x, y), true).getAlpha() > 128) {
+                if (new Color(img1.getRGB(x, y), true).getAlpha() > 64) { 
+                    if (new Color(img2.getRGB(x, y), true).getAlpha() > 64) {
                         return true;
                     }
                 }/* */

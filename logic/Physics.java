@@ -22,17 +22,27 @@ public class Physics {
      * @return
      */
     public static ArrayList<Asteroid> doPhysics(ArrayList<Asteroid> asteroids) {
-        for (int i = 0; i < asteroids.size() - 1; i++) {
-            for (int j = i + 1; j < asteroids.size(); j++) {
-                Asteroid a1 = asteroids.get(i);
-                Asteroid a2 = asteroids.get(j);
-                if (a1.getLastImage() != null && a2.getLastImage() != null) {
 
-                    if (a1.getB().intersects(a2.getB())) {
-                        int vX = (int) (a1.getB().getX() - a2.getB().getX());
-                        int vY = (int) (a1.getB().getY() - a2.getB().getY());
-                        if (GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), vX, vY)) {
-                            repel(a1, a2);
+        for (int i = 0; i < asteroids.size(); i++) {
+            for (int j = 0; j < asteroids.size(); j++) {
+                if (i != j) {
+                    Asteroid a1 = asteroids.get(i);
+                    Asteroid a2 = asteroids.get(j);
+                    
+                    if (a2.getB().getWidth() < a1.getB().getWidth()) {
+                        Asteroid c = a1;
+                        a1 = a2;
+                        a2 = c;
+                    }
+
+                    if (a1.getLastImage() != null && a2.getLastImage() != null) {
+
+                        if (a1.getB().intersects(a2.getB())) {
+                            int vX = (int) (a1.getB().getX() - a2.getB().getX());
+                            int vY = (int) (a1.getB().getY() - a2.getB().getY());
+                            if (GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY)) {
+                                repel(a1, a2);
+                            }
                         }
                     }
                 }
@@ -55,8 +65,14 @@ public class Physics {
         mv2 = mv2.trim(a1.getMoveVector().hypot());
         a1.setMoveVector(mv1);
         a2.setMoveVector(mv2);
-        //a1.update(0.05f);
-        //a2.update(0.05f);
+        /*int vX = 0;
+        int vY = 0;
+        do {
+            vX = (int) (a1.getB().getX() - a2.getB().getX());
+            vY = (int) (a1.getB().getY() - a2.getB().getY());
+            a1.update(0.01f);
+            a2.update(0.01f);
+        } while (GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY));/**/
     }
 
     /**
@@ -84,10 +100,9 @@ public class Physics {
                     Point mv1 = a.getMoveVector().plus(v1.multiply(15f));
                     mv1 = mv1.trim(a.getMoveVector().hypot());
                     a.setMoveVector(mv1);
-                    
+
                     Point v2 = m2.minus(center);
-                    
-                    
+
                     player.setSpeed(player.getSpeed() * -0.3f);
                     player.damage(a.getDamage());
                     a.setUnHarmFul(0.2f);
