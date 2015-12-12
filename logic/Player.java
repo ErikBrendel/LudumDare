@@ -38,9 +38,9 @@ public class Player {
     private BufferedImage look;
     
     public Player() {
-        x = 100;
+        x = 150;
         y = 200;
-        b = new Rect(x, y, 300, 200);
+        b = new Rect(x, y, 250, 200);
         health = 100;
         look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
     }    
@@ -84,7 +84,7 @@ public class Player {
         g2.drawImage(looks[currentLook], 0, 50, null);
         g2.dispose();
         look = GfxLoader.rotateImageDegree(look, speedy / 50);
-        g.drawImage(look, x, (int) y, null);
+        g.drawImage(look, x - 50, (int) y, null);
     }
 
     public BufferedImage getImage(){

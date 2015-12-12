@@ -20,7 +20,7 @@ public class Menu extends View{
         menuStates = new ArrayList<>();
         menuStates.add(new MainMenu());
         menuStates.add(new Game());
-        menuStates.add(new Options());
+        menuStates.add(new OptionsView());
         menuStates.add(new Credits());
     }
 

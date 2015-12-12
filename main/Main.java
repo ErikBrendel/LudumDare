@@ -7,6 +7,7 @@ import util.controls.KeyBoard;
 import util.controls.Mouse;
 import util.gfx.View;
 import util.menu.Menu;
+import util.sounds.SoundManager;
 
 public class Main extends Project {
 
@@ -31,7 +32,7 @@ public class Main extends Project {
         main = this;
         m = new Menu();
         addViewOnTop(m);
-
+        new SoundManager();
     }
 
     @Override

@@ -12,7 +12,7 @@ public class SoundManager implements Runnable {
 	private static boolean playMusic;
 
 	public enum Music {
-		;
+		music(0);
 
 		private final int id;
 
@@ -69,7 +69,7 @@ public class SoundManager implements Runnable {
 
 	@SuppressWarnings("unused")
 	private static AudioClip loadClip(String name) {
-		return Applet.newAudioClip(SoundManager.class.getResource("/audio/" + name + ".au"));
+		return Applet.newAudioClip(SoundManager.class.getResource("/resources/" + name + ".au"));
 	}
 
 	public static void setPlayMusic(boolean playMusic) {
@@ -100,7 +100,9 @@ public class SoundManager implements Runnable {
 		sounds = new LinkedList<AudioClip>();
 		// sounds.add(loadClip("Test"));
 		music = new LinkedList<AudioClip>();
+                music.add(loadClip("music"));
 		playMusic = true;
 		playSounds = true;
+                playMusic(Music.music);
 	}
 }
