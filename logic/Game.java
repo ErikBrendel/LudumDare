@@ -39,17 +39,21 @@ public class Game extends MenuState {
     public boolean onKeyDown(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             animateFocus = true;
-            animateFocusUp = true;
+            if (focus < 0) {
+                animateFocusUp = true;
+            } else {
+                animateFocusUp = false;
+            }
         }
         return false;
     }
 
     @Override
     public boolean onKeyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            animateFocus = true;
-            animateFocusUp = false;
-        }
+        /*if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+         animateFocus = true;
+         animateFocusUp = false;
+         } /* */
         return false;
     }
 
