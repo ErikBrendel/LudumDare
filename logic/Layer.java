@@ -48,7 +48,7 @@ public class Layer {
         }
 
         g.drawImage(layerImg, 0, 0, 1600, 900, null);
-        g.drawString("LayerFocus: " + height, 50, dY);
+        //g.drawString("LayerFocus: " + height, 50, dY);
     }
 
     public int update(float timeSinceLastFrame) {

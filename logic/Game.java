@@ -112,7 +112,7 @@ public class Game extends MenuState {
                 int vY =  (int)(a.getB().getY() - player.getBounding().getY());
 
                 if (GfxLoader.intersect(player.getImage(), a.getLastImage(), vX, vY)) {
-                    System.err.println("COLLIDE!");
+                    //System.err.println("COLLIDE!");
                     player.damage(a.getDamage());
 
                 }/**/
