@@ -28,7 +28,7 @@ public class Player {
         }
     }
     
-    private final int UPSPEED = 5000;
+    private final int UPSPEED = 3500;
     private final int GRAVITY = 2000;
     
     private int x;

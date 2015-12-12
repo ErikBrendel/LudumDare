@@ -22,7 +22,6 @@ public class Asteroid {
 
     private Asteroid(int id) {
         this.id = id;
-        rotateSpeed = 100;
     }
 
     public void move() {
@@ -97,8 +96,9 @@ public class Asteroid {
     public static Asteroid createRandomShape() {
         Asteroid a = new Asteroid(new Random().nextInt(asteroidCount));
         Random r = new Random();
-        a.location = new Point(1600, -200 + r.nextInt(1100));
+        a.location = new Point(1700, -200 + r.nextInt(1100));
         a.moveVector = new Point(-100, 40 - r.nextInt(80));
+        a.rotateSpeed = -100 + r.nextInt(200);
         return a;
     }
 

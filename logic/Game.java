@@ -31,20 +31,15 @@ public class Game extends MenuState {
 
         bg.render(g);
         layers[0].render(g, -focus);
-        layers[1].render(g, 1f - focus);
         player.render(g);
+        layers[1].render(g, 1f - focus);
     }
 
     @Override
     public boolean onKeyDown(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
             animateFocus = true;
-                System.err.println("focus = " + focus);
-            if (focus < 0.5f) {
-                animateFocusUp = true;
-            } else {
-                animateFocusUp = false;
-            }
+            animateFocusUp = focus < 0.5f;
         }
         return false;
     }
