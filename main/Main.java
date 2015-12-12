@@ -29,7 +29,7 @@ public class Main extends Project {
 
     @Override
     public void init() {
-        new SoundManager();
+        //new SoundManager();
         main = this;
         m = new Menu();
         addViewOnTop(m);
