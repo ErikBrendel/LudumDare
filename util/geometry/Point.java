@@ -38,12 +38,24 @@ public class Point extends Bounding {
         return new Point(x + p2.x, y + p2.y);
     }
     
+    public Point minus(Point p2) {
+        return new Point(x - p2.x, y - p2.y);
+    }
+    
     public Point multiply(float factor) {
         return new Point(x * factor, y * factor);
     }
     
-    public Point minus(Point p2) {
-        return new Point(x - p2.x, y - p2.y);
+    public Point trim(float newLength) {
+        return multiply(newLength / hypot());
+    }
+    
+    public float hypot() {
+        return (float)Math.hypot(x, y);
     }
 
+    @Override
+    public String toString() {
+        return "Point(" + x + ", " + y + ")";
+    }
 }

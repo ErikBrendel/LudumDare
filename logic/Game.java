@@ -2,11 +2,9 @@ package logic;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import util.controls.KeyBoard;
 import main.Main;
 import main.Options;
-import util.gfx.GfxLoader;
+import util.controls.KeyBoard;
 import util.gfx.TextBoxView;
 import util.menu.MenuState;
 
@@ -104,30 +102,16 @@ public class Game extends MenuState {
             bg.update(timeSinceLastFrame);
             layers[0].update(timeSinceLastFrame);
             layers[1].update(timeSinceLastFrame);
-
-            ArrayList<Asteroid> asteroids = layers[(int) (focus + 0.5)].getAsteroids();
-
-            for (int i = 0; i < asteroids.size(); i++) {
-                Asteroid a = asteroids.get(i);
-                if (player.getBounding().intersects(a.getB())) {
-                    //todo check actual intersection
-
-                    int vX = (int) (a.getB().getX() - player.getBounding().getX());
-                    int vY = (int) (a.getB().getY() - player.getBounding().getY());
-
-                    if (GfxLoader.intersect(player.getImage(), a.getLastImage(), vX, vY)) {
-                        //System.err.println("COLLIDE!");
-                        player.damage(a.getDamage());
-
-                    }/**/
-
-
-                }
+            if (focus == 0) {
+                Physics.doPhysics(layers[0].getAsteroids(), player);
+            } else if (focus == 1) {
+                Physics.doPhysics(layers[1].getAsteroids(), player);
             }
+
             player.update(timeSinceLastFrame);
         }
-        
-        if(KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)){
+
+        if (KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)) {
             KeyBoard.setAllReleased();
             return 0;
         }

@@ -18,6 +18,10 @@ public abstract class Bounding {
     public float getY() {
         return y;
     }
+    
+    public Point getLocation() {
+        return new Point(x, y);
+    }
 
     public float getWidth() {
         return width;
@@ -25,6 +29,10 @@ public abstract class Bounding {
 
     public float getHeight() {
         return height;
+    }
+    
+    public Point getSize() {
+        return new Point(width, height);
     }
 
     public void setWidth(float width) {

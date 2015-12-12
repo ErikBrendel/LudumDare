@@ -43,7 +43,11 @@ public class Player {
         b = new Rect(x, y, 300, 200);
         health = 100;
         look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
-    }    
+    }
+    
+    public void addSpeed(float speedAdd) {
+        speedy += speedAdd;
+    }
     
     public void update(float timeSinceLastFrame){
         if(KeyBoard.isKeyDown(KeyEvent.VK_SPACE)){

@@ -21,7 +21,7 @@ public class Layer {
     public int getScore() {
         return layerScore;
     }
-    
+
     public ArrayList<Asteroid> getAsteroids() {
         return asteroids;
     }
@@ -33,7 +33,6 @@ public class Layer {
      */
     public void render(Graphics2D g, float height) {
         g.setColor(Color.WHITE);
-        int dY = 100 + (int) (50 * height);
 
         Point imgSize = new Point(1600, 900);
         Point offset = new Point(0, 0);
@@ -62,19 +61,19 @@ public class Layer {
             asteroids.add(Asteroid.createRandomShape());
         }
         for (Asteroid a : asteroids) {
-            a.update(timeSinceLastFrame);
+            a.update(timeSinceLastFrame); //move
             if (a.getB().getX() + a.getB().getWidth() < -100) {
                 a.remove();
-                layerScore+= a.getDamage();
+                layerScore += a.getDamage();
             }
         }
-        //System.err.println("size = " + asteroids.size());
         for (int i = 0; i < asteroids.size(); i++) {
             if (asteroids.get(i).canBeRemoved()) {
                 asteroids.remove(i);
                 i--;
             }
         }
+        asteroids = Physics.doPhysics(asteroids); //create collisions
 
         return 0;
     }
