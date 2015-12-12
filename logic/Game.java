@@ -76,6 +76,11 @@ public class Game extends MenuState {
         bg.update(timeSinceLastFrame);
         layers[0].update(timeSinceLastFrame);
         layers[1].update(timeSinceLastFrame);
+        for (Asteroid a : layers[(int) (focus + 0.5)].getAstroids()) {
+            if (player.getBounding().intersects()) {
+                
+            }
+        }
         player.update(timeSinceLastFrame);
         return 1;
     }
