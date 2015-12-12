@@ -21,7 +21,6 @@ public abstract class Button {
         if (b.intersects(Mouse.getPos())) {
             selected = true;
             if (Mouse.isKeyDown(MouseEvent.BUTTON1)) {
-                System.out.println(true);
                 return true;
             }
         } else {

@@ -16,7 +16,7 @@ import util.geometry.Circle;
  */
 public class MainMenu extends MenuState {
     
-    private Button start = new Button("Start Game", new Circle(800, 250, 100)) {
+    private Button start = new Button("Start Game", new Circle(400, 450, 150)) {
         @Override
         public void render(Graphics2D g) {
             if (selected) {                
@@ -24,14 +24,14 @@ public class MainMenu extends MenuState {
             } else {
                 g.setColor(Color.DARK_GRAY);
             }
-            g.setFont(new Font("Helvetica", 0, 30));
+            g.setFont(new Font("Helvetica", 0, 40));
             g.fillOval((int) b.getX(), (int) b.getY(), (int) b.getWidth(), (int) b.getHeight());
             g.setColor(Color.BLACK);
-            g.drawString(title, (int) b.getX() + 30, (int) b.getY() + 90);
+            g.drawString(title, (int) b.getX() + 40, (int) b.getY() + 140);
         }        
     };
     
-    private Button options = new Button("Options", new Circle(800, 500, 100)) {
+    private Button options = new Button("Options", new Circle(1200, 450, 150)) {
         @Override
         public void render(Graphics2D g) {
             if (selected) {                
@@ -39,14 +39,14 @@ public class MainMenu extends MenuState {
             } else {
                 g.setColor(Color.DARK_GRAY);
             }
-            g.setFont(new Font("Helvetica", 0, 30));
+            g.setFont(new Font("Helvetica", 0, 40));
             g.fillOval((int) b.getX(), (int) b.getY(), (int) b.getWidth(), (int) b.getHeight());
             g.setColor(Color.BLACK);
-            g.drawString(title, (int) b.getX() + 30, (int) b.getY() + 90);
+            g.drawString(title, (int) b.getX() + 80, (int) b.getY() + 140);
         }        
     };
     
-    private Button credits = new Button("Credits", new Circle(800, 750, 100)) {
+    private Button credits = new Button("Credits", new Circle(800, 450, 150)) {
         @Override
         public void render(Graphics2D g) {
             if (selected) {                
@@ -54,10 +54,10 @@ public class MainMenu extends MenuState {
             } else {
                 g.setColor(Color.DARK_GRAY);
             }
-            g.setFont(new Font("Helvetica", 0, 30));
+            g.setFont(new Font("Helvetica", 0, 40));
             g.fillOval((int) b.getX(), (int) b.getY(), (int) b.getWidth(), (int) b.getHeight());
             g.setColor(Color.BLACK);
-            g.drawString(title, (int) b.getX() + 30, (int) b.getY() + 90);
+            g.drawString(title, (int) b.getX() + 80, (int) b.getY() + 140);
         }        
     };
     

@@ -109,12 +109,13 @@ public class Game extends MenuState {
             }
 
             player.update(timeSinceLastFrame);
+
+            if (KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)) {
+                KeyBoard.setAllReleased();
+                return 0;
+            }
         }
 
-        if (KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)) {
-            KeyBoard.setAllReleased();
-            return 0;
-        }
         return 1;
 
     }

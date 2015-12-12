@@ -32,7 +32,7 @@ public class Menu extends View{
                 t = null;
             }
         } else if (newState != currentState) {
-            t = new Transition(Mouse.getX(), Mouse.getY(), 0.7f, 0.7f);
+            t = new Transition(Mouse.getX(), Mouse.getY(), 0.5f, 0.5f);
         } else {
             newState = menuStates.get(currentState).update(timeSinceLastFrame);
         }

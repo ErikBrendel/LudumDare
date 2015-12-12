@@ -3,14 +3,11 @@ package util.sounds;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.util.LinkedList;
-import util.gfx.GfxLoader;
+import main.Options;
 
 public class SoundManager implements Runnable {
 	private static LinkedList<AudioClip> sounds;
 	private static LinkedList<AudioClip> music;
-
-	private static boolean playSounds;
-	private static boolean playMusic;
 
 	public enum Music {
 		music(0);
@@ -49,13 +46,13 @@ public class SoundManager implements Runnable {
 	}
 
 	public static void playSound(int id) {
-		if (playSounds) {
+		if (Options.playSounds) {
 			sounds.get(id).play();
 		}
 	}
 
 	public static void playMusic(int id) {
-		if (playMusic) {
+		if (Options.playMusic) {
             System.out.println("util.sounds.SoundManager.playMusic()");
 			music.get(id).loop();
 		}
@@ -76,36 +73,24 @@ public class SoundManager implements Runnable {
 	}
 
 	public static void setPlayMusic(boolean playMusic) {
+            if(playMusic != Options.playMusic)
 		if (playMusic) {
-			SoundManager.playMusic = playMusic;
+			Options.playMusic = playMusic;
+                        playMusic(0);
 		} else {
 			for (int i = 0; i < music.size(); i++) {
 				stopMusic(i);
 			}
-			SoundManager.playMusic = playMusic;
+			Options.playMusic = playMusic;
 		}
 	}
-
-	public static void setPlaySounds(boolean playSounds) {
-		SoundManager.playSounds = playSounds;
-	}
-
-	public static boolean isPlayMusic() {
-		return playMusic;
-	}
-
-	public static boolean isPlaySounds() {
-		return playSounds;
-	}
-
+        
 	@Override
 	public void run() {
 		sounds = new LinkedList<>();
 		// sounds.add(loadClip("Test"));
 		music = new LinkedList<>();
                 music.add(loadClip("music"));
-		playMusic = true;
-		playSounds = true;
                 playMusic(Music.music);
 	}
 }

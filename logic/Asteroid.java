@@ -1,6 +1,7 @@
 package logic;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -28,7 +29,11 @@ public class Asteroid {
 
     private Asteroid(int id) {
         this.id = id;
-        b = new Rect(0, 0, 100, 100);
+        if(id == 0){
+            b = new Rect(0, 0, 100, 100);
+        }else{
+            b = new Rect(0, 0, 300, 300);
+        }
     }
 
     public Bounding getB() {
@@ -97,6 +102,8 @@ public class Asteroid {
             }
         }
         g.drawImage(render, dX, dY, null);
+        g.setColor(Color.red);
+        g.drawRect((int)b.getX(), (int)b.getY(), (int)b.getWidth(), (int)b.getHeight());
         b.setWidth(render.getWidth());
         b.setHeight(render.getHeight());
     }
