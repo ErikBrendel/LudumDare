@@ -23,6 +23,7 @@ public class Asteroid {
     private double rotateSpeed;
     private Bounding b;
     private BufferedImage lastImage = null;
+    private boolean canBeRemoved = false;
 
     private Asteroid(int id) {
         this.id = id;
@@ -35,6 +36,14 @@ public class Asteroid {
 
     public BufferedImage getLastImage() {
         return lastImage;
+    }
+    
+    public boolean canBeRemoved() {
+        return canBeRemoved;
+    }
+    
+    public void remove() {
+        canBeRemoved = true;
     }
 
     public int getDamage() {
@@ -104,15 +113,13 @@ public class Asteroid {
     /**
      * create a new random asteroid
      *
-     * @param front if this asteroid hould blur out like it is in front when out
-     * of focus or not
      * @return
      */
     public static Asteroid createRandomShape() {
         Asteroid a = new Asteroid(new Random().nextInt(asteroidCount));
         Random r = new Random();
         a.location = new Point(1700, -200 + r.nextInt(1100));
-        a.moveVector = new Point(-100, 40 - r.nextInt(80));
+        a.moveVector = new Point(-150 + r.nextInt(100), 40 - r.nextInt(80));
         a.rotateSpeed = -100 + r.nextInt(200);
         return a;
     }

@@ -57,7 +57,18 @@ public class Layer {
         }
         for (Asteroid a : asteroids) {
             a.update(timeSinceLastFrame);
+            if (a.getB().getX() + a.getB().getWidth() < -100) {
+                a.remove();
+            }
         }
+        //System.err.println("size = " + asteroids.size());
+        for (int i = 0; i < asteroids.size(); i++) {
+            if (asteroids.get(i).canBeRemoved()) {
+                asteroids.remove(i);
+                i--;
+            }
+        }
+
         return 0;
     }
 }
