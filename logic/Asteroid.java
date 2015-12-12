@@ -47,7 +47,8 @@ public class Asteroid {
             if (front) {
                 render = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation);
             } else {
-                render = GfxLoader.rotateImageDegree(allBlurImages[id], rotation);
+                render = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation);
+                //render = GfxLoader.rotateImageDegree(allBlurImages[id], rotation);
             }
         }
         g.drawImage(render, dX, dY, null);
@@ -71,7 +72,7 @@ public class Asteroid {
         for (int i = 0; i < asteroidCount; i++) {
             allRawImages[i] = GfxLoader.loadImage("asteroid_" + i);
             allBlurImages[i] = GfxLoader.loadImage("asteroid_" + i + "_blur");
-            allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.5);
+            allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.4);
         }
     }
 
@@ -84,8 +85,9 @@ public class Asteroid {
      */
     public static Asteroid createRandomShape(boolean front) {
         Asteroid a = new Asteroid(new Random().nextInt(asteroidCount), front);
-        a.location = new Point(1400, 200);
-        a.moveVector = new Point(-100, 30f);
+        Random r = new Random();
+        a.location = new Point(1600, -200 + r.nextInt(1100));
+        a.moveVector = new Point(-100, 40 - r.nextInt(80));
         return a;
     }
 

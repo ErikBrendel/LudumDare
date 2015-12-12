@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 import util.geometry.Point;
 
 /**
@@ -15,7 +16,6 @@ public class Layer {
     private ArrayList<Asteroid> asteroids = new ArrayList<>();
 
     public Layer(boolean front) {
-        asteroids.add(Asteroid.createRandomShape(front));
         this.front = front;
     }
 
@@ -61,6 +61,9 @@ public class Layer {
     }
 
     public int update(float timeSinceLastFrame) {
+        if (new Random().nextInt(100) == 0) {
+            asteroids.add(Asteroid.createRandomShape(front));
+        }
         for (Asteroid a : asteroids) {
             a.update(timeSinceLastFrame);
         }
