@@ -175,8 +175,8 @@ public class GfxLoader {
     public static boolean intersect(BufferedImage img1, BufferedImage img2) {
         for (int x = 0; x < img1.getWidth(); x++) {
             for (int y = 0; y < img1.getHeight(); y++) {
-                if ((img1.getRGB(x, y) & 0xFF000000) != 0x00) { //todo maybe not only use absolute opaque pixel
-                    if ((img2.getRGB(x, y) & 0xFF000000) != 0x00) {
+                if ((img1.getRGB(x, y) >> 24) < 0) { 
+                    if ((img2.getRGB(x, y) >> 24) < 0) {
                         return true;
                     }
                 }/* */
