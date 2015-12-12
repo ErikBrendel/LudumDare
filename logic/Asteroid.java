@@ -97,15 +97,15 @@ public class Asteroid {
     //
     // STATIC STUFF BELOW HERE
     //
-    private static final int asteroidCount = 1;
+    private static final int asteroidCount = 2;
     private static BufferedImage[] allRawImages = new BufferedImage[asteroidCount];
     private static BufferedImage[] allBlurImages = new BufferedImage[asteroidCount];
     private static BufferedImage[] allTransparentImages = new BufferedImage[asteroidCount];
 
     static {
         for (int i = 0; i < asteroidCount; i++) {
-            allRawImages[i] = GfxLoader.loadImage("asteroid_" + i);
-            allBlurImages[i] = GfxLoader.loadImage("asteroid_" + i + "_blur");
+            allRawImages[i] = GfxLoader.loadImage("asteroid_" + (i));
+            allBlurImages[i] = GfxLoader.loadImage("asteroid_" + (i) + "_blur");
             allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.4);
         }
     }
