@@ -2,7 +2,11 @@ package util.gfx;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -13,7 +17,8 @@ public class GfxLoader {
 
     public static BufferedImage loadImage(String dateiname) {
         try {
-            return ImageIO.read(GfxLoader.class.getClass().getResourceAsStream("/resources/" + dateiname + ".png"));
+            BufferedImage img = ImageIO.read(GfxLoader.class.getClass().getResourceAsStream("/resources/" + dateiname + ".png"));
+            return getCompatibelImage(img);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -114,6 +119,18 @@ public class GfxLoader {
             return ret;
         }
         return null; //todo if width is bigger than height
+    }
+
+    public static BufferedImage getCompatibelImage(BufferedImage img) {
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = env.getDefaultScreenDevice();
+        GraphicsConfiguration config = device.getDefaultConfiguration();
+        BufferedImage buffy = config.createCompatibleImage(img.getWidth(), img.getHeight(), Transparency.TRANSLUCENT);
+        
+        Graphics2D g = buffy.createGraphics();
+        g.drawImage(img, 0, 0, null);
+        
+        return buffy;
     }
 
 }

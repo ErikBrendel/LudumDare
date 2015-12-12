@@ -34,30 +34,17 @@ public class Asteroid {
         int dX = 100;
         int dY = 100;
         rotation++;
-        
+
         BufferedImage render;
-        
         if (focus) {
             render = GfxLoader.rotateImageDegree(allRawImages[id], rotation);
         } else {
-            render = GfxLoader.rotateImageDegree(allBlurImages[id], rotation);
             if (front) {
                 render = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation);
-                double factor = 1 / 0.8;
-                render = GfxLoader.getScaledImage(render, (int)(render.getWidth() * factor),
-                        (int)(render.getHeight() * factor), GfxLoader.MODE_FAST);
             } else {
-                double factor = 0.8;
-                render = GfxLoader.getScaledImage(render, (int)(render.getWidth() * factor),
-                        (int)(render.getHeight() * factor), GfxLoader.MODE_FAST);
+                render = GfxLoader.rotateImageDegree(allBlurImages[id], rotation);
             }
         }
-        
-        /*if (!focus) {
-            if (front) {
-                render = GfxLoader.createWatermark(render, 0.5);
-            }
-        } /* */
         g.drawImage(render, dX, dY, null);
     }
 

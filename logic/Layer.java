@@ -2,6 +2,7 @@ package logic;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,7 @@ public class Layer {
 
     private final boolean front;
     private ArrayList<Asteroid> asteroids = new ArrayList<>();
-    
+
     public Layer(boolean front) {
         asteroids.add(Asteroid.createRandomShape(front));
         this.front = front;
@@ -22,7 +23,7 @@ public class Layer {
             a.move();
         }
     }
-    
+
     /**
      *
      * @param g
@@ -34,12 +35,29 @@ public class Layer {
         if (front) {
             g.translate(0, 50);
         }
-        
+        BufferedImage layerImg = new BufferedImage(1600, 900, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D layerG = layerImg.createGraphics();
         for (Asteroid a : asteroids) {
-            a.render(g, focus);
+            a.render(layerG, focus);
         }
+        int drawWidth = 1600;
+        int drawHeight = 900;
+        int drawX = 0;
+        int drawY = 0;
+        if (!focus) {
+            if (front) {
+                drawWidth /= 0.8;
+                drawHeight /= 0.8;
+            } else {
+                drawWidth *= 0.8;
+                drawHeight *= 0.8;
+            }
+            drawX = (1600 - drawWidth) / 2;
+            drawY = (900 - drawHeight) / 2;
+        }
+        g.drawImage(layerImg, drawX, drawY, drawWidth, drawHeight, null);
         g.drawString("LayerFocus: " + focus, 50, dY);
-        
+
         if (front) {
             g.translate(0, -50);
         }
