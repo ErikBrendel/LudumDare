@@ -15,6 +15,9 @@ public class Game extends MenuState {
     private Player player;
     private Background bg;
     private Layer[] layers = new Layer[2];
+    private HUD hud;
+    
+    
     private float focus = 0;
     private boolean animateFocus = false;
     private boolean animateFocusUp;
@@ -33,6 +36,7 @@ public class Game extends MenuState {
         layers[0].render(g, -focus);
         player.render(g);
         layers[1].render(g, 1f - focus);
+        hud.draw(g);
     }
 
     @Override
@@ -93,6 +97,7 @@ public class Game extends MenuState {
         player = new Player();
         layers[0] = new Layer();
         layers[1] = new Layer();
+        hud = new HUD(player);
     }
 
 }
