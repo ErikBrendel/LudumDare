@@ -49,6 +49,14 @@ public class Player {
         speedy += speedAdd;
     }
     
+    public void setSpeed(float newSpeed) {
+        speedy = newSpeed;
+    }
+    
+    public float getSpeed() {
+        return speedy;
+    }
+    
     public void update(float timeSinceLastFrame){
         if(KeyBoard.isKeyDown(KeyEvent.VK_SPACE)){
             speedy -= UPSPEED * timeSinceLastFrame;

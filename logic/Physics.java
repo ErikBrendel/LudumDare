@@ -48,13 +48,15 @@ public class Physics {
         Point v1 = m1.minus(center);
         Point v2 = m2.minus(center);
 
-        Point mv1 = a1.getMoveVector().plus(v1);
-        Point mv2 = a2.getMoveVector().plus(v2);
+        Point mv1 = a1.getMoveVector().plus(v1.multiply(2f));
+        Point mv2 = a2.getMoveVector().plus(v2.multiply(2f));
 
         mv1 = mv1.trim(a1.getMoveVector().hypot());
         mv2 = mv2.trim(a1.getMoveVector().hypot());
         a1.setMoveVector(mv1);
         a2.setMoveVector(mv2);
+        //a1.update(0.05f);
+        //a2.update(0.05f);
     }
 
     /**
@@ -85,11 +87,8 @@ public class Physics {
                     
                     Point v2 = m2.minus(center);
                     
-                    if (v2.getY() > 0f) {
-                        player.addSpeed(300);
-                    } else {
-                        player.addSpeed(-300);
-                    }
+                    
+                    player.setSpeed(player.getSpeed() * -0.3f);
                     player.damage(a.getDamage());
                     a.setUnHarmFul(0.2f);
                 }

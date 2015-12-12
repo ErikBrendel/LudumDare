@@ -132,7 +132,7 @@ public class Asteroid {
         for (int i = 0; i < asteroidCount; i++) {
             allRawImages[i] = GfxLoader.loadImage("asteroid_" + (i));
             allBlurImages[i] = GfxLoader.loadImage("asteroid_" + (i) + "_blur");
-            allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.4);
+            allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.6);
 
         }
     }

@@ -53,7 +53,7 @@ public class Layer {
         g.scale(1 / scale, 1 / scale);
         g.translate(offset.getIntX(), offset.getIntY());
     }
-
+    
     public int update(float timeSinceLastFrame) {
         timeSinceLastSpawn += timeSinceLastFrame;
         if (timeSinceLastSpawn >= 2) {

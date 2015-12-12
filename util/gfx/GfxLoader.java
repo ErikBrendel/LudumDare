@@ -175,8 +175,8 @@ public class GfxLoader {
     public static boolean intersect(BufferedImage img1, BufferedImage img2) {
         for (int x = 0; x < img1.getWidth(); x++) {
             for (int y = 0; y < img1.getHeight(); y++) {
-                if ((img1.getRGB(x, y) >> 24) < 0) { 
-                    if ((img2.getRGB(x, y) >> 24) < 0) {
+                if (new Color(img1.getRGB(x, y), true).getAlpha() > 128) { 
+                    if (new Color(img2.getRGB(x, y), true).getAlpha() > 128) {
                         return true;
                     }
                 }/* */
