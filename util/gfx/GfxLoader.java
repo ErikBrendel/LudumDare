@@ -13,7 +13,7 @@ public class GfxLoader {
 
     public static BufferedImage loadImage(String dateiname) {
         try {
-            return ImageIO.read(GfxLoader.class.getClassLoader().getResourceAsStream("/resources/" + dateiname + ".png"));
+            return ImageIO.read(GfxLoader.class.getClass().getResourceAsStream("/resources/" + dateiname + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
