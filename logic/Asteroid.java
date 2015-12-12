@@ -22,7 +22,7 @@ public class Asteroid {
     private Point moveVector;
     private double rotateSpeed;
     private Bounding b;
-    private BufferedImage lastImage = null;
+    private BufferedImage render = null;
     private boolean canBeRemoved = false;
     private float unHarmFulSecs = 0;
 
@@ -36,7 +36,7 @@ public class Asteroid {
     }
 
     public BufferedImage getLastImage() {
-        return lastImage;
+        return render;
     }
 
     public boolean canBeRemoved() {
@@ -73,7 +73,6 @@ public class Asteroid {
         int dX = location.getIntX();
         int dY = location.getIntY();
 
-        BufferedImage render;
         if (height == 0) {
             render = getRotatedImage(0, id, rotation);
         } else {
@@ -93,14 +92,13 @@ public class Asteroid {
                 g.drawImage(render2, dX, dY, null);
                 g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 
-                lastImage = render1;
+                render = render1;
                 return;
             }
         }
         g.drawImage(render, dX, dY, null);
         b.setWidth(render.getWidth());
         b.setHeight(render.getHeight());
-        lastImage = render;
     }
 
     public int update(float timeSinceLastFrame) {
@@ -118,16 +116,15 @@ public class Asteroid {
     //
     // STATIC STUFF BELOW HERE
     //
-    private static final int asteroidCount = 1;
-    private static final BufferedImage[] allRawImages = new BufferedImage[asteroidCount];
-    private static final BufferedImage[] allBlurImages = new BufferedImage[asteroidCount];
-    private static final BufferedImage[] allTransparentImages = new BufferedImage[asteroidCount];
-
+    private static final int asteroidCount = 2;
+    private static BufferedImage[] allRawImages = new BufferedImage[asteroidCount];
+    private static BufferedImage[] allBlurImages = new BufferedImage[asteroidCount];
+    private static BufferedImage[] allTransparentImages = new BufferedImage[asteroidCount];
 
     static {
         for (int i = 0; i < asteroidCount; i++) {
-            allRawImages[i] = GfxLoader.loadImage("asteroid_" + i);
-            allBlurImages[i] = GfxLoader.loadImage("asteroid_" + i + "_blur");
+            allRawImages[i] = GfxLoader.loadImage("asteroid_" + (i));
+            allBlurImages[i] = GfxLoader.loadImage("asteroid_" + (i) + "_blur");
             allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.4);
 
         }

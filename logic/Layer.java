@@ -14,8 +14,10 @@ public class Layer {
 
     private ArrayList<Asteroid> asteroids = new ArrayList<>();
     private int layerScore = 0;
+    private float timeSinceLastSpawn;
 
     public Layer() {
+        timeSinceLastSpawn = 0;
     }
 
     public int getScore() {
@@ -36,28 +38,28 @@ public class Layer {
 
         Point imgSize = new Point(1600, 900);
         Point offset = new Point(0, 0);
+        
+        float zoom = 0.2f;
 
         if (height != 0) {
-            imgSize = imgSize.multiply(1 - (0.15f * height));
+            imgSize = imgSize.multiply(1 - (zoom * height));
             offset = new Point(1600, 900).minus(imgSize).multiply(0.5f);
         }
 
-        //int offsetX = 0;
-        //int offsetY = 0;
-        BufferedImage layerImg = new BufferedImage(imgSize.getIntX(), imgSize.getIntY(), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D layerG = layerImg.createGraphics();
-        layerG.translate(-offset.getIntX(), -offset.getIntY());
+        double scale = height * zoom + 1.0;
+        g.translate(-offset.getIntX(), -offset.getIntY());
+        g.scale(scale, scale);
         for (Asteroid a : asteroids) {
-            a.render(layerG, height);
+            a.render(g, height);
         }
-        layerG.dispose();
-
-        g.drawImage(layerImg, 0, 0, 1600, 900, null);
-        //g.drawString("LayerFocus: " + height, 50, dY);
+        g.scale(1 / scale, 1 / scale);
+        g.translate(offset.getIntX(), offset.getIntY());
     }
 
     public int update(float timeSinceLastFrame) {
-        if (new Random().nextInt(100) == 0) {
+        timeSinceLastSpawn += timeSinceLastFrame;
+        if (timeSinceLastSpawn >= 2) {
+            timeSinceLastSpawn = 0;
             asteroids.add(Asteroid.createRandomShape());
         }
         for (Asteroid a : asteroids) {

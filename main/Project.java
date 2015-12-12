@@ -113,6 +113,10 @@ public abstract class Project extends Canvas implements Runnable {
 
         g.translate(offsetX, offsetY);
         g.scale(scale, scale);
+        
+        g.setColor(new Color(20, 20, 30));
+        
+        g.fillRect(0, 0, 1600, 900);
 
         doRenderStuff(g);
 
