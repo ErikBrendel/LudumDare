@@ -42,6 +42,7 @@ public class Asteroid {
         } else {
             render = GfxLoader.rotateImageDegree(allBlurImages[id], rotation);
             if (front) {
+                render = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation);
                 double factor = 1 / 0.8;
                 render = GfxLoader.getScaledImage(render, (int)(render.getWidth() * factor),
                         (int)(render.getHeight() * factor), GfxLoader.MODE_FAST);
@@ -52,11 +53,11 @@ public class Asteroid {
             }
         }
         
-        if (!focus) {
+        /*if (!focus) {
             if (front) {
                 render = GfxLoader.createWatermark(render, 0.5);
             }
-        }
+        } /* */
         g.drawImage(render, dX, dY, null);
     }
 
@@ -66,11 +67,13 @@ public class Asteroid {
     private static final int asteroidCount = 1;
     private static BufferedImage[] allRawImages = new BufferedImage[asteroidCount];
     private static BufferedImage[] allBlurImages = new BufferedImage[asteroidCount];
+    private static BufferedImage[] allTransparentImages = new BufferedImage[asteroidCount];
 
     static {
         for (int i = 0; i < asteroidCount; i++) {
             allRawImages[i] = GfxLoader.loadImage("asteroid_" + i);
             allBlurImages[i] = GfxLoader.loadImage("asteroid_" + i + "_blur");
+            allTransparentImages[i] = GfxLoader.createWatermark(allBlurImages[i], 0.5);
         }
     }
 
