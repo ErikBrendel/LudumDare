@@ -9,6 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import util.controls.KeyBoard;
+import util.geometry.Bounding;
+import util.geometry.Rect;
 import util.gfx.GfxLoader;
 
 /**
@@ -19,7 +21,6 @@ import util.gfx.GfxLoader;
 public class Player {
     
     private static BufferedImage[] looks;
-    private int currentLook = 0;
 
     static{
         looks = new BufferedImage[3];
@@ -33,13 +34,15 @@ public class Player {
     
     private int x;
     private float y, speedy;
+    
+    private int currentLook = 0;
+    private Bounding b;
 
     public Player() {
         x = 100;
         y = 400;
-    }
-    
-    
+        b = new Rect(x, y, 300, 100);
+    }    
     
     public void update(float timeSinceLastFrame){
         if(KeyBoard.isKeyDown(KeyEvent.VK_SPACE)){
@@ -57,9 +60,15 @@ public class Player {
             y = 800;
             speedy = 0;
         }
+        b.setY(y);
     }
     
     public void render(Graphics2D g){
         g.drawImage(looks[currentLook], x, (int) y, null);
     }
+
+    public Bounding getBounding() {
+        return b;
+    }  
+    
 }
