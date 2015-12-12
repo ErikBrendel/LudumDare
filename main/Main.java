@@ -83,6 +83,13 @@ public class Main extends Project {
             }
         }
     }
+    public void onKeyReleased(KeyEvent e) {
+        for (View v: viewList) {
+            if (v.onKeyReleased(e)) {
+                return;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         new Main();

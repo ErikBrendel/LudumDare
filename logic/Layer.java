@@ -12,11 +12,9 @@ import util.geometry.Point;
  */
 public class Layer {
 
-    private final boolean front;
     private ArrayList<Asteroid> asteroids = new ArrayList<>();
 
-    public Layer(boolean front) {
-        this.front = front;
+    public Layer() {
     }
 
     public void moveEverything() {
@@ -28,41 +26,36 @@ public class Layer {
     /**
      *
      * @param g
-     * @param focus ob diese layer gerade im fokus ist
+     * @param height -1 = background, 0 = focus, 1 = front
      */
-    public void render(Graphics2D g, boolean focus) {
+    public void render(Graphics2D g, float height) {
         g.setColor(Color.WHITE);
-        int dY = 50;
+        int dY = 100 + (int) (50 * height);
 
         Point imgSize = new Point(1600, 900);
         Point offset = new Point(0, 0);
-        
-        if (!focus) {
-            if (front) {
-                imgSize = imgSize.multiply(0.8f);
-            } else {
-                imgSize = imgSize.multiply(1 / 0.8f);
-            }
+
+        if (height != 0) {
+            imgSize = imgSize.multiply(1 - (0.2f * height));
             offset = new Point(1600, 900).minus(imgSize).multiply(0.5f);
         }
-        
+
         //int offsetX = 0;
         //int offsetY = 0;
-        
         BufferedImage layerImg = new BufferedImage(imgSize.getIntX(), imgSize.getIntY(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D layerG = layerImg.createGraphics();
         layerG.translate(-offset.getIntX(), -offset.getIntY());
         for (Asteroid a : asteroids) {
-            a.render(layerG, focus);
+            a.render(layerG, height);
         }
 
         g.drawImage(layerImg, 0, 0, 1600, 900, null);
-        g.drawString("LayerFocus: " + focus, 50, dY);
+        g.drawString("LayerFocus: " + height, 50, dY);
     }
 
     public int update(float timeSinceLastFrame) {
         if (new Random().nextInt(100) == 0) {
-            asteroids.add(Asteroid.createRandomShape(front));
+            asteroids.add(Asteroid.createRandomShape());
         }
         for (Asteroid a : asteroids) {
             a.update(timeSinceLastFrame);

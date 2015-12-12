@@ -42,6 +42,7 @@ public class KeyBoard implements KeyListener {
         if (keyCode >= 0 && keyCode < keys.length) {
             keys[keyCode] = false;
         }
+        Main.get().onKeyReleased(e);
 
     }
 

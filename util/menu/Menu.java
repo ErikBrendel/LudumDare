@@ -2,6 +2,7 @@ package util.menu;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import logic.Game;
 import util.controls.Mouse;
@@ -45,6 +46,23 @@ public class Menu extends View{
             t.render(g);
         } else {
             menuStates.get(currentState).render(g);
+        }
+    }
+    
+    public boolean onKeyPressed(KeyEvent e) {
+        MenuState s = menuStates.get(currentState);
+        if (s == null) {
+            return false;
+        } else {
+            return s.onKeyDown(e);
+        }
+    }
+    public boolean onKeyReleased(KeyEvent e) {
+        MenuState s = menuStates.get(currentState);
+        if (s == null) {
+            return false;
+        } else {
+            return s.onKeyReleased(e);
         }
     }
 }

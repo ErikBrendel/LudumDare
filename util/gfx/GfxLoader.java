@@ -133,4 +133,22 @@ public class GfxLoader {
         return buffy;
     }
 
+    public static BufferedImage combine(BufferedImage img1, BufferedImage img2, float factor) {
+        BufferedImage combine = new BufferedImage(img1.getWidth(), img2.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        
+        /*for (int x = 0; x < combine.getWidth(); x++) {
+            for (int y = 0; y < combine.getHeight(); y++) {
+                Color c1 = new Color(img1.getRGB(x, y), true);
+                Color c2 = new Color(img2.getRGB(x, y), true);
+                int r = (int)((c1.getRed() * (1 - factor)) + (c2.getRed() * factor))/2;
+                int g = (int)((c1.getGreen()* (1 - factor)) + (c2.getGreen() * factor))/2;
+                int b = (int)((c1.getBlue()* (1 - factor)) + (c2.getBlue() * factor))/2;
+                int a = (int)((c1.getAlpha()* (1 - factor)) + (c2.getAlpha() * factor))/2;
+                combine.setRGB(x, y, new Color(r, g, b, a).getRGB());
+            }
+        }/**/
+        
+        return combine;
+    }
+
 }

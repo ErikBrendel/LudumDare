@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -14,15 +15,13 @@ public class Asteroid {
     private float rotation = 0;
 
     private final int id;
-    private final boolean front;
-    
+
     private Point location;
     private Point moveVector;
     private double rotateSpeed;
 
-    private Asteroid(int id, boolean front) {
+    private Asteroid(int id) {
         this.id = id;
-        this.front = front;
         rotateSpeed = 100;
     }
 
@@ -34,26 +33,38 @@ public class Asteroid {
         return 0;
     }
 
-    public void render(Graphics2D g, boolean focus) {
+    public void render(Graphics2D g, float height) {
 
         //todo calc draw coords
         int dX = location.getIntX();
         int dY = location.getIntY();
 
         BufferedImage render;
-        if (focus) {
+        if (height == 0) {
             render = GfxLoader.rotateImageDegree(allRawImages[id], rotation);
         } else {
-            if (front) {
+            if (height == 1) {
+                render = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation);
+            } else if (height == -1) {
                 render = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation);
             } else {
-                render = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation);
-                //render = GfxLoader.rotateImageDegree(allBlurImages[id], rotation);
+                float factor = Math.abs(height);
+                System.err.println("factor = " + factor);
+                BufferedImage render1 = GfxLoader.rotateImageDegree(allRawImages[id], rotation); //factor == 0
+                BufferedImage render2 = GfxLoader.rotateImageDegree(allTransparentImages[id], rotation); //factor == 1
+                //render = GfxLoader.combine(render1, render2, factor);
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1 - factor));
+                g.drawImage(render1, dX, dY, null);
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, factor));
+                g.drawImage(render2, dX, dY, null);
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+
+                return;
             }
         }
         g.drawImage(render, dX, dY, null);
     }
-    
+
     public int update(float timeSinceLastFrame) {
         rotation += rotateSpeed * timeSinceLastFrame;
         location = location.plus(moveVector.multiply(timeSinceLastFrame));
@@ -83,8 +94,8 @@ public class Asteroid {
      * of focus or not
      * @return
      */
-    public static Asteroid createRandomShape(boolean front) {
-        Asteroid a = new Asteroid(new Random().nextInt(asteroidCount), front);
+    public static Asteroid createRandomShape() {
+        Asteroid a = new Asteroid(new Random().nextInt(asteroidCount));
         Random r = new Random();
         a.location = new Point(1600, -200 + r.nextInt(1100));
         a.moveVector = new Point(-100, 40 - r.nextInt(80));

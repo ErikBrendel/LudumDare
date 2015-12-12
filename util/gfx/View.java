@@ -67,4 +67,7 @@ public abstract class View {
     public boolean onKeyPressed(KeyEvent e) {
         return false;
     }
+    public boolean onKeyReleased(KeyEvent e) {
+        return false;
+    }
 }

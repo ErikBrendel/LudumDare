@@ -3,7 +3,6 @@ package logic;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import util.controls.KeyBoard;
 import util.menu.MenuState;
 
 /**
@@ -11,9 +10,13 @@ import util.menu.MenuState;
  */
 public class Game extends MenuState {
 
+    private static final float FOCUS_FADE_AINMATION_S = 0.2f;
+
     Background bg;
     private Layer[] layers = new Layer[2];
-    private boolean isInLayer0 = true; //wo das schiff gerade ist
+    private float focus = 0;
+    private boolean animateFocus = false;
+    private boolean animateFocusUp;
 
     private boolean firstRun = true;
 
@@ -24,18 +27,49 @@ public class Game extends MenuState {
         }
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1600, 900);
-        
-        isInLayer0 = !KeyBoard.isKeyDown(KeyEvent.VK_SPACE);
 
         bg.render(g);
-        layers[0].render(g, isInLayer0);
-        layers[1].render(g, !isInLayer0);
+        layers[0].render(g, -focus);
+        layers[1].render(g, 1f - focus);
+    }
+
+    @Override
+    public boolean onKeyDown(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            animateFocus = true;
+            animateFocusUp = true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onKeyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            animateFocus = true;
+            animateFocusUp = false;
+        }
+        return false;
     }
 
     @Override
     public int update(float timeSinceLastFrame) {
         if (firstRun) {
             init();
+        }
+        if (animateFocus) {
+            if (animateFocusUp) {
+                focus += timeSinceLastFrame / FOCUS_FADE_AINMATION_S;
+                if (focus >= 1f) {
+                    animateFocus = false;
+                    focus = 1f;
+                }
+            } else {
+                focus -= timeSinceLastFrame / FOCUS_FADE_AINMATION_S;
+                if (focus <= 0f) {
+                    animateFocus = false;
+                    focus = 0f;
+                }
+            }
         }
         bg.update(timeSinceLastFrame);
         layers[0].update(timeSinceLastFrame);
@@ -47,8 +81,8 @@ public class Game extends MenuState {
         firstRun = false;
         //CONSTRUUCTOR!
         bg = new Background();
-        layers[0] = new Layer(false);
-        layers[1] = new Layer(true);
+        layers[0] = new Layer();
+        layers[1] = new Layer();
     }
 
 }
