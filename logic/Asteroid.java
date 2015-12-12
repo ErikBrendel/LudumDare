@@ -4,7 +4,9 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import util.geometry.Bounding;
 import util.geometry.Point;
+import util.geometry.Rect;
 import util.gfx.GfxLoader;
 
 /**
@@ -19,17 +21,25 @@ public class Asteroid {
     private Point location;
     private Point moveVector;
     private double rotateSpeed;
+    private Bounding b;
 
     private Asteroid(int id) {
         this.id = id;
+        b = new Rect(0, 0, 100, 100);
     }
+
+    public Bounding getB() {
+        return b;
+    }
+    
+    
 
     public void move() {
 
     }
 
     public int getDamage() {
-        return 0;
+        return 1;
     }
 
     public void render(Graphics2D g, float height) {
@@ -62,11 +72,15 @@ public class Asteroid {
             }
         }
         g.drawImage(render, dX, dY, null);
+        b.setWidth(render.getWidth());
+        b.setHeight(render.getHeight());
     }
 
     public int update(float timeSinceLastFrame) {
         rotation += rotateSpeed * timeSinceLastFrame;
         location = location.plus(moveVector.multiply(timeSinceLastFrame));
+        b.setX(location.getX());
+        b.setY(location.getY());
         return 0;
     }
 
