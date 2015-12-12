@@ -34,7 +34,8 @@ public class Rect extends Bounding {
     }
 
     protected boolean intersects(Rect r) {
-        return !(this.x + this.width > r.x || r.x + r.width > this.x || this.y + this.height > r.y || r.y + r.height > this.y);
+        System.out.println("util.geometry.Rect.intersects()");
+        return !(this.x + this.width < r.x || r.x + r.width < this.x || this.y + this.height < r.y || r.y + r.height < this.y);
     }
 
     protected boolean intersects(Point p) {
