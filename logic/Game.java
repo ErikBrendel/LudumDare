@@ -12,7 +12,8 @@ public class Game extends MenuState {
 
     private static final float FOCUS_FADE_AINMATION_S = 0.2f;
 
-    Background bg;
+    private Player player;
+    private Background bg;
     private Layer[] layers = new Layer[2];
     private float focus = 0;
     private boolean animateFocus = false;
@@ -31,6 +32,7 @@ public class Game extends MenuState {
         bg.render(g);
         layers[0].render(g, -focus);
         layers[1].render(g, 1f - focus);
+        player.render(g);
     }
 
     @Override
@@ -74,6 +76,7 @@ public class Game extends MenuState {
         bg.update(timeSinceLastFrame);
         layers[0].update(timeSinceLastFrame);
         layers[1].update(timeSinceLastFrame);
+        player.update(timeSinceLastFrame);
         return 1;
     }
 
@@ -81,6 +84,7 @@ public class Game extends MenuState {
         firstRun = false;
         //CONSTRUUCTOR!
         bg = new Background();
+        player = new Player();
         layers[0] = new Layer();
         layers[1] = new Layer();
     }
