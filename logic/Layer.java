@@ -2,9 +2,7 @@ package logic;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 import util.geometry.Point;
 
 /**
@@ -64,7 +62,10 @@ public class Layer {
         }
         for (Asteroid a : asteroids) {
             a.update(timeSinceLastFrame); //move
-            if (a.getB().getX() + a.getB().getWidth() < -100) {
+            if (a.getB().getX() + a.getB().getWidth() < -100 ||
+                    a.getB().getY() + a.getB().getHeight() < -100 ||
+                    a.getB().getY() > 1000 ||
+                    a.getB().getX() > 1800) {
                 a.remove();
                 layerScore += a.getDamage();
             }
