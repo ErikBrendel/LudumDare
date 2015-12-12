@@ -53,7 +53,7 @@ public class TextBoxView extends View {
     @Override
     public boolean onKeyPressed(KeyEvent e) {
         synchronized (scrollLock) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_SPACE) {
                 if (!isAnimating) { //check if not animating at moment
                     scrollProgress++;
                     startTypingAnimation = System.currentTimeMillis();
