@@ -25,11 +25,11 @@ public class Game extends MenuState {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1600, 900);
         
-        isInLayer0 = KeyBoard.isKeyDown(KeyEvent.VK_SPACE);
+        isInLayer0 = !KeyBoard.isKeyDown(KeyEvent.VK_SPACE);
 
         bg.render(g);
-        layers[0].render(g, isInLayer0, false);
-        layers[1].render(g, !isInLayer0, true);
+        layers[0].render(g, isInLayer0);
+        layers[1].render(g, !isInLayer0);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class Game extends MenuState {
         firstRun = false;
         //CONSTRUUCTOR!
         bg = new Background();
-        layers[0] = new Layer();
-        layers[1] = new Layer();
+        layers[0] = new Layer(false);
+        layers[1] = new Layer(true);
     }
 
 }

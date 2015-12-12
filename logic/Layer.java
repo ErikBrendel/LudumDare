@@ -9,7 +9,13 @@ import java.util.ArrayList;
  */
 public class Layer {
 
+    private final boolean front;
     private ArrayList<Asteroid> asteroids = new ArrayList<>();
+    
+    public Layer(boolean front) {
+        asteroids.add(Asteroid.createRandomShape(front));
+        this.front = front;
+    }
 
     public void moveEverything() {
         for (Asteroid a : asteroids) {
@@ -21,17 +27,21 @@ public class Layer {
      *
      * @param g
      * @param focus ob diese layer gerade im fokus ist
-     * @param front wenn nicht, ob sie im hintergrund oder vorn angezeigt wird
      */
-    public void render(Graphics2D g, boolean focus, boolean front) {
-        for (Asteroid a : asteroids) {
-            a.render(g);
-        }
+    public void render(Graphics2D g, boolean focus) {
         g.setColor(Color.WHITE);
         int dY = 50;
         if (front) {
-            dY += 100;
+            g.translate(0, 50);
+        }
+        
+        for (Asteroid a : asteroids) {
+            a.render(g, focus);
         }
         g.drawString("LayerFocus: " + focus, 50, dY);
+        
+        if (front) {
+            g.translate(0, -50);
+        }
     }
 }

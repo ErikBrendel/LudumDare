@@ -37,8 +37,7 @@ public class GfxLoader {
         g.drawImage(img, 0, 0, null);
         return rotatedImage;
     }
-    
-    
+
     /*
      *
      * SCALING IMAGES
@@ -47,9 +46,11 @@ public class GfxLoader {
     public static final int MODE_FINE = AffineTransformOp.TYPE_BICUBIC;
     public static final int MODE_MEDIUM = AffineTransformOp.TYPE_BILINEAR;
     public static final int MODE_FAST = AffineTransformOp.TYPE_NEAREST_NEIGHBOR;
+
     public static BufferedImage getScaledImage(BufferedImage image, int width, int height, int mode) {
         return getScaledImage(image, width, height, mode, image.getType());
     }
+
     public static BufferedImage getScaledImage(BufferedImage image, int width, int height, int mode, int BufferedImageType) {
         if (width == 0 || height == 0) {
             return new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
@@ -62,34 +63,33 @@ public class GfxLoader {
         AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
         AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, mode);
 
-        return bilinearScaleOp.filter(image,new BufferedImage(width, height, BufferedImageType));
+        return bilinearScaleOp.filter(image, new BufferedImage(width, height, BufferedImageType));
     }
-    
-    
+
     /*
      * watermarking
      */
     public static BufferedImage createWatermark(BufferedImage original, double opacity) {
         BufferedImage ret = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        
+
         for (int x = 0; x < original.getWidth(); x++) {
             for (int y = 0; y < original.getHeight(); y++) {
                 Color c = new Color(original.getRGB(x, y), true);
-                int alpha = Math.max(0, Math.min(255, (int)Math.round(opacity * c.getAlpha())));
+                int alpha = Math.max(0, Math.min(255, (int) Math.round(opacity * c.getAlpha())));
                 Color newColor = new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha);
                 ret.setRGB(x, y, newColor.getRGB());
             }
         }
-        
+
         return ret;
     }
-    
+
     /*
      * desaturation
      */
     public static BufferedImage desaturate(BufferedImage original) {
         BufferedImage ret = new BufferedImage(original.getWidth(), original.getHeight(), original.getType());
-        
+
         for (int x = 0; x < original.getWidth(); x++) {
             for (int y = 0; y < original.getHeight(); y++) {
                 Color c = new Color(original.getRGB(x, y), true);
@@ -98,10 +98,10 @@ public class GfxLoader {
                 ret.setRGB(x, y, newColor.getRGB());
             }
         }
-        
+
         return ret;
     }
-    
+
     public static BufferedImage extendToSquare(BufferedImage img) {
         if (img.getHeight() > img.getWidth()) {
             int delta = (img.getHeight() - img.getWidth()) / 2;
