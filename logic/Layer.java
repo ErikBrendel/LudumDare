@@ -46,6 +46,7 @@ public class Layer {
         for (Asteroid a : asteroids) {
             a.render(layerG, height);
         }
+        layerG.dispose();
 
         g.drawImage(layerImg, 0, 0, 1600, 900, null);
         //g.drawString("LayerFocus: " + height, 50, dY);

@@ -20,6 +20,7 @@ public class Menu extends View{
         menuStates = new ArrayList<>();
         menuStates.add(new MainMenu());
         menuStates.add(new Game());
+        menuStates.add(new Options());
     }
 
     public void update(float timeSinceLastFrame) {
@@ -65,6 +66,12 @@ public class Menu extends View{
             return s.onKeyReleased(e);
         }
     }
+    
+    public int getState() {
+        return currentState;
+    }
+    
+    
 }
 
 class Transition {

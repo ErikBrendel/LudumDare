@@ -88,7 +88,7 @@ public class Player {
         Graphics g2 = look.createGraphics();
         g2.drawImage(looks[currentLook], 0, 50, null);
         g2.dispose();
-        look = GfxLoader.rotateImageDegree(look, speedy / 50);
+        look = GfxLoader.rotateImageDegree(look, speedy / 35);
         g.drawImage(look, x, (int) y, null);
     }
 

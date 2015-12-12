@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import util.controls.KeyBoard;
 import util.gfx.GfxLoader;
 import util.menu.MenuState;
 
@@ -122,6 +123,10 @@ public class Game extends MenuState {
             }
         }
         player.update(timeSinceLastFrame);
+        if(KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)){
+            KeyBoard.setAllReleased();
+            return 0;
+        }
         return 1;
     }
 

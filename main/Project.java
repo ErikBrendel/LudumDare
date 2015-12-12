@@ -83,7 +83,7 @@ public abstract class Project extends Canvas implements Runnable {
 
     private void loop() {
         lastFrame = System.nanoTime();
-        while (!KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)) {
+        while (!(KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE) && (Main.get().getMenuState() == 0))) {
             thisFrame = System.nanoTime();
             timeSinceLastFrame = (thisFrame - lastFrame) / 1000000000f;
             lastFrame = thisFrame;

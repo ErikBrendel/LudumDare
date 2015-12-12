@@ -53,10 +53,7 @@ public class Main extends Project {
     }
 
     @Override
-    public void doRenderStuff(Graphics2D g) {
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, 1600, 900);
-        
+    public void doRenderStuff(Graphics2D g) {        
         for (int i = 0; i < viewList.size(); i++) {
             if (viewList.get(i).canBeRemoved()) {
                 viewList.remove(i);
@@ -93,5 +90,9 @@ public class Main extends Project {
 
     public static void main(String[] args) {
         new Main();
+    }
+
+    int getMenuState() {
+        return m.getState();
     }
 }
