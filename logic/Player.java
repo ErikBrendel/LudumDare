@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logic;
 
 import java.awt.Graphics;
@@ -44,7 +39,7 @@ public class Player {
     
     public Player() {
         x = 100;
-        y = 400;
+        y = 200;
         b = new Rect(x, y, 300, 200);
         health = 100;
         look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
@@ -88,7 +83,7 @@ public class Player {
         Graphics g2 = look.createGraphics();
         g2.drawImage(looks[currentLook], 0, 50, null);
         g2.dispose();
-        look = GfxLoader.rotateImageDegree(look, speedy / 35);
+        look = GfxLoader.rotateImageDegree(look, speedy / 50);
         g.drawImage(look, x, (int) y, null);
     }
 
