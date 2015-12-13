@@ -17,7 +17,7 @@ import util.gfx.GfxLoader;
  */
 public abstract class Pickup extends FlyingObject {
 
-    public static final int PickupCount = 2;
+    public static final int PickupCount = 3;
 
     private final int id;
 
@@ -105,6 +105,18 @@ public abstract class Pickup extends FlyingObject {
         
         laser.init();
         return laser;
+    }
+
+    public static Pickup createShield() {
+        Pickup s = new Pickup(2) {
+            @Override
+            public void doEffect(Player p) {   
+               p.setShield();
+            }
+        };
+        
+        s.init();
+        return s;
     }
 
 }

@@ -21,6 +21,7 @@ public class Player {
 
     private static BufferedImage[] looks;
     private static BufferedImage[] damageOverlays;
+    private static BufferedImage shieldOverlay;
 
     private ParticleEmitter emitter1;
     private ParticleEmitter emitter2;
@@ -28,6 +29,7 @@ public class Player {
 
     private float timeLaser;
     private float timeSinceLastShot;
+    private boolean shieldEnabled = false;
 
     private ArrayList<Laser> laser;
 
@@ -43,6 +45,7 @@ public class Player {
         for (int i = 0; i < damageOverlayCount; i++) {
             damageOverlays[i] = GfxLoader.loadImage("damage_" + i);
         }
+        shieldOverlay = GfxLoader.loadImage("playerShieldOverlay");
     }
 
     private final int UPSPEED = 3000;
@@ -60,9 +63,9 @@ public class Player {
     public Player(Game g) {
         x = 100;
         y = 200;
-        b = new Rect(x, y, 300, 200);
+        b = new Rect(x, y, 308, 200);
         health = 100;
-        look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
+        look = new BufferedImage(308, 200, BufferedImage.TYPE_INT_ARGB);
         emitter1 = new ParticleEmitter(new Smoke(500, 500), 0.001);
         emitter2 = new ParticleEmitter(new Smoke(200, 100), 0.001);
         emitter3 = new ParticleEmitter(new Smoke(200, 100), 0.001);
@@ -143,7 +146,7 @@ public class Player {
                 Point v4 = new Point(130, 0);
                 v4 = v4.rotate(speedy / 50);
                 Point p4 = middle.plus(v4);
-                
+
                 laser.add(new Laser(p4.getX(), p4.getY(), v4.getX(), v4.getY()));
             }
         }
@@ -164,7 +167,7 @@ public class Player {
         for (Laser l : laser) {
             l.render(g);
         }
-        look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
+        look = new BufferedImage(308, 200, BufferedImage.TYPE_INT_ARGB);
         Graphics g2 = look.createGraphics();
         g2.drawImage(looks[currentLook], 0, 50, null);
 
@@ -176,6 +179,10 @@ public class Player {
 
         for (int i = 0; i < damageState; i++) {
             g2.drawImage(damageOverlays[i], 0, 50, null);
+        }
+
+        if (shieldEnabled) {
+            g2.drawImage(shieldOverlay, 0, 50, null);
         }
 
         g2.dispose();
@@ -196,6 +203,10 @@ public class Player {
     }
 
     void damage(int damage) {
+        if (shieldEnabled) {
+            shieldEnabled = false;
+            return;
+        }
         health -= damage;
         if (health <= 0) {
             //Lost Game
@@ -207,9 +218,12 @@ public class Player {
         timeLaser = 5f;
     }
 
+    void setShield() {
+        shieldEnabled = true;
+    }
+
     public ArrayList<Laser> getLaser() {
         return laser;
     }
-    
-    
+
 }
