@@ -34,6 +34,15 @@ public class GfxLoader {
         g.drawImage(img, 0, 0, null);
         return rotatedImage;
     }
+    
+    public static BufferedImage rotateImageDegree(Image img, double degrees, int x, int y) {
+        AffineTransform affineTransform = AffineTransform.getRotateInstance(Math.toRadians(degrees), x, y);
+        BufferedImage rotatedImage = new BufferedImage(img.getWidth(null), img.getHeight(null), ((BufferedImage) img).getType());
+        Graphics2D g = (Graphics2D) rotatedImage.getGraphics();
+        g.setTransform(affineTransform);
+        g.drawImage(img, 0, 0, null);
+        return rotatedImage;
+    }
 
     public static BufferedImage rotateImageRadians(Image img, double radians) {
         AffineTransform affineTransform = AffineTransform.getRotateInstance(radians, img.getWidth(null) / 2, img.getHeight(null) / 2);
