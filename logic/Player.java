@@ -21,7 +21,7 @@ public class Player {
 
     static{
         int lookCount = 3;
-        int damageOverlayCount = 1;
+        int damageOverlayCount = 4;
         
         looks = new BufferedImage[lookCount];
         for(int i = 0; i < lookCount; i++){
