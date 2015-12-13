@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import util.controls.Mouse;
 import util.geometry.Bounding;
+import util.sounds.SoundManager;
 
 public abstract class Button {
 
@@ -21,6 +22,7 @@ public abstract class Button {
         if (b.intersects(Mouse.getPos())) {
             selected = true;
             if (Mouse.isKeyDown(MouseEvent.BUTTON1)) {
+                SoundManager.playSound(SoundManager.Sounds.button_press);
                 return true;
             }
         } else {

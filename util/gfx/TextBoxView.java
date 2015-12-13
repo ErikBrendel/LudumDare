@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import util.sounds.SoundManager;
 
 /**
  *
@@ -129,6 +130,7 @@ public class TextBoxView extends View {
                         lineNow = lineNow.substring(0, len);
                         displayedLetterCount += len;
                         isAnimating = true;
+                        SoundManager.playSound(SoundManager.Sounds.typing);
                     } else {
                         displayedLetterCount += lineNow.length();
                     }
