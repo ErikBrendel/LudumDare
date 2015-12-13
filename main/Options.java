@@ -16,7 +16,8 @@ public class Options {
     public static boolean playSounds = false;
     public static float score = 0;
     public static String WelcomeBox = 
-            "Okay Commander, can you here me?\n"
+            "(press CTRL to skip)\n\n"
+            + "Okay Commander, can you here me?\n"
             + "Houston is speaking. Just to re-check your mission goals: "
             + "Some may say, that you are the last hope of mankind. "
             + "The rising temperature forces us to leave our lovely home called Earth, "

@@ -82,6 +82,8 @@ public class TextBoxView extends View {
                 } else {
                     startTypingAnimation = System.currentTimeMillis() - 10000;
                 }
+            } else if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+                canBeRemoved = true;
             }
             return true;
         }
