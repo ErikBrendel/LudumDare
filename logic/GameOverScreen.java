@@ -31,7 +31,6 @@ public class GameOverScreen {
 
     void draw(Graphics2D g) {
         if (timeVisible < 2) {
-            System.out.println(timeVisible * 110f);
             g.setColor(new Color(50, 50, 50, (int) (timeVisible * 110f)));
             g.fillRect(200, 200, 1200, 500);
         } else {
