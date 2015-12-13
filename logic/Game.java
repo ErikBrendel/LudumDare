@@ -22,14 +22,14 @@ public class Game extends MenuState {
     private Background bg;
     private Layer[] layers = new Layer[2];
     private HUD hud;
-
+    private ParticleManager pm;
+    
     private float focus = 0;
     private boolean animateFocus = false;
     private boolean animateFocusUp;
 
     private boolean firstRun = true;
 
-    private ParticleManager pm;
     
      public void init() {
         firstRun = false;
