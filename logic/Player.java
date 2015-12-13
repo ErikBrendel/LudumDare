@@ -12,6 +12,7 @@ import util.geometry.Bounding;
 import util.geometry.Point;
 import util.geometry.Rect;
 import util.gfx.GfxLoader;
+import util.sounds.SoundManager;
 
 /**
  *
@@ -148,6 +149,7 @@ public class Player {
                 Point p4 = middle.plus(v4);
 
                 laser.add(new Laser(p4.getX(), p4.getY(), v4.getX(), v4.getY()));
+                SoundManager.playSound(SoundManager.Sounds.laserShot);
             }
         }
 

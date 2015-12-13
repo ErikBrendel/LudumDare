@@ -97,6 +97,11 @@ public class SoundManager implements Runnable {
         music = new LinkedList<>();
         music.add(loadClip("music"));
         sounds.add(loadClip("pickup_laser"));
+        sounds.add(loadClip("pickup_shield"));
+        sounds.add(loadClip("pickup_repair"));
+        sounds.add(loadClip("hurt"));
+        sounds.add(loadClip("laserShot"));
+        
         playMusic(Music.music);
     }
 }

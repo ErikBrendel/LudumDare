@@ -12,6 +12,7 @@ import particles.Particle;
 import particles.ParticleEmitter;
 import util.geometry.Point;
 import util.gfx.GfxLoader;
+import util.sounds.SoundManager;
 
 /**
  *
@@ -107,6 +108,7 @@ public class Physics {
                         Point m2 = player.getBounding().getLocation().plus(player.getBounding().getSize().multiply(0.5f));
                         Point center = m1.plus(m2).multiply(0.5f);
                         showTouchParticles(intersect.plus(player.getBounding().getLocation()), g);
+                        SoundManager.playSound(SoundManager.Sounds.hurt);
                         Point v1 = m1.minus(center);
 
                         Point mv1 = a.getMoveVector().plus(v1.multiply(15f));

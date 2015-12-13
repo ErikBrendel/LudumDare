@@ -16,7 +16,7 @@ import util.sounds.SoundManager;
  *
  * @author Erik
  */
-public class Pickup extends FlyingObject {
+public abstract class Pickup extends FlyingObject {
 
     public static final int PickupCount = 3;
 
@@ -68,9 +68,7 @@ public class Pickup extends FlyingObject {
         return 0;
     }
 
-    public void doEffect(Player p) {
-        SoundManager.playSound(SoundManager.Sounds.pickup_laser);
-    }
+    public abstract void doEffect(Player p);
 
     //
     // STATIC
@@ -89,7 +87,7 @@ public class Pickup extends FlyingObject {
 
             @Override
             public void doEffect(Player p) {
-                super.doEffect(p);
+                SoundManager.playSound(SoundManager.Sounds.pickup_repair);
                 p.damage(Math.max(p.getHealth() - 100, -25));
             }
 
@@ -103,7 +101,7 @@ public class Pickup extends FlyingObject {
         Pickup laser = new Pickup(1) {
             @Override
             public void doEffect(Player p) {
-                super.doEffect(p);
+                SoundManager.playSound(SoundManager.Sounds.pickup_laser);
                 p.setLaser();
             }
         };
@@ -116,7 +114,7 @@ public class Pickup extends FlyingObject {
         Pickup s = new Pickup(2) {
             @Override
             public void doEffect(Player p) {
-                super.doEffect(p);
+                SoundManager.playSound(SoundManager.Sounds.pickup_shield);
                 p.setShield();
             }
         };
