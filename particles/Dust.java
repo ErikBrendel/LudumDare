@@ -29,7 +29,7 @@ public class Dust extends Particle {
     }
 
     public Dust(int x, int y) {
-        super(x, y, colors[ran.nextInt(40)], ran.nextInt(3) + 1, ran.nextFloat() * 0.2f + 0.1f, new ParticleMover() {
+        super(x, y, colors[ran.nextInt(40)], ran.nextInt(3) + 2, ran.nextFloat() * 0.2f + 0.1f, new ParticleMover() {
 
             float dir = ran.nextFloat() * 360;
             Point moveVector = new Point(10 + ran.nextFloat()*20, 0).rotate(dir);

@@ -5,3 +5,4 @@ Was noch zu tun wäre:
 - HUD cooler machen
 - mehr story (start und ende)
 - mehr partikel (bei berührung / einnehmen von pickups)
+- bessere Flugbahnen der FO
