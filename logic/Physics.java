@@ -43,8 +43,9 @@ public class Physics {
                         if (a1.getB().intersects(a2.getB())) {
                             int vX = (int) (a1.getB().getX() - a2.getB().getX());
                             int vY = (int) (a1.getB().getY() - a2.getB().getY());
-                            if (GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY)) {
-                                repel(a1, a2, g);
+                            Point intersect = GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY);
+                            if (intersect != null) {
+                                repel(a1, a2, intersect, g);
                             }
                         }
                     }
@@ -54,11 +55,11 @@ public class Physics {
         return asteroids;
     }
 
-    public static void repel(FlyingObject a1, FlyingObject a2, Game g) {
+    public static void repel(FlyingObject a1, FlyingObject a2, Point intersect, Game g) {
         Point m1 = a1.getB().getLocation().plus(a1.getB().getSize().multiply(0.5f));
         Point m2 = a2.getB().getLocation().plus(a2.getB().getSize().multiply(0.5f));
         Point center = m1.plus(m2).multiply(0.5f);
-        showTouchParticles(center, g);
+        showTouchParticles(intersect.plus(a1.location), g);
         Point v1 = m1.minus(center);
         Point v2 = m2.minus(center);
 
@@ -93,7 +94,8 @@ public class Physics {
             if (fo.getB().intersects(player.getBounding()) && fo.getLastImage() != null) {
                 int vX = (int) (fo.getB().getX() - player.getBounding().getX());
                 int vY = (int) (fo.getB().getY() - player.getBounding().getY());
-                if (GfxLoader.intersect(player.getImage(), fo.getLastImage(), vX, vY)) {
+                Point intersect = GfxLoader.intersect(player.getImage(), fo.getLastImage(), vX, vY);
+                if (intersect != null) {
                     if (fo instanceof Asteroid) {
                         Asteroid a = (Asteroid) fo;
                         //repel asteroid from player
@@ -101,7 +103,7 @@ public class Physics {
                         Point m1 = a.getB().getLocation().plus(a.getB().getSize().multiply(0.5f));
                         Point m2 = player.getBounding().getLocation().plus(player.getBounding().getSize().multiply(0.5f));
                         Point center = m1.plus(m2).multiply(0.5f);
-                        showTouchParticles(center, g);
+                        showTouchParticles(intersect.plus(player.getBounding().getLocation()), g);
                         Point v1 = m1.minus(center);
 
                         Point mv1 = a.getMoveVector().plus(v1.multiply(15f));

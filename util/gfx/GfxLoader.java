@@ -12,6 +12,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import util.geometry.Point;
 
 public class GfxLoader {
 
@@ -133,7 +134,15 @@ public class GfxLoader {
         return buffy;
     }
 
-    public static boolean intersect(BufferedImage img1, BufferedImage img2, int offsetX, int offsetY) {
+    /**
+     *
+     * @param img1
+     * @param img2
+     * @param offsetX
+     * @param offsetY
+     * @return the point relative to the location of img1 which collided first
+     */
+    public static Point intersect(BufferedImage img1, BufferedImage img2, int offsetX, int offsetY) {
         int secStartX = Math.max(0, offsetX);
         int secStartY = Math.max(0, offsetY);
 
@@ -147,20 +156,24 @@ public class GfxLoader {
         widthY = Math.abs(widthY);
 
         if (widthX <= 0 || widthY <= 0) {
-            return false;
+            return null;
         }
 
         if (secStartX + widthX > img1.getWidth() || secStartY + widthY > img1.getHeight()) {
-            return false;
+            return null;
         }
 
         if (secStartX + widthX - offsetX > img2.getWidth() || secStartY + widthY - offsetY > img2.getHeight()) {
-            return false;
+            return null;
         }
 
         BufferedImage sec1 = img1.getSubimage(secStartX, secStartY, widthX, widthY);
         BufferedImage sec2 = img2.getSubimage(secStartX - offsetX, secStartY - offsetY, widthX, widthY);
-        return intersect(sec1, sec2);
+        Point ret = intersect(sec1, sec2);
+        if (ret != null) {
+            ret = ret.plus(new Point(secStartX, secStartY));
+        }
+        return ret;
         //return sec1;
     }
 
@@ -170,20 +183,20 @@ public class GfxLoader {
      *
      * @param img1
      * @param img2
-     * @return
+     * @return x/y coords of the first found overlapping pixel, or null
      */
-    public static boolean intersect(BufferedImage img1, BufferedImage img2) {
+    public static Point intersect(BufferedImage img1, BufferedImage img2) {
         for (int x = 0; x < img1.getWidth(); x++) {
             for (int y = 0; y < img1.getHeight(); y++) {
                 if (new Color(img1.getRGB(x, y), true).getAlpha() > 64) { 
                     if (new Color(img2.getRGB(x, y), true).getAlpha() > 64) {
-                        return true;
+                        return new Point(x, y);
                     }
                 }/* */
 
             }
         }
-        return false;
+        return null;
     }
 
 }
