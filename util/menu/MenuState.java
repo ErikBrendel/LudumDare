@@ -9,7 +9,7 @@ public abstract class MenuState {
 
     public abstract void render(Graphics2D g);
     
-    public boolean onKeyDown(KeyEvent e) {
+    public boolean onKeyPressed(KeyEvent e) {
         return false;
     }
     

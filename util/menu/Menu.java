@@ -56,7 +56,7 @@ public class Menu extends View{
         if (s == null) {
             return false;
         } else {
-            return s.onKeyDown(e);
+            return s.onKeyPressed(e);
         }
     }
     public boolean onKeyReleased(KeyEvent e) {
