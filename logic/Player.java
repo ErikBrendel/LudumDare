@@ -23,6 +23,7 @@ public class Player {
 
     private ParticleEmitter emitter1;
     private ParticleEmitter emitter2;
+    private ParticleEmitter emitter3;
 
     static {
         int lookCount = 3;
@@ -58,8 +59,10 @@ public class Player {
         look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
         emitter1 = new ParticleEmitter(new Smoke(500, 500), 0.001);
         emitter2 = new ParticleEmitter(new Smoke(200, 100), 0.001);
+        emitter3 = new ParticleEmitter(new Smoke(200, 100), 0.001);
         g.getParticleManager().addEmitter(emitter1);
         g.getParticleManager().addEmitter(emitter2);
+        g.getParticleManager().addEmitter(emitter3);
     }
 
     public void addSpeed(float speedAdd) {
@@ -110,15 +113,19 @@ public class Player {
         Point middle = new Point(x, y).plus(new Point(150, 100));
         Point v1 = new Point(30, -20);
         Point v2 = new Point(-33, -2);
+        Point v3 = new Point(125, 25);
         
         v1 = v1.rotate(speedy / 50);
         v2 = v2.rotate(speedy / 50);
+        v3 = v3.rotate(speedy / 50);
         
         Point p1 = middle.plus(v1);
         Point p2 = middle.plus(v2);
+        Point p3 = middle.plus(v3);
         
         emitter1.setPosition(p1.getIntX(), p1.getIntY());
         emitter2.setPosition(p2.getIntX(), p2.getIntY());
+        emitter3.setPosition(p3.getIntX(), p3.getIntY());
     }
 
     public void render(Graphics2D g) {
@@ -130,6 +137,7 @@ public class Player {
 
         emitter1.setEnabled(damageState >= 2);
         emitter2.setEnabled(damageState >= 3);
+        emitter3.setEnabled(damageState >= 4);
 
         for (int i = 0; i < damageState; i++) {
             g2.drawImage(damageOverlays[i], 0, 50, null);
