@@ -4,7 +4,6 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-import util.geometry.Bounding;
 import util.geometry.Point;
 import util.geometry.Rect;
 import util.gfx.GfxLoader;
@@ -12,18 +11,9 @@ import util.gfx.GfxLoader;
 /**
  * hier muss die genaue form / der schaden gespeichert werden
  */
-public class Asteroid {
-
-    private float rotation = 0;
+public class Asteroid extends FlyingObject {
 
     private final int id;
-
-    private Point location;
-    private Point moveVector;
-    private double rotateSpeed;
-    private Bounding b;
-    private BufferedImage render = null;
-    private boolean canBeRemoved = false;
     private float unHarmFulSecs = 0;
 
     private Asteroid(int id) {
@@ -35,36 +25,12 @@ public class Asteroid {
         }
     }
 
-    public Bounding getB() {
-        return b;
-    }
-
-    public BufferedImage getLastImage() {
-        return render;
-    }
-
-    public boolean canBeRemoved() {
-        return canBeRemoved;
-    }
-
-    public void remove() {
-        canBeRemoved = true;
-    }
-
     public int getDamage() {
         if (unHarmFulSecs > 0) {
             return 0;
         } else {
             return 11;
         }
-    }
-
-    public Point getMoveVector() {
-        return moveVector;
-    }
-
-    public void setMoveVector(Point moveVector) {
-        this.moveVector = moveVector;
     }
 
     public void setUnHarmFul(float secs) {
