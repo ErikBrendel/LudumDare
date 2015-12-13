@@ -44,7 +44,7 @@ public class Credits extends MenuState{
     @Override
     public void render(Graphics2D g) {
         back.render(g);
-        g.setColor(Color.BLACK);
+        g.setColor(Color.lightGray);
         g.setFont(new Font("Helvetica", Font.BOLD, 70));
         g.drawString("Worktitel", 300, 150);
         g.setFont(new Font("Helvetica", Font.BOLD, 50));
