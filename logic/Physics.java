@@ -156,4 +156,22 @@ public class Physics {
             }
         }.start();
     }
+    
+     private static void showAsroidParticles(Point location, final Game g) {
+        Particle p = new AsteroidParts(location.getIntX(), location.getIntY());
+
+        final ParticleEmitter e = new ParticleEmitter(p, 0.001);
+
+        g.getParticleManager().addEmitter(e);
+
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                } catch (Exception ex) {
+                }
+                g.getParticleManager().removeEmitter(e);
+            }
+        }.start();
+    }
 }
