@@ -17,6 +17,7 @@ public class HUD {
     
     private Player p;
     private Layer[] layers;
+    private float score = 0;
 
     public HUD(Player p, Layer[] layers) {
         this.p = p;
@@ -30,11 +31,12 @@ public class HUD {
         g.setColor(Color.RED);
         g.fillRect(20, 20, (int)(500 * p.getHealth() / 100f), 40);
         
-        int score = layers[0].getScore() + layers[1].getScore();
-        //int scoreWidth = 30;
-        //g.setColor(new Color(100, 100, 100));
-        //g.fillRect(540, 20, scoreWidth, 40);
+        
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + score, 545, 50);
+        g.drawString("Score: " + (int)(score), 545, 50);
+    }
+    
+    public void update(float deltaTime) {
+        score += deltaTime;
     }
 }

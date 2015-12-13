@@ -11,15 +11,10 @@ import util.geometry.Point;
 public class Layer {
 
     private ArrayList<Asteroid> asteroids = new ArrayList<>();
-    private int layerScore = 0;
     private float timeSinceLastSpawn;
 
     public Layer() {
         timeSinceLastSpawn = 0;
-    }
-
-    public int getScore() {
-        return layerScore;
     }
 
     public ArrayList<Asteroid> getAsteroids() {
@@ -67,7 +62,6 @@ public class Layer {
                     a.getB().getY() > 1100 ||
                     a.getB().getX() > 1900) {
                 a.remove();
-                layerScore += a.getDamage();
             }
         }
         for (int i = 0; i < asteroids.size(); i++) {
