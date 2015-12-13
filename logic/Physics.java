@@ -92,10 +92,12 @@ public class Physics {
         for (int i = 0; i < asteroids.size(); i++) {
             FlyingObject fo = asteroids.get(i);
             if (fo.getB().intersects(player.getBounding()) && fo.getLastImage() != null) {
-                int vX = (int) (fo.getB().getX() - player.getBounding().getX());
+                int vX = (int) (fo.getB().getX() - player.getBounding().getX()) - 50;
                 int vY = (int) (fo.getB().getY() - player.getBounding().getY());
-                Point intersect = GfxLoader.intersect(player.getImage(), fo.getLastImage(), vX, vY);
+                Point intersect = GfxLoader.intersect(player.getImage().getSubimage(50, 0, player.getImage().getWidth() - 50, player.getImage().getHeight()), fo.getLastImage(), vX, vY);
+
                 if (intersect != null) {
+                    intersect = intersect.plus(new Point(50, 0));
                     if (fo instanceof Asteroid) {
                         Asteroid a = (Asteroid) fo;
                         //repel asteroid from player
