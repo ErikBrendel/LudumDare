@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+import main.Options;
 import particles.ImageParticle;
 import particles.ParticleEmitter;
 import particles.Smoke;
@@ -97,7 +98,7 @@ public class Player {
         x = 100;
         y = 200;
         b = new Rect(x, y, 308, 200);
-        health = 100;
+        health = 10;
         look = new BufferedImage(308, 200, BufferedImage.TYPE_INT_ARGB);
         emitter1 = new ParticleEmitter(new Smoke(500, 500), 0.001);
         emitter2 = new ParticleEmitter(new Smoke(200, 100), 0.001);
@@ -262,6 +263,7 @@ public class Player {
 
     public void gameLost(final Game g) {
 
+        Options.gameOver = true;
         g.removePlayer();
         g.getParticleManager().removeEmitter(emitter1);
         g.getParticleManager().removeEmitter(emitter2);

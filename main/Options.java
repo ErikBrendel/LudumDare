@@ -10,6 +10,7 @@ package main;
  * @author Erik
  */
 public class Options {
+    public static boolean gameOver = false;
     public static boolean animateBackground = false;
     public static boolean playMusic = false;
     public static boolean playSounds = false;

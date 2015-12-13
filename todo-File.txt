@@ -1,3 +1,2 @@
 Was noch zu tun wäre:
-- Neustart
-- GameOverScreen
+-Scoreboard
