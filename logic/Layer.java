@@ -54,16 +54,16 @@ public class Layer {
         timeSinceLastSpawn += timeSinceLastFrame;
         if (timeSinceLastSpawn >= 2) {
             timeSinceLastSpawn = 0;
-            int r = new Random().nextInt(20);
+            int r = new Random().nextInt(5);
             switch (r) {
                 case 0:
                     asteroids.add(Pickup.createRepairKit());
                     break;
                 case 1:         
-                    asteroids.add(Asteroid.createRandomShape());
+                    asteroids.add(Pickup.createLaser());       
                     break;
                 default:
-                    asteroids.add(Pickup.createLaser());       
+                    asteroids.add(Asteroid.createRandomShape());
                     break;
             }
         }

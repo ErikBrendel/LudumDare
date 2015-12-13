@@ -88,7 +88,7 @@ public abstract class Pickup extends FlyingObject {
 
             @Override
             public void doEffect(Player p) {
-                p.damage(p.getHealth() - 100);
+                p.damage(Math.max(p.getHealth() - 100, -25));
             }
 
         };
