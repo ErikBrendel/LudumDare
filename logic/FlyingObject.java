@@ -63,7 +63,7 @@ public abstract class FlyingObject {
         
         Point spawnCircleCenter = new Point(1100, 450); //center of the spawning circle
         
-        Point targetPoint = new Point(100 + r.nextFloat()*500, 150 + r.nextFloat()*600);
+        Point targetPoint = new Point(100 + r.nextFloat()*100, 150 + r.nextFloat()*600);
         Point spawnVector = new Point(0, -700).rotate(r.nextFloat() * 180);
         Point spawnPoint = spawnCircleCenter.plus(spawnVector);
         Point rawMoveVector = targetPoint.minus(spawnPoint);
