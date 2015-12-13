@@ -8,6 +8,7 @@ package logic;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import main.Options;
 import util.geometry.Bounding;
 import util.geometry.Point;
 
@@ -68,7 +69,7 @@ public abstract class FlyingObject {
         Point spawnPoint = spawnCircleCenter.plus(spawnVector);
         Point rawMoveVector = targetPoint.minus(spawnPoint);
         
-        moveVector = rawMoveVector.trim(150 + r.nextInt(150));
+        moveVector = rawMoveVector.trim(Options.score + 150 + r.nextInt(150));
         location = spawnPoint.minus(getB().getSize().multiply(0.5f));
         rotateSpeed = -100 + r.nextInt(200);
     }

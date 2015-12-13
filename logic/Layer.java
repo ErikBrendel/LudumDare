@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
+import main.Options;
 import util.geometry.Point;
 
 /**
@@ -52,9 +53,9 @@ public class Layer {
 
     public int update(float timeSinceLastFrame, Game g) {
         timeSinceLastSpawn += timeSinceLastFrame;
-        if (timeSinceLastSpawn >= 2) {
+        if (timeSinceLastSpawn >= 1.7 - Options.score / 200) {
             timeSinceLastSpawn = 0;
-            int r = new Random().nextInt(7);
+            int r = new Random().nextInt(30);
             switch (r) {
                 case 0:
                     asteroids.add(Pickup.createRepairKit());

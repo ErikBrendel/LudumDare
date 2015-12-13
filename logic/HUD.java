@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import main.Options;
 import util.gfx.GfxLoader;
 
 /**
@@ -19,7 +20,6 @@ public class HUD {
 
     private Player p;
     private Layer[] layers;
-    private float score = 0;
 
     private BufferedImage overlay = GfxLoader.loadImage("overlay");
     private BufferedImage healthbar = GfxLoader.loadImage("healthbar");
@@ -45,10 +45,16 @@ public class HUD {
         }
 
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + (int) (score), 545, 50);
+        g.drawString("Score: " + (int) (Options.score), 545, 50);
     }
 
     public void update(float deltaTime) {
-        score += deltaTime;
+        Options.score += deltaTime;
     }
+
+    public float getScore() {
+        return Options.score;
+    }
+    
+    
 }
