@@ -59,11 +59,11 @@ public class Layer {
                 case 0:
                     asteroids.add(Pickup.createRepairKit());
                     break;
-                case 1:
-                    asteroids.add(Pickup.createLaser());                
+                case 1:         
+                    asteroids.add(Asteroid.createRandomShape());
                     break;
                 default:
-                    asteroids.add(Asteroid.createRandomShape());
+                    asteroids.add(Pickup.createLaser());       
                     break;
             }
         }

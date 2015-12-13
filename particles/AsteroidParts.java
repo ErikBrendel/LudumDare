@@ -6,6 +6,7 @@
 package particles;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import static particles.Particle.ran;
 import util.geometry.Point;
 
@@ -33,7 +34,7 @@ public class AsteroidParts extends Particle {
         super(x - 50 + ran.nextInt(101), y - 50 + ran.nextInt(101), colors[ran.nextInt(40)], ran.nextInt(20) + 10, ran.nextFloat() * 0.2f + 0.1f, new ParticleMover() {
 
             float dir = ran.nextFloat() * 360;
-            Point moveVector = new Point(30 + ran.nextFloat() * 40, 0).rotate(dir);
+            Point moveVector = new Point(50 + ran.nextFloat() * 70, 0).rotate(dir);
 
             @Override
             public Point move(float x, float y, float deltaTime) {
@@ -45,5 +46,11 @@ public class AsteroidParts extends Particle {
                 return p;
             }
         });
+    }
+    
+    
+    public void render(Graphics2D g) {
+        g.setColor(c);
+        g.fillOval((int) x, (int) y, size, size);
     }
 }
