@@ -132,7 +132,7 @@ public class Physics {
                     player.getLaser().remove(o);
                     o--;
                     fo.remove();                    
-                    showTouchParticles(fo.location.plus(fo.getB().getSize().multiply(0.5f)), g);
+                    showAsroidParticles(fo.location.plus(fo.getB().getSize().multiply(0.5f)), g);
                     break;
                 }
             }
