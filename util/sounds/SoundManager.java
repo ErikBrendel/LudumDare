@@ -23,6 +23,7 @@ public class SoundManager implements Runnable {
 
     public enum Sounds {
 
+        pickup_laser(0), pickup_shield(1), pickup_repair(2), hurt(3), laserShot(4)
         ;
 
 	private final int id;
@@ -95,6 +96,7 @@ public class SoundManager implements Runnable {
         // sounds.add(loadClip("Test"));
         music = new LinkedList<>();
         music.add(loadClip("music"));
+        sounds.add(loadClip("pickup"));
         playMusic(Music.music);
     }
 }

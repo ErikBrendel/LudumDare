@@ -10,12 +10,13 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import util.geometry.Rect;
 import util.gfx.GfxLoader;
+import util.sounds.SoundManager;
 
 /**
  *
  * @author Erik
  */
-public abstract class Pickup extends FlyingObject {
+public class Pickup extends FlyingObject {
 
     public static final int PickupCount = 3;
 
@@ -67,7 +68,9 @@ public abstract class Pickup extends FlyingObject {
         return 0;
     }
 
-    public abstract void doEffect(Player p);
+    public void doEffect(Player p) {
+        SoundManager.playSound(SoundManager.Sounds.pickup_laser);
+    }
 
     //
     // STATIC
@@ -86,6 +89,7 @@ public abstract class Pickup extends FlyingObject {
 
             @Override
             public void doEffect(Player p) {
+                super.doEffect(p);
                 p.damage(Math.max(p.getHealth() - 100, -25));
             }
 
@@ -98,11 +102,12 @@ public abstract class Pickup extends FlyingObject {
     public static Pickup createLaser() {
         Pickup laser = new Pickup(1) {
             @Override
-            public void doEffect(Player p) {   
-               p.setLaser();
+            public void doEffect(Player p) {
+                super.doEffect(p);
+                p.setLaser();
             }
         };
-        
+
         laser.init();
         return laser;
     }
@@ -110,11 +115,12 @@ public abstract class Pickup extends FlyingObject {
     public static Pickup createShield() {
         Pickup s = new Pickup(2) {
             @Override
-            public void doEffect(Player p) {   
-               p.setShield();
+            public void doEffect(Player p) {
+                super.doEffect(p);
+                p.setShield();
             }
         };
-        
+
         s.init();
         return s;
     }
