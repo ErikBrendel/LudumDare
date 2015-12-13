@@ -5,10 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import logic.Game;
+import main.Options;
 import util.controls.Mouse;
 import util.gfx.View;
 
-public class Menu extends View{
+public class Menu extends View {
 
     private ArrayList<MenuState> menuStates;
     private int currentState = 0;
@@ -30,6 +31,13 @@ public class Menu extends View{
             if (transitionState == 2) {
                 currentState = newState;
                 t = null;
+
+                if (Options.gameOver) {
+                    Options.gameOver = false;
+                    //TODO SCOREBOARD
+                    Options.score = 0;
+                    menuStates.set(1, new Game());
+                }
             }
         } else if (newState != currentState) {
             t = new Transition(Mouse.getX(), Mouse.getY(), 0.5f, 0.5f);
@@ -50,7 +58,7 @@ public class Menu extends View{
             menuStates.get(currentState).render(g);
         }
     }
-    
+
     public boolean onKeyPressed(KeyEvent e) {
         MenuState s = menuStates.get(currentState);
         if (s == null) {
@@ -59,6 +67,7 @@ public class Menu extends View{
             return s.onKeyPressed(e);
         }
     }
+
     public boolean onKeyReleased(KeyEvent e) {
         MenuState s = menuStates.get(currentState);
         if (s == null) {
@@ -67,12 +76,11 @@ public class Menu extends View{
             return s.onKeyReleased(e);
         }
     }
-    
+
     public int getState() {
         return currentState;
     }
-    
-    
+
 }
 
 class Transition {
@@ -92,12 +100,10 @@ class Transition {
             } else {
                 maxSize = (float) Math.sqrt(Math.pow(1600 - x, 2) + Math.pow(y, 2));
             }
+        } else if (y < 450) {
+            maxSize = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(900 - y, 2));
         } else {
-            if (y < 450) {
-                maxSize = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(900 - y, 2));
-            } else {
-                maxSize = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-            }
+            maxSize = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
         }
         this.circleTime = circleTime;
         this.transitionTime = transitionTime;
