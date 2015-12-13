@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+import particles.ImageParticle;
 import particles.ParticleEmitter;
 import particles.Smoke;
 import util.controls.KeyBoard;
@@ -259,7 +260,7 @@ public class Player {
         return laser;
     }
 
-    public void gameLost(Game g) {
+    public void gameLost(final Game g) {
         
         g.removePlayer();
         g.getParticleManager().removeEmitter(emitter1);
@@ -305,7 +306,20 @@ public class Player {
             g.getLayers()[(int) (g.getFocus())].getAsteroids().add(tile);
         }
         //explosionspartikel
+        ImageParticle.setImage(look.getSubimage(0, 50, look.getWidth(), look.getHeight() - 100));
+        Point bCenter = b.getLocation().plus(b.getSize().multiply(0.5f));
+        final ParticleEmitter explosionEmitter = new ParticleEmitter(new ImageParticle(bCenter.getIntX(), bCenter.getIntY()), 0.0001);
+        g.getParticleManager().addEmitter(explosionEmitter);
         
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                } catch (Exception ex) {
+                }
+                g.getParticleManager().removeEmitter(explosionEmitter);
+            }
+        }.start();
     }
 
 }

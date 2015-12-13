@@ -136,7 +136,7 @@ public class Physics {
                     player.getLaser().remove(o);
                     o--;
                     fo.remove();
-                    showAsroidParticles(fo.location.plus(fo.getB().getSize().multiply(0.5f)), g);
+                    showAsteroidParticles(fo.location.plus(fo.getB().getSize().multiply(0.5f)), g);
                     break;
                 }
             }
@@ -162,7 +162,7 @@ public class Physics {
         }.start();
     }
 
-    private static void showAsroidParticles(Point location, final Game g) {
+    private static void showAsteroidParticles(Point location, final Game g) {
         Particle p = new AsteroidParts(location.getIntX(), location.getIntY());
 
         final ParticleEmitter e = new ParticleEmitter(p, 0.001);
