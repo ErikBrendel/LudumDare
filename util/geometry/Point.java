@@ -46,6 +46,16 @@ public class Point extends Bounding {
         return new Point(x * factor, y * factor);
     }
     
+    public Point rotate(float degrees) {
+        float r = (float)Math.hypot(x, y);
+        float q = (float)(Math.atan2(y, x) * (180d / Math.PI));
+        q += degrees;
+        q *= (Math.PI / 180d);
+        float nX = (float)(r *Math.cos(q));
+        float nY = (float)(r * Math.sin(q));
+        return new Point(nX, nY);
+    }
+    
     public Point trim(float newLength) {
         return multiply(newLength / hypot());
     }

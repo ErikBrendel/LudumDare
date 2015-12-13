@@ -12,28 +12,40 @@ import java.util.ArrayList;
  * @author Erik
  */
 public class ParticleEmitter {
-    
+
     private float timeSinceLastSpawn;
     private Particle origin;
     private double spawnDelay;
+    private boolean enabled = true;
 
     public ParticleEmitter(Particle p, double spawnDelay) {
         origin = p;
         this.spawnDelay = spawnDelay;
     }
-    
+
     public ArrayList<Particle> getOutput(float deltaTime) {
         ArrayList<Particle> out = new ArrayList<>();
         timeSinceLastSpawn += deltaTime;
         while (timeSinceLastSpawn > spawnDelay) {
             timeSinceLastSpawn -= spawnDelay;
-            out.add(origin.clone());
+            if (enabled) {
+                out.add(origin.clone());
+            }
         }
         return out;
     }
-    
+
     public void translate(int tX, int tY) {
         origin.x += tX;
         origin.y += tY;
+    }
+    
+    public void setPosition(int x, int y) {
+        origin.x = x;
+        origin.y = y;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

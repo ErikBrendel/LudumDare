@@ -30,13 +30,13 @@ public class Smoke extends Particle {
     }
 
     public Smoke(int x, int y) {
-        super(x, y, colors[ran.nextInt(40)], ran.nextInt(2) + 1, ran.nextFloat() * 2 + 2, new ParticleMover() {
+        super(x, y, colors[ran.nextInt(40)], ran.nextInt(3) + 1, ran.nextFloat() * 3 + 4, new ParticleMover() {
 
             @Override
             public Point move(float x, float y, float timeSinceLastFrame) {
-                float dx = (ran.nextFloat()*2) - 1f;
-                y -= ran.nextFloat() * 50f * timeSinceLastFrame;
-                x += dx * ran.nextFloat() * 100f * timeSinceLastFrame;
+                float dx = (ran.nextFloat()*4) - 2f;
+                x -= ran.nextFloat() * 200f * timeSinceLastFrame;
+                y += dx * ran.nextFloat() * 100f * timeSinceLastFrame;
                 return new Point(x, y);
             }
         });
