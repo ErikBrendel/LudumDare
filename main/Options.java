@@ -13,6 +13,7 @@ public class Options {
     public static boolean animateBackground = false;
     public static boolean playMusic = false;
     public static boolean playSounds = false;
+    public static float score = 0;
     public static String WelcomeBox = 
             "Okay Commander, can you here me?\n"
             + "Houston is speaking. Just to re-check your mission goals: "
