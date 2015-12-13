@@ -60,9 +60,9 @@ public class Game extends MenuState {
         layers[0].render(g, -focus);
         player.render(g);
         layers[1].render(g, 1f - focus);
-        hud.draw(g);
         
         pm.render(g);
+        hud.draw(g);
 
     }
 
