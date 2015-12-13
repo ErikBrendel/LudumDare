@@ -40,14 +40,16 @@ public class Physics {
                         a2 = c;
                     }
 
-                    if (a1.getLastImage() != null && a2.getLastImage() != null) {
+                    if ((a1 instanceof Asteroid || a1 instanceof Pickup) && (a2 instanceof Asteroid || a2 instanceof Pickup)) {
+                        if (a1.getLastImage() != null && a2.getLastImage() != null) {
 
-                        if (a1.getB().intersects(a2.getB())) {
-                            int vX = (int) (a1.getB().getX() - a2.getB().getX());
-                            int vY = (int) (a1.getB().getY() - a2.getB().getY());
-                            Point intersect = GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY);
-                            if (intersect != null) {
-                                repel(a1, a2, intersect, g);
+                            if (a1.getB().intersects(a2.getB())) {
+                                int vX = (int) (a1.getB().getX() - a2.getB().getX());
+                                int vY = (int) (a1.getB().getY() - a2.getB().getY());
+                                Point intersect = GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY);
+                                if (intersect != null) {
+                                    repel(a1, a2, intersect, g);
+                                }
                             }
                         }
                     }
@@ -133,7 +135,7 @@ public class Physics {
                 if (l.getStart().intersects(fo.getB()) || l.getEnd().intersects(fo.getB())) {
                     player.getLaser().remove(o);
                     o--;
-                    fo.remove();                    
+                    fo.remove();
                     showAsroidParticles(fo.location.plus(fo.getB().getSize().multiply(0.5f)), g);
                     break;
                 }
@@ -159,8 +161,8 @@ public class Physics {
             }
         }.start();
     }
-    
-     private static void showAsroidParticles(Point location, final Game g) {
+
+    private static void showAsroidParticles(Point location, final Game g) {
         Particle p = new AsteroidParts(location.getIntX(), location.getIntY());
 
         final ParticleEmitter e = new ParticleEmitter(p, 0.001);

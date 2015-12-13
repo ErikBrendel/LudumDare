@@ -57,6 +57,7 @@ public class Player {
         destroyTileCenter = new Point[destroyedTileCount];
         for (int i = 0; i < destroyedTileCount; i++) {
             destroyedTiles[i] = GfxLoader.loadImage("destroyed_" + i);
+            destroyedTiles[i] = GfxLoader.extendToSquare(destroyedTiles[i]);
             switch (i) {
                 case 0:
                     destroyTileCenter[i] = new Point(230, 50);
@@ -75,7 +76,6 @@ public class Player {
                     break;
                 default:
                     destroyTileCenter[i] = new Point(0, 0);
-
             }
         }
     }
@@ -96,7 +96,7 @@ public class Player {
         x = 100;
         y = 200;
         b = new Rect(x, y, 308, 200);
-        health = 100;
+        health = 10;
         look = new BufferedImage(308, 200, BufferedImage.TYPE_INT_ARGB);
         emitter1 = new ParticleEmitter(new Smoke(500, 500), 0.001);
         emitter2 = new ParticleEmitter(new Smoke(200, 100), 0.001);
@@ -260,22 +260,34 @@ public class Player {
     }
 
     public void gameLost(Game g) {
+        
+        g.removePlayer();
+        g.getParticleManager().removeEmitter(emitter1);
+        g.getParticleManager().removeEmitter(emitter2);
+        g.getParticleManager().removeEmitter(emitter3);
+        
+        final Bounding playerB = b;
         //in teile zersplittern
-        final int destroyedTilesTopOffset = (int)(b.getWidth() - b.getHeight())/2;
+        final int destroyedTilesTopOffset = (int)(b.getWidth() - 100)/2;
         for (int i = 0; i < destroyedTiles.length; i++) {
             final int id = i;
             FlyingObject tile = new FlyingObject() {
                 {
                     Random r = new Random();
                     location = new Point(x, y - destroyedTilesTopOffset);
-                    moveVector = new Point(r.nextFloat() * 100 - 50, r.nextFloat() * 100 - 50);
+                    //moveVector = new Point(r.nextFloat() * 100 - 50, r.nextFloat() * 100 - 50);
+                    Point center = playerB.getLocation().plus(playerB.getSize().multiply(0.5f));
+                    moveVector = destroyTileCenter[id].plus(playerB.getLocation()).minus(center);
+                    moveVector = new Point(moveVector.getX(), moveVector.getY() * 2 + destroyedTilesTopOffset);
+                    moveVector = moveVector.trim(100);
                     rotateSpeed = -100 + r.nextFloat() * 200;
                     b = new Rect(x, y, 308, 200);
                 }
 
                 @Override
                 public void render(Graphics2D g, float height) {
-                    render = GfxLoader.rotateImageDegree(destroyedTiles[id], rotation, destroyTileCenter[id].getIntX(), destroyTileCenter[id].getIntY());
+                    render = GfxLoader.rotateImageDegree(destroyedTiles[id], rotation, 
+                            destroyTileCenter[id].getIntX(), destroyTileCenter[id].getIntY() + destroyedTilesTopOffset);
                     g.drawImage(render, location.getIntX(), location.getIntY(), null);
                 }
 
@@ -283,15 +295,17 @@ public class Player {
                 public int update(float deltaTime) {
                     rotation += rotateSpeed * deltaTime;
                     location = location.plus(moveVector.multiply(deltaTime));
-                    b.setX(location.getX());
-                    b.setY(location.getY());
+                    //.setX(location.getX());
+                    //b.setY(location.getY());
+                    Point boundStart = location.plus(destroyTileCenter[id]).minus(new Point(50, 50));
+                    b = new Rect(boundStart.getIntX() + 104, boundStart.getIntY(), 100, 100);
                     return 0;
                 }
             };
             g.getLayers()[(int) (g.getFocus())].getAsteroids().add(tile);
         }
-        //teile animieren
         //explosionspartikel
+        
     }
 
 }

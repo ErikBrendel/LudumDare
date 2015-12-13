@@ -23,15 +23,14 @@ public class Game extends MenuState {
     private Layer[] layers = new Layer[2];
     private HUD hud;
     private ParticleManager pm;
-    
+
     private float focus = 0;
     private boolean animateFocus = false;
     private boolean animateFocusUp;
 
     private boolean firstRun = true;
 
-    
-     public void init() {
+    public void init() {
         firstRun = false;
         //CONSTRUUCTOR!
 
@@ -51,7 +50,7 @@ public class Game extends MenuState {
         hud = new HUD(player, layers);
         //pm.addEmitter(new ParticleEmitter(new Smoke(500, 500), 0.001));
     }
-    
+
     @Override
     public void render(Graphics2D g) {
         if (firstRun) {
@@ -60,9 +59,11 @@ public class Game extends MenuState {
 
         bg.render(g);
         layers[0].render(g, -focus);
-        player.render(g);
+        if (player != null) {
+            player.render(g);
+        }
         layers[1].render(g, 1f - focus);
-        
+
         pm.render(g);
         hud.draw(g);
 
@@ -113,17 +114,21 @@ public class Game extends MenuState {
             bg.update(timeSinceLastFrame);
             layers[0].update(timeSinceLastFrame, this);
             layers[1].update(timeSinceLastFrame, this);
-            if (focus == 0) {
-                Physics.doPhysics(layers[0].getAsteroids(), player, this);
-            } else if (focus == 1) {
-                Physics.doPhysics(layers[1].getAsteroids(), player, this);
-            }
 
-            player.update(timeSinceLastFrame);
+            if (player != null) {
+                if (focus == 0) {
+                    Physics.doPhysics(layers[0].getAsteroids(), player, this);
+                } else if (focus == 1) {
+                    Physics.doPhysics(layers[1].getAsteroids(), player, this);
+                }
+            }
+            if (player != null) {
+                player.update(timeSinceLastFrame);
+            }
             hud.update(timeSinceLastFrame);
 
             pm.update(timeSinceLastFrame);
-            
+
             if (KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)) {
                 KeyBoard.setAllReleased();
                 return 0;
@@ -134,6 +139,8 @@ public class Game extends MenuState {
 
     }
 
-   
+    void removePlayer() {
+        player = null;
+    }
 
 }
