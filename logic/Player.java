@@ -261,15 +261,15 @@ public class Player {
     }
 
     public void gameLost(final Game g) {
-        
+
         g.removePlayer();
         g.getParticleManager().removeEmitter(emitter1);
         g.getParticleManager().removeEmitter(emitter2);
         g.getParticleManager().removeEmitter(emitter3);
-        
+
         final Bounding playerB = b;
         //in teile zersplittern
-        final int destroyedTilesTopOffset = (int)(b.getWidth() - 100)/2;
+        final int destroyedTilesTopOffset = (int) (b.getWidth() - 100) / 2;
         for (int i = 0; i < destroyedTiles.length; i++) {
             final int id = i;
             FlyingObject tile = new FlyingObject() {
@@ -287,7 +287,7 @@ public class Player {
 
                 @Override
                 public void render(Graphics2D g, float height) {
-                    render = GfxLoader.rotateImageDegree(destroyedTiles[id], rotation, 
+                    render = GfxLoader.rotateImageDegree(destroyedTiles[id], rotation,
                             destroyTileCenter[id].getIntX(), destroyTileCenter[id].getIntY() + destroyedTilesTopOffset);
                     g.drawImage(render, location.getIntX(), location.getIntY(), null);
                 }
@@ -310,7 +310,7 @@ public class Player {
         Point bCenter = b.getLocation().plus(b.getSize().multiply(0.5f));
         final ParticleEmitter explosionEmitter = new ParticleEmitter(new ImageParticle(bCenter.getIntX(), bCenter.getIntY()), 0.0001);
         g.getParticleManager().addEmitter(explosionEmitter);
-        
+
         new Thread() {
             public void run() {
                 try {
@@ -318,6 +318,7 @@ public class Player {
                 } catch (Exception ex) {
                 }
                 g.getParticleManager().removeEmitter(explosionEmitter);
+                g.createGameOvercreen();
             }
         }.start();
     }

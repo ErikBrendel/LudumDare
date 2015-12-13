@@ -23,6 +23,7 @@ public class Game extends MenuState {
     private Layer[] layers = new Layer[2];
     private HUD hud;
     private ParticleManager pm;
+    private GameOverScreen gos = null;
 
     private float focus = 0;
     private boolean animateFocus = false;
@@ -48,6 +49,7 @@ public class Game extends MenuState {
         layers[0] = new Layer();
         layers[1] = new Layer();
         hud = new HUD(player, layers);
+        
         //pm.addEmitter(new ParticleEmitter(new Smoke(500, 500), 0.001));
     }
 
@@ -67,6 +69,14 @@ public class Game extends MenuState {
         pm.render(g);
         hud.draw(g);
 
+        
+        if (gos != null) {
+            gos.draw(g);
+        }
+    }
+    
+    public void createGameOvercreen() {
+        gos = new GameOverScreen();
     }
 
     public ParticleManager getParticleManager() {
