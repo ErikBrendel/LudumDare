@@ -1,5 +1,4 @@
 Was noch zu tun wäre:
-- ganz viele powerups (bombe)
 - sounds überall: hasso / menü
-- mehr steinsbrocken-texturen
-- mehr partikel (bei berührung / einnehmen von pickups)
+- Schiffsexplosion
+- Endbedingung, Neustart

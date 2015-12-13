@@ -34,7 +34,7 @@ public class Smoke extends Particle {
 
             @Override
             public Point move(float x, float y, float timeSinceLastFrame) {
-                float dx = (ran.nextFloat()*4) - 2f;
+                float dx = (ran.nextFloat()*4f) - 2f;
                 x -= ran.nextFloat() * 400f * timeSinceLastFrame;
                 y += dx * ran.nextFloat() * 100f * timeSinceLastFrame;
                 return new Point(x, y);

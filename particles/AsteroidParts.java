@@ -33,14 +33,14 @@ public class AsteroidParts extends Particle {
     public AsteroidParts(int x, int y) {
         super(x - 50 + ran.nextInt(101), y - 50 + ran.nextInt(101), colors[ran.nextInt(40)], ran.nextInt(20) + 10, ran.nextFloat() * 0.2f + 0.1f, new ParticleMover() {
 
-            float dir = ran.nextFloat() * 360;
-            Point moveVector = new Point(50 + ran.nextFloat() * 70, 0).rotate(dir);
+            float dir = ran.nextFloat() * 360f;
+            Point moveVector = new Point(50 + ran.nextFloat() * 70f, 0).rotate(dir);
 
             @Override
             public Point move(float x, float y, float deltaTime) {
                 Point p = new Point(x, y);
 
-                Point v = moveVector.trim(deltaTime * 100);
+                Point v = moveVector.trim(deltaTime * 100f);
                 p = p.plus(v);
 
                 return p;

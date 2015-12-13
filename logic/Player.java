@@ -108,8 +108,8 @@ public class Player {
             speedy = 0;
         }
 
-        if (y > 700) {
-            y = 700;
+        if (y > 780) {
+            y = 780;
             speedy = 0;
         }
         b.setY(y);
