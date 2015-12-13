@@ -37,9 +37,9 @@ public class Asteroid extends FlyingObject {
         unHarmFulSecs += secs;
     }
 
+    @Override
     public void render(Graphics2D g, float height) {
 
-        //todo calc draw coords
         int dX = location.getIntX();
         int dY = location.getIntY();
 
