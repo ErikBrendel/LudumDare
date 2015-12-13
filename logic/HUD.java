@@ -23,6 +23,7 @@ public class HUD {
     
     private BufferedImage overlay = GfxLoader.loadImage("overlay");
     private BufferedImage healthbar = GfxLoader.loadImage("healthbar");
+    private BufferedImage healthbar_end = GfxLoader.loadImage("healthbar_end");
 
     public HUD(Player p, Layer[] layers) {
         this.p = p;
@@ -36,6 +37,8 @@ public class HUD {
         //g.fillRect(16, 16, 500, 44);
         int healthBarWidth = (int)(500 * p.getHealth() / 100f);
         g.drawImage(healthbar.getSubimage(0, 0, healthBarWidth, healthbar.getHeight()), 16, 16, null);
+        int endImageWidth = Math.min(healthbar_end.getWidth(), 500 - healthBarWidth);
+        g.drawImage(healthbar_end.getSubimage(0, 0, endImageWidth, healthbar_end.getHeight()), 16 + healthBarWidth, 16, null);
         
         
         g.setColor(Color.WHITE);
