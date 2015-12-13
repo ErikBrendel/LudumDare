@@ -16,11 +16,11 @@ import util.gfx.GfxLoader;
  * @author Erik
  */
 public class HUD {
-    
+
     private Player p;
     private Layer[] layers;
     private float score = 0;
-    
+
     private BufferedImage overlay = GfxLoader.loadImage("overlay");
     private BufferedImage healthbar = GfxLoader.loadImage("healthbar");
     private BufferedImage healthbar_end = GfxLoader.loadImage("healthbar_end");
@@ -29,22 +29,23 @@ public class HUD {
         this.p = p;
         this.layers = layers;
     }
-    
+
     public void draw(Graphics2D g) {
         g.drawImage(overlay, 0, 0, null);
         g.setFont(new Font("monospaced", Font.BOLD, 30));
         //g.setColor(new Color(100, 100, 100));
         //g.fillRect(16, 16, 500, 44);
-        int healthBarWidth = (int)(500 * p.getHealth() / 100f);
+        int healthBarWidth = (int) (500 * p.getHealth() / 100f);
         g.drawImage(healthbar.getSubimage(0, 0, healthBarWidth, healthbar.getHeight()), 16, 16, null);
         int endImageWidth = Math.min(healthbar_end.getWidth(), 500 - healthBarWidth);
-        g.drawImage(healthbar_end.getSubimage(0, 0, endImageWidth, healthbar_end.getHeight()), 16 + healthBarWidth, 16, null);
-        
-        
+        if (endImageWidth > 0) {
+            g.drawImage(healthbar_end.getSubimage(0, 0, endImageWidth, healthbar_end.getHeight()), 16 + healthBarWidth, 16, null);
+        }
+
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + (int)(score), 545, 50);
+        g.drawString("Score: " + (int) (score), 545, 50);
     }
-    
+
     public void update(float deltaTime) {
         score += deltaTime;
     }
