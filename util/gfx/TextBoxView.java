@@ -23,7 +23,7 @@ import util.sounds.SoundManager;
  */
 public class TextBoxView extends View {
 
-    public static final int msPerLetter = 20;
+    public static final int msPerLetter = 30;
     public static final int animationMS = 100;
 
     private String text;
@@ -40,7 +40,7 @@ public class TextBoxView extends View {
     private long animateStart = -1;
 
     public TextBoxView(String text) {
-        this(text, 20, 550, 1560, 330, new Font(Font.MONOSPACED, Font.PLAIN, 65));
+        this(text, 20, 550, 1560, 330, new Font(Font.MONOSPACED, Font.PLAIN, 60));
     }
 
     public TextBoxView(String text, Font f) {

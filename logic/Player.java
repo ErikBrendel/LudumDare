@@ -97,7 +97,7 @@ public class Player {
         x = 100;
         y = 200;
         b = new Rect(x, y, 308, 200);
-        health = 10;
+        health = 100;
         look = new BufferedImage(308, 200, BufferedImage.TYPE_INT_ARGB);
         emitter1 = new ParticleEmitter(new Smoke(500, 500), 0.001);
         emitter2 = new ParticleEmitter(new Smoke(200, 100), 0.001);
