@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import main.Main;
 import main.Options;
+import particles.ParticleManager;
 import util.controls.KeyBoard;
 import util.gfx.TextBoxView;
 import util.menu.MenuState;
@@ -28,6 +29,26 @@ public class Game extends MenuState {
 
     private boolean firstRun = true;
 
+    private ParticleManager pm;
+    
+     public void init() {
+        firstRun = false;
+        //CONSTRUUCTOR!
+
+        welcomeBox = new TextBoxView(Options.WelcomeBox);
+        new Thread() {
+            public void run() {
+                Main.get().addViewOnTop(welcomeBox);
+            }
+        }.start();
+        bg = new Background();
+        player = new Player();
+        layers[0] = new Layer();
+        layers[1] = new Layer();
+        hud = new HUD(player, layers);
+        pm = new ParticleManager();
+    }
+    
     @Override
     public void render(Graphics2D g) {
         if (firstRun) {
@@ -39,6 +60,8 @@ public class Game extends MenuState {
         player.render(g);
         layers[1].render(g, 1f - focus);
         hud.draw(g);
+        
+        pm.render(g);
 
     }
 
@@ -84,6 +107,8 @@ public class Game extends MenuState {
             player.update(timeSinceLastFrame);
             hud.update(timeSinceLastFrame);
 
+            pm.update(timeSinceLastFrame);
+            
             if (KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)) {
                 KeyBoard.setAllReleased();
                 return 0;
@@ -94,21 +119,6 @@ public class Game extends MenuState {
 
     }
 
-    public void init() {
-        firstRun = false;
-        //CONSTRUUCTOR!
-
-        welcomeBox = new TextBoxView(Options.WelcomeBox);
-        new Thread() {
-            public void run() {
-                Main.get().addViewOnTop(welcomeBox);
-            }
-        }.start();
-        bg = new Background();
-        player = new Player();
-        layers[0] = new Layer();
-        layers[1] = new Layer();
-        hud = new HUD(player, layers);
-    }
+   
 
 }
