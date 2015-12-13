@@ -6,6 +6,7 @@
 package logic;
 
 import java.util.ArrayList;
+import particles.AsteroidParts;
 import particles.Dust;
 import particles.Particle;
 import particles.ParticleEmitter;
