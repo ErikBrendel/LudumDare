@@ -125,6 +125,15 @@ public class Physics {
                     }
                 }
             }
+            for (int o = 0; o < player.getLaser().size(); o++) {
+                Laser l = player.getLaser().get(o);
+                if (l.getStart().intersects(fo.getB()) || l.getEnd().intersects(fo.getB())) {
+                    player.getLaser().remove(o);
+                    o--;
+                    fo.remove();
+                    break;
+                }
+            }
         }
         return asteroids;
     }
