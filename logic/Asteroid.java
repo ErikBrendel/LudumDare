@@ -32,12 +32,12 @@ public class Asteroid extends FlyingObject {
         } else {
             switch (id) {
                 case 1:
-                    return 20;
+                    return 11;
                 case 2:
                     return 4;
                 case 0:
                 default:
-                    return 11;
+                    return 20;
             }
         }
     }
