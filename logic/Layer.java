@@ -54,10 +54,13 @@ public class Layer {
         timeSinceLastSpawn += timeSinceLastFrame;
         if (timeSinceLastSpawn >= 2) {
             timeSinceLastSpawn = 0;
-            if (new Random().nextInt(20) == 0) {
+            int r = new Random().nextInt(20);
+            if (r == 0) {
                 asteroids.add(Pickup.createRepairKit());
-            } else {
-                asteroids.add(Asteroid.createRandomShape());
+            } else if(r == 1){
+                asteroids.add(Pickup.createLaser());
+            }else{
+                asteroids.add(Asteroid.createRandomShape());                
             }
         }
         for (FlyingObject a : asteroids) {
