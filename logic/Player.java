@@ -275,7 +275,7 @@ public class Player {
             FlyingObject tile = new FlyingObject() {
                 {
                     Random r = new Random();
-                    location = new Point(x + 50, y - destroyedTilesTopOffset);
+                    location = new Point(x, y - destroyedTilesTopOffset + 50);
                     //moveVector = new Point(r.nextFloat() * 100 - 50, r.nextFloat() * 100 - 50);
                     Point center = playerB.getLocation().plus(playerB.getSize().multiply(0.5f));
                     moveVector = destroyTileCenter[id].plus(playerB.getLocation()).minus(center);
