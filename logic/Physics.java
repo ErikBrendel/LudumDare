@@ -21,16 +21,16 @@ public class Physics {
      * @param asteroids
      * @return
      */
-    public static ArrayList<Asteroid> doPhysics(ArrayList<Asteroid> asteroids) {
+    public static ArrayList<FlyingObject> doPhysics(ArrayList<FlyingObject> asteroids) {
 
         for (int i = 0; i < asteroids.size(); i++) {
             for (int j = 0; j < asteroids.size(); j++) {
                 if (i != j) {
-                    Asteroid a1 = asteroids.get(i);
-                    Asteroid a2 = asteroids.get(j);
-                    
+                    FlyingObject a1 = asteroids.get(i);
+                    FlyingObject a2 = asteroids.get(j);
+
                     if (a2.getB().getWidth() < a1.getB().getWidth()) {
-                        Asteroid c = a1;
+                        FlyingObject c = a1;
                         a1 = a2;
                         a2 = c;
                     }
@@ -51,7 +51,7 @@ public class Physics {
         return asteroids;
     }
 
-    public static void repel(Asteroid a1, Asteroid a2) {
+    public static void repel(FlyingObject a1, FlyingObject a2) {
         Point m1 = a1.getB().getLocation().plus(a1.getB().getSize().multiply(0.5f));
         Point m2 = a2.getB().getLocation().plus(a2.getB().getSize().multiply(0.5f));
         Point center = m1.plus(m2).multiply(0.5f);
@@ -66,13 +66,13 @@ public class Physics {
         a1.setMoveVector(mv1);
         a2.setMoveVector(mv2);
         /*int vX = 0;
-        int vY = 0;
-        do {
-            vX = (int) (a1.getB().getX() - a2.getB().getX());
-            vY = (int) (a1.getB().getY() - a2.getB().getY());
-            a1.update(0.01f);
-            a2.update(0.01f);
-        } while (GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY));/**/
+         int vY = 0;
+         do {
+         vX = (int) (a1.getB().getX() - a2.getB().getX());
+         vY = (int) (a1.getB().getY() - a2.getB().getY());
+         a1.update(0.01f);
+         a2.update(0.01f);
+         } while (GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY));/**/
     }
 
     /**
@@ -83,29 +83,32 @@ public class Physics {
      * @param player
      * @return
      */
-    public static ArrayList<Asteroid> doPhysics(ArrayList<Asteroid> asteroids, Player player) {
+    public static ArrayList<FlyingObject> doPhysics(ArrayList<FlyingObject> asteroids, Player player) {
         for (int i = 0; i < asteroids.size(); i++) {
-            Asteroid a = asteroids.get(i);
-            if (a.getB().intersects(player.getBounding()) && a.getLastImage() != null) {
-                int vX = (int) (a.getB().getX() - player.getBounding().getX());
-                int vY = (int) (a.getB().getY() - player.getBounding().getY());
-                if (GfxLoader.intersect(player.getImage(), a.getLastImage(), vX, vY)) {
-                    //repel asteroid from player
+            FlyingObject fo = asteroids.get(i);
+            if (fo instanceof Asteroid) {
+                Asteroid a = (Asteroid) fo;
+                if (a.getB().intersects(player.getBounding()) && a.getLastImage() != null) {
+                    int vX = (int) (a.getB().getX() - player.getBounding().getX());
+                    int vY = (int) (a.getB().getY() - player.getBounding().getY());
+                    if (GfxLoader.intersect(player.getImage(), a.getLastImage(), vX, vY)) {
+                        //repel asteroid from player
 
-                    Point m1 = a.getB().getLocation().plus(a.getB().getSize().multiply(0.5f));
-                    Point m2 = player.getBounding().getLocation().plus(player.getBounding().getSize().multiply(0.5f));
-                    Point center = m1.plus(m2).multiply(0.5f);
-                    Point v1 = m1.minus(center);
+                        Point m1 = a.getB().getLocation().plus(a.getB().getSize().multiply(0.5f));
+                        Point m2 = player.getBounding().getLocation().plus(player.getBounding().getSize().multiply(0.5f));
+                        Point center = m1.plus(m2).multiply(0.5f);
+                        Point v1 = m1.minus(center);
 
-                    Point mv1 = a.getMoveVector().plus(v1.multiply(15f));
-                    mv1 = mv1.trim(a.getMoveVector().hypot());
-                    a.setMoveVector(mv1);
+                        Point mv1 = a.getMoveVector().plus(v1.multiply(15f));
+                        mv1 = mv1.trim(a.getMoveVector().hypot());
+                        a.setMoveVector(mv1);
 
-                    Point v2 = m2.minus(center);
+                        Point v2 = m2.minus(center);
 
-                    player.setSpeed(player.getSpeed() * -0.3f);
-                    player.damage(a.getDamage());
-                    a.setUnHarmFul(0.2f);
+                        player.setSpeed(player.getSpeed() * -0.3f);
+                        player.damage(a.getDamage());
+                        a.setUnHarmFul(0.2f);
+                    }
                 }
             }
         }

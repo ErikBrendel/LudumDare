@@ -8,6 +8,8 @@ package util.menu;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import util.controls.KeyBoard;
 import util.geometry.Circle;
 
 /**
@@ -63,7 +65,8 @@ public class MainMenu extends MenuState {
     
     @Override
     public int update(float timeSinceLastFrame) {
-        if (start.update()) {
+        if (start.update() || KeyBoard.isKeyDown(KeyEvent.VK_ENTER)) {
+            KeyBoard.setAllReleased();
             return 1;
         }
         if(options.update()){
@@ -81,5 +84,4 @@ public class MainMenu extends MenuState {
         options.render(g);
         credits.render(g);
     }
-    
 }

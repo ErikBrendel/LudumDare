@@ -6,91 +6,95 @@ import java.util.LinkedList;
 import main.Options;
 
 public class SoundManager implements Runnable {
-	private static LinkedList<AudioClip> sounds;
-	private static LinkedList<AudioClip> music;
 
-	public enum Music {
-		music(0);
+    private static LinkedList<AudioClip> sounds;
+    private static LinkedList<AudioClip> music;
 
-		private final int id;
+    public enum Music {
 
-		Music(int id) {
-			this.id = id;
-		}
-	}
+        music(0);
 
-	public enum Sounds {
-		;
+        private final int id;
 
-		private final int id;
+        Music(int id) {
+            this.id = id;
+        }
+    }
 
-		Sounds(int id) {
-			this.id = id;
-		}
-	}
+    public enum Sounds {
 
-	public SoundManager() {
-		new Thread(this).start();
-	}
+        ;
 
-	public static void playSound(Sounds s) {
-		playSound(s.id);
-	}
+	private final int id;
 
-	public static void playMusic(Music m) {		
-		playMusic(m.id);
-	}
+        Sounds(int id) {
+            this.id = id;
+        }
+    }
 
-	public static void stopMusic(Music m) {
-		music.get(m.id).stop();
-	}
+    public SoundManager() {
+        new Thread(this).start();
+    }
 
-	public static void playSound(int id) {
-		if (Options.playSounds) {
-			sounds.get(id).play();
-		}
-	}
+    public static void playSound(Sounds s) {
+        playSound(s.id);
+    }
 
-	public static void playMusic(int id) {
-		if (Options.playMusic) {
+    public static void playMusic(Music m) {
+        playMusic(m.id);
+    }
+
+    public static void stopMusic(Music m) {
+        music.get(m.id).stop();
+    }
+
+    public static void playSound(int id) {
+        if (Options.playSounds) {
+            sounds.get(id).play();
+        }
+    }
+
+    public static void playMusic(int id) {
+        if (Options.playMusic) {
             System.out.println("util.sounds.SoundManager.playMusic()");
-			music.get(id).loop();
-		}
-	}
+            music.get(id).loop();
+        }
+    }
 
-	public static void stopMusic(int id) {
-		music.get(id).stop();
-	}
+    public static void stopMusic(int id) {
+        music.get(id).stop();
+    }
 
-	@SuppressWarnings("unused")
-	private static AudioClip loadClip(String name) {
-            try{
-		return Applet.newAudioClip(SoundManager.class.getClass().getResource("/resources/" + name + ".au"));
-            }catch (Exception e){
-                e.printStackTrace();
+    @SuppressWarnings("unused")
+    private static AudioClip loadClip(String name) {
+        try {
+            return Applet.newAudioClip(SoundManager.class.getClass().getResource("/resources/" + name + ".au"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void setPlayMusic(boolean playMusic) {
+        if (playMusic != Options.playMusic) {
+            if (playMusic) {
+                Options.playMusic = playMusic;
+                playMusic(0);
+            } else {
+                for (int i = 0; i < music.size(); i++) {
+                    stopMusic(i);
+                }
+                Options.playMusic = playMusic;
             }
-            return null;
-	}
+        }
+    }
 
-	public static void setPlayMusic(boolean playMusic) {
-            if(playMusic != Options.playMusic)
-		if (playMusic) {
-			Options.playMusic = playMusic;
-                        playMusic(0);
-		} else {
-			for (int i = 0; i < music.size(); i++) {
-				stopMusic(i);
-			}
-			Options.playMusic = playMusic;
-		}
-	}
-        
-	@Override
-	public void run() {
-		sounds = new LinkedList<>();
-		// sounds.add(loadClip("Test"));
-		music = new LinkedList<>();
-                music.add(loadClip("music"));
-                playMusic(Music.music);
-	}
+    @Override
+    public void run() {
+        sounds = new LinkedList<>();
+        // sounds.add(loadClip("Test"));
+        music = new LinkedList<>();
+        music.add(loadClip("music"));
+        playMusic(Music.music);
+    }
 }

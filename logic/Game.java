@@ -63,41 +63,14 @@ public class Game extends MenuState {
         
         pm.render(g);
 
-        /*ArrayList<Asteroid> asteroids = layers[(int) (focus + 0.5)].getAsteroids();
-         for (int i = 0; i < asteroids.size(); i++) {
-         Asteroid a = asteroids.get(i);
-         if (player.getBounding().intersects(a.getB())) {
-         //todo check actual intersection
-         int vX =  (int)(a.getB().getX() - player.getBounding().getX());
-         int vY =  (int)(a.getB().getY() - player.getBounding().getY());
-         BufferedImage img = GfxLoader.intersect(player.getImage(), a.getLastImage(), vX, vY);
-         if (img != null) {
-         g.setColor(Color.red);
-         //g.fillRect(0, 0, img.getWidth() + 20, img.getHeight() + 20);
-         //g.drawImage(img, 10, 10, null);
-         }
-                
-                
-
-         }
-         }/**/
     }
 
     @Override
-    public boolean onKeyDown(KeyEvent e) {
+    public boolean onKeyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
             animateFocus = true;
             animateFocusUp = focus < 0.5f;
         }
-        return false;
-    }
-
-    @Override
-    public boolean onKeyReleased(KeyEvent e) {
-        /*if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-         animateFocus = true;
-         animateFocusUp = false;
-         } /* */
         return false;
     }
 
@@ -132,6 +105,7 @@ public class Game extends MenuState {
             }
 
             player.update(timeSinceLastFrame);
+            hud.update(timeSinceLastFrame);
 
             pm.update(timeSinceLastFrame);
             

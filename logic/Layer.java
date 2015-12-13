@@ -10,19 +10,14 @@ import util.geometry.Point;
  */
 public class Layer {
 
-    private ArrayList<Asteroid> asteroids = new ArrayList<>();
-    private int layerScore = 0;
+    private ArrayList<FlyingObject> asteroids = new ArrayList<>();
     private float timeSinceLastSpawn;
 
     public Layer() {
         timeSinceLastSpawn = 0;
     }
 
-    public int getScore() {
-        return layerScore;
-    }
-
-    public ArrayList<Asteroid> getAsteroids() {
+    public ArrayList<FlyingObject> getAsteroids() {
         return asteroids;
     }
 
@@ -47,7 +42,7 @@ public class Layer {
         double scale = height * zoom + 1.0;
         g.translate(-offset.getIntX(), -offset.getIntY());
         g.scale(scale, scale);
-        for (Asteroid a : asteroids) {
+        for (FlyingObject a : asteroids) {
             a.render(g, height);
         }
         g.scale(1 / scale, 1 / scale);
@@ -60,14 +55,13 @@ public class Layer {
             timeSinceLastSpawn = 0;
             asteroids.add(Asteroid.createRandomShape());
         }
-        for (Asteroid a : asteroids) {
+        for (FlyingObject a : asteroids) {
             a.update(timeSinceLastFrame); //move
             if (a.getB().getX() + a.getB().getWidth() < -200 ||
                     a.getB().getY() + a.getB().getHeight() < -200 ||
                     a.getB().getY() > 1100 ||
                     a.getB().getX() > 1900) {
                 a.remove();
-                layerScore += a.getDamage();
             }
         }
         for (int i = 0; i < asteroids.size(); i++) {
