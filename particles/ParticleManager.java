@@ -13,35 +13,38 @@ import java.util.ArrayList;
  * @author Markus
  */
 public class ParticleManager {
-    private float timeSinceLastSpawn;
+
     private ArrayList<Particle> particles;
+    private ArrayList<ParticleEmitter> emitters;
 
     public ParticleManager() {
         particles = new ArrayList<>();
+        emitters = new ArrayList<>();
     }
-    
-    
-    
-    public void update(float timeSinceLastFrame){
-        timeSinceLastSpawn += timeSinceLastFrame;
-        while(timeSinceLastSpawn > 0.001){
-            timeSinceLastSpawn -= 0.001;
-            particles.add(new Smoke(500, 500));
+
+    public void update(float timeSinceLastFrame) {
+        for (ParticleEmitter e: emitters) {
+            particles.addAll(e.getOutput(timeSinceLastFrame));
         }
-        for(Particle p : particles){
+        
+        for (Particle p : particles) {
             p.update(timeSinceLastFrame);
         }
-        for(int i = 0; i < particles.size(); i++){
-            if(particles.get(i).isDead()){
+        for (int i = 0; i < particles.size(); i++) {
+            if (particles.get(i).isDead()) {
                 particles.remove(i);
                 i--;
             }
         }
     }
-    
-    public void render(Graphics2D g){
-        for(Particle p : particles){
+
+    public void render(Graphics2D g) {
+        for (Particle p : particles) {
             p.render(g);
         }
+    }
+    
+    public void addEmitter(ParticleEmitter e) {
+        emitters.add(e);
     }
 }

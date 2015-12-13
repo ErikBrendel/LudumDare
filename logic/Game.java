@@ -4,7 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import main.Main;
 import main.Options;
+import particles.ParticleEmitter;
 import particles.ParticleManager;
+import particles.Smoke;
 import util.controls.KeyBoard;
 import util.gfx.TextBoxView;
 import util.menu.MenuState;
@@ -47,6 +49,7 @@ public class Game extends MenuState {
         layers[1] = new Layer();
         hud = new HUD(player, layers);
         pm = new ParticleManager();
+        pm.addEmitter(new ParticleEmitter(new Smoke(500, 500), 0.001));
     }
     
     @Override
@@ -63,6 +66,10 @@ public class Game extends MenuState {
         
         pm.render(g);
 
+    }
+
+    public ParticleManager getParticleManager() {
+        return pm;
     }
 
     @Override
