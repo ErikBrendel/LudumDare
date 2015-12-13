@@ -37,7 +37,6 @@ public class ParticleManager {
                 i--;
             }
         }
-        System.out.println(particles.size());
     }
     
     public void render(Graphics2D g){
