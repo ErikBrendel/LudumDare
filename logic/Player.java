@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import particles.ParticleEmitter;
 import particles.Smoke;
 import util.controls.KeyBoard;
@@ -24,6 +25,11 @@ public class Player {
     private ParticleEmitter emitter1;
     private ParticleEmitter emitter2;
     private ParticleEmitter emitter3;
+
+    private float timeLaser;
+    private float timeSinceLastShot;
+
+    private ArrayList<Laser> laser;
 
     static {
         int lookCount = 3;
@@ -63,6 +69,7 @@ public class Player {
         g.getParticleManager().addEmitter(emitter1);
         g.getParticleManager().addEmitter(emitter2);
         g.getParticleManager().addEmitter(emitter3);
+        laser = new ArrayList<>();
     }
 
     public void addSpeed(float speedAdd) {
@@ -108,27 +115,55 @@ public class Player {
             currentLook++;
             currentLook %= 3;
         }
-        
+
         //reCalc emitter posittions
         Point middle = new Point(x, y).plus(new Point(150, 100));
         Point v1 = new Point(30, -20);
         Point v2 = new Point(-33, -2);
         Point v3 = new Point(125, 25);
-        
+
         v1 = v1.rotate(speedy / 50);
         v2 = v2.rotate(speedy / 50);
         v3 = v3.rotate(speedy / 50);
-        
+
         Point p1 = middle.plus(v1);
         Point p2 = middle.plus(v2);
         Point p3 = middle.plus(v3);
-        
+
         emitter1.setPosition(p1.getIntX(), p1.getIntY());
         emitter2.setPosition(p2.getIntX(), p2.getIntY());
         emitter3.setPosition(p3.getIntX(), p3.getIntY());
+
+        if (timeLaser > 0) {
+            timeLaser -= timeSinceLastFrame;
+            timeSinceLastShot += timeSinceLastFrame;
+            if (timeSinceLastShot > 0.2f) {
+                timeSinceLastShot -= 0.2;
+
+                Point v4 = new Point(130, 0);
+                v4 = v4.rotate(speedy / 50);
+                Point p4 = middle.plus(v4);
+                
+                laser.add(new Laser(p4.getX(), p4.getY(), v4.getX(), v4.getY()));
+            }
+        }
+
+        for (Laser l : laser) {
+            l.update(timeSinceLastFrame);
+        }
+
+        for (int i = 0; i < laser.size(); i++) {
+            if (laser.get(i).isDead()) {
+                laser.remove(i);
+                i--;
+            }
+        }
     }
 
     public void render(Graphics2D g) {
+        for (Laser l : laser) {
+            l.render(g);
+        }
         look = new BufferedImage(300, 200, BufferedImage.TYPE_INT_ARGB);
         Graphics g2 = look.createGraphics();
         g2.drawImage(looks[currentLook], 0, 50, null);
@@ -168,4 +203,13 @@ public class Player {
         }
     }
 
+    void setLaser() {
+        timeLaser = 5f;
+    }
+
+    public ArrayList<Laser> getLaser() {
+        return laser;
+    }
+    
+    
 }
