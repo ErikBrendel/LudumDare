@@ -19,8 +19,10 @@ public class Asteroid extends FlyingObject {
         this.id = id;
         if(id == 0){
             b = new Rect(0, 0, 100, 100);
-        }else{
+        }else if (id == 1){
             b = new Rect(0, 0, 300, 300);
+        } else {
+            b = new Rect(0, 0, 50, 50);
         }
     }
 
@@ -31,6 +33,8 @@ public class Asteroid extends FlyingObject {
             switch (id) {
                 case 1:
                     return 20;
+                case 2:
+                    return 4;
                 case 0:
                 default:
                     return 11;
@@ -93,7 +97,7 @@ public class Asteroid extends FlyingObject {
     //
     // STATIC STUFF BELOW HERE
     //
-    private static final int asteroidCount = 2;
+    private static final int asteroidCount = 3;
     private static BufferedImage[] allRawImages = new BufferedImage[asteroidCount];
     private static BufferedImage[] allBlurImages = new BufferedImage[asteroidCount];
     private static BufferedImage[] allTransparentImages = new BufferedImage[asteroidCount];
