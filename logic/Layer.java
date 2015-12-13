@@ -3,6 +3,7 @@ package logic;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Random;
 import util.geometry.Point;
 
 /**
@@ -31,7 +32,7 @@ public class Layer {
 
         Point imgSize = new Point(1600, 900);
         Point offset = new Point(0, 0);
-        
+
         float zoom = 0.2f;
 
         if (height != 0) {
@@ -48,19 +49,23 @@ public class Layer {
         g.scale(1 / scale, 1 / scale);
         g.translate(offset.getIntX(), offset.getIntY());
     }
-    
+
     public int update(float timeSinceLastFrame) {
         timeSinceLastSpawn += timeSinceLastFrame;
         if (timeSinceLastSpawn >= 2) {
             timeSinceLastSpawn = 0;
-            asteroids.add(Asteroid.createRandomShape());
+            if (new Random().nextInt(20) == 0) {
+                asteroids.add(Pickup.createRepairKit());
+            } else {
+                asteroids.add(Asteroid.createRandomShape());
+            }
         }
         for (FlyingObject a : asteroids) {
             a.update(timeSinceLastFrame); //move
-            if (a.getB().getX() + a.getB().getWidth() < -200 ||
-                    a.getB().getY() + a.getB().getHeight() < -200 ||
-                    a.getB().getY() > 1100 ||
-                    a.getB().getX() > 1900) {
+            if (a.getB().getX() + a.getB().getWidth() < -200
+                    || a.getB().getY() + a.getB().getHeight() < -200
+                    || a.getB().getY() > 1100
+                    || a.getB().getX() > 1900) {
                 a.remove();
             }
         }

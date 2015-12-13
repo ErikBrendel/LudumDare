@@ -86,12 +86,12 @@ public class Physics {
     public static ArrayList<FlyingObject> doPhysics(ArrayList<FlyingObject> asteroids, Player player) {
         for (int i = 0; i < asteroids.size(); i++) {
             FlyingObject fo = asteroids.get(i);
-            if (fo instanceof Asteroid) {
-                Asteroid a = (Asteroid) fo;
-                if (a.getB().intersects(player.getBounding()) && a.getLastImage() != null) {
-                    int vX = (int) (a.getB().getX() - player.getBounding().getX());
-                    int vY = (int) (a.getB().getY() - player.getBounding().getY());
-                    if (GfxLoader.intersect(player.getImage(), a.getLastImage(), vX, vY)) {
+            if (fo.getB().intersects(player.getBounding()) && fo.getLastImage() != null) {
+                int vX = (int) (fo.getB().getX() - player.getBounding().getX());
+                int vY = (int) (fo.getB().getY() - player.getBounding().getY());
+                if (GfxLoader.intersect(player.getImage(), fo.getLastImage(), vX, vY)) {
+                    if (fo instanceof Asteroid) {
+                        Asteroid a = (Asteroid) fo;
                         //repel asteroid from player
 
                         Point m1 = a.getB().getLocation().plus(a.getB().getSize().multiply(0.5f));
@@ -108,6 +108,11 @@ public class Physics {
                         player.setSpeed(player.getSpeed() * -0.3f);
                         player.damage(a.getDamage());
                         a.setUnHarmFul(0.2f);
+
+                    } else if (fo instanceof Pickup) {
+                        fo.remove();
+                        Pickup p = (Pickup) fo;
+                        p.doEffect(player);
                     }
                 }
             }

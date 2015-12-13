@@ -8,26 +8,31 @@ package logic;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Random;
+import util.geometry.Point;
+import util.geometry.Rect;
 import util.gfx.GfxLoader;
 
 /**
  *
  * @author Erik
  */
-public class Pickup extends FlyingObject {
+public abstract class Pickup extends FlyingObject {
+
     public static final int PickupCount = 1;
-    
+
     private final int id;
-    
+
     private Pickup(int id) {
         this.id = id;
+        b = new Rect(0, 0, 10, 10);
     }
 
     @Override
     public void render(Graphics2D g, float height) {
         int dX = location.getIntX();
         int dY = location.getIntY();
-        
+
         if (height == 0) {
             render = images[0][id];
         } else {
@@ -66,24 +71,34 @@ public class Pickup extends FlyingObject {
         return 0;
     }
     
+    public abstract void doEffect(Player p);
+
     //
     // STATIC
     //
-    
     private static BufferedImage[/*0=raw|1=blurTrans*/][/*id*/] images = new BufferedImage[2][PickupCount];
-    
+
     static {
         for (int i = 0; i < PickupCount; i++) {
             images[0][i] = GfxLoader.loadImage("pickup_" + i);
             images[1][i] = GfxLoader.createWatermark(GfxLoader.loadImage("pickup_" + i + "_blur"), 0.4);
         }
     }
-    
+
     public static Pickup createRepairKit() {
-        Pickup p = new Pickup(0);
-        
+        Pickup p = new Pickup(0) {
+
+            @Override
+            public void doEffect(Player p) {
+                p.damage(p.getHealth() - 100);
+            }
+            
+        };
+        Random r = new Random();
+        p.location = new Point(1700, -200 + r.nextInt(1100));
+        p.moveVector = new Point(-150 + r.nextInt(100), 40 - r.nextInt(80));
+        p.rotateSpeed = -100 + r.nextInt(200);
         return p;
     }
-    
-    
+
 }
