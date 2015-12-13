@@ -119,8 +119,10 @@ public class Physics {
 
                         Point v2 = m2.minus(center);
 
-                        player.setSpeed(player.getSpeed() * -0.3f);
                         player.damage(a.getDamage(), g);
+                        if (player.getHealth() > 0) {
+                            player.setSpeed(player.getSpeed() * -0.3f);
+                        }
                         a.setUnHarmFul(0.2f);
 
                     } else if (fo instanceof Pickup) {
