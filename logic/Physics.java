@@ -130,7 +130,8 @@ public class Physics {
                 if (l.getStart().intersects(fo.getB()) || l.getEnd().intersects(fo.getB())) {
                     player.getLaser().remove(o);
                     o--;
-                    fo.remove();
+                    fo.remove();                    
+                    showTouchParticles(fo.location.plus(fo.getB().getSize().multiply(0.5f)), g);
                     break;
                 }
             }
@@ -140,6 +141,24 @@ public class Physics {
 
     private static void showTouchParticles(Point location, final Game g) {
         Particle p = new Dust(location.getIntX(), location.getIntY());
+
+        final ParticleEmitter e = new ParticleEmitter(p, 0.001);
+
+        g.getParticleManager().addEmitter(e);
+
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                } catch (Exception ex) {
+                }
+                g.getParticleManager().removeEmitter(e);
+            }
+        }.start();
+    }
+    
+     private static void showAsroidParticles(Point location, final Game g) {
+        Particle p = new AsteroidParts(location.getIntX(), location.getIntY());
 
         final ParticleEmitter e = new ParticleEmitter(p, 0.001);
 
