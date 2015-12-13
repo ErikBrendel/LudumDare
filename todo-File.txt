@@ -3,3 +3,5 @@ Was noch zu tun wäre:
 - sounds überall: jedes powerup / schaden / start/ende / laser / feuer
 - mehr steinsbrocken-texturen
 - HUD cooler machen
+- mehr story (start und ende)
+- mehr partikel (bei berührung / einnehmen von pickups)

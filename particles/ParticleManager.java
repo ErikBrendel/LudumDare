@@ -16,6 +16,7 @@ public class ParticleManager {
 
     private ArrayList<Particle> particles;
     private ArrayList<ParticleEmitter> emitters;
+    private final Object emittersLock = new Object();
 
     public ParticleManager() {
         particles = new ArrayList<>();
@@ -23,10 +24,12 @@ public class ParticleManager {
     }
 
     public void update(float timeSinceLastFrame) {
-        for (ParticleEmitter e: emitters) {
-            particles.addAll(e.getOutput(timeSinceLastFrame));
+        synchronized (emittersLock) {
+            for (ParticleEmitter e : emitters) {
+                particles.addAll(e.getOutput(timeSinceLastFrame));
+            }
         }
-        
+
         for (Particle p : particles) {
             p.update(timeSinceLastFrame);
         }
@@ -43,8 +46,16 @@ public class ParticleManager {
             p.render(g);
         }
     }
-    
+
     public void addEmitter(ParticleEmitter e) {
-        emitters.add(e);
+        synchronized (emittersLock) {
+            emitters.add(e);
+        }
+    }
+
+    public void removeEmitter(ParticleEmitter e) {
+        synchronized (emittersLock) {
+            emitters.remove(e);
+        }
     }
 }

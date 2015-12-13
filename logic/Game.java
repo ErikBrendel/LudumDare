@@ -101,12 +101,12 @@ public class Game extends MenuState {
                 }
             }
             bg.update(timeSinceLastFrame);
-            layers[0].update(timeSinceLastFrame);
-            layers[1].update(timeSinceLastFrame);
+            layers[0].update(timeSinceLastFrame, this);
+            layers[1].update(timeSinceLastFrame, this);
             if (focus == 0) {
-                Physics.doPhysics(layers[0].getAsteroids(), player);
+                Physics.doPhysics(layers[0].getAsteroids(), player, this);
             } else if (focus == 1) {
-                Physics.doPhysics(layers[1].getAsteroids(), player);
+                Physics.doPhysics(layers[1].getAsteroids(), player, this);
             }
 
             player.update(timeSinceLastFrame);

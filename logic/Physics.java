@@ -6,6 +6,9 @@
 package logic;
 
 import java.util.ArrayList;
+import particles.Dust;
+import particles.Particle;
+import particles.ParticleEmitter;
 import util.geometry.Point;
 import util.gfx.GfxLoader;
 
@@ -21,7 +24,7 @@ public class Physics {
      * @param asteroids
      * @return
      */
-    public static ArrayList<FlyingObject> doPhysics(ArrayList<FlyingObject> asteroids) {
+    public static ArrayList<FlyingObject> doPhysics(ArrayList<FlyingObject> asteroids, Game g) {
 
         for (int i = 0; i < asteroids.size(); i++) {
             for (int j = 0; j < asteroids.size(); j++) {
@@ -41,7 +44,7 @@ public class Physics {
                             int vX = (int) (a1.getB().getX() - a2.getB().getX());
                             int vY = (int) (a1.getB().getY() - a2.getB().getY());
                             if (GfxLoader.intersect(a1.getLastImage(), a2.getLastImage(), -vX, -vY)) {
-                                repel(a1, a2);
+                                repel(a1, a2, g);
                             }
                         }
                     }
@@ -51,10 +54,11 @@ public class Physics {
         return asteroids;
     }
 
-    public static void repel(FlyingObject a1, FlyingObject a2) {
+    public static void repel(FlyingObject a1, FlyingObject a2, Game g) {
         Point m1 = a1.getB().getLocation().plus(a1.getB().getSize().multiply(0.5f));
         Point m2 = a2.getB().getLocation().plus(a2.getB().getSize().multiply(0.5f));
         Point center = m1.plus(m2).multiply(0.5f);
+        showTouchParticles(center, g);
         Point v1 = m1.minus(center);
         Point v2 = m2.minus(center);
 
@@ -83,7 +87,7 @@ public class Physics {
      * @param player
      * @return
      */
-    public static ArrayList<FlyingObject> doPhysics(ArrayList<FlyingObject> asteroids, Player player) {
+    public static ArrayList<FlyingObject> doPhysics(ArrayList<FlyingObject> asteroids, Player player, Game g) {
         for (int i = 0; i < asteroids.size(); i++) {
             FlyingObject fo = asteroids.get(i);
             if (fo.getB().intersects(player.getBounding()) && fo.getLastImage() != null) {
@@ -97,6 +101,7 @@ public class Physics {
                         Point m1 = a.getB().getLocation().plus(a.getB().getSize().multiply(0.5f));
                         Point m2 = player.getBounding().getLocation().plus(player.getBounding().getSize().multiply(0.5f));
                         Point center = m1.plus(m2).multiply(0.5f);
+                        showTouchParticles(center, g);
                         Point v1 = m1.minus(center);
 
                         Point mv1 = a.getMoveVector().plus(v1.multiply(15f));
@@ -118,5 +123,23 @@ public class Physics {
             }
         }
         return asteroids;
+    }
+
+    private static void showTouchParticles(Point location, final Game g) {
+        Particle p = new Dust(location.getIntX(), location.getIntY());
+
+        final ParticleEmitter e = new ParticleEmitter(p, 0.001);
+
+        g.getParticleManager().addEmitter(e);
+
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                } catch (Exception ex) {
+                }
+                g.getParticleManager().removeEmitter(e);
+            }
+        }.start();
     }
 }

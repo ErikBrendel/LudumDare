@@ -50,7 +50,7 @@ public class Layer {
         g.translate(offset.getIntX(), offset.getIntY());
     }
 
-    public int update(float timeSinceLastFrame) {
+    public int update(float timeSinceLastFrame, Game g) {
         timeSinceLastSpawn += timeSinceLastFrame;
         if (timeSinceLastSpawn >= 2) {
             timeSinceLastSpawn = 0;
@@ -75,7 +75,7 @@ public class Layer {
                 i--;
             }
         }
-        asteroids = Physics.doPhysics(asteroids); //create collisions
+        asteroids = Physics.doPhysics(asteroids, g); //create collisions
 
         return 0;
     }
