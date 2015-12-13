@@ -36,7 +36,9 @@ public class HUD {
         //g.setColor(new Color(100, 100, 100));
         //g.fillRect(16, 16, 500, 44);
         int healthBarWidth = (int) (500 * p.getHealth() / 100f);
-        g.drawImage(healthbar.getSubimage(0, 0, healthBarWidth, healthbar.getHeight()), 16, 16, null);
+        if (healthBarWidth > 0) {
+            g.drawImage(healthbar.getSubimage(0, 0, healthBarWidth, healthbar.getHeight()), 16, 16, null);
+        }
         int endImageWidth = Math.min(healthbar_end.getWidth(), 500 - healthBarWidth);
         if (endImageWidth > 0) {
             g.drawImage(healthbar_end.getSubimage(0, 0, endImageWidth, healthbar_end.getHeight()), 16 + healthBarWidth, 16, null);
