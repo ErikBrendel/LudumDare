@@ -143,7 +143,7 @@ public class Game extends MenuState {
                 return 0;
             }
             if (gos != null) {
-                //gos.update(timeSinceLastFrame);
+                gos.update(timeSinceLastFrame);
             }
         }
 
