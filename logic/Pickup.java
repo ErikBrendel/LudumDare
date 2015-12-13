@@ -103,8 +103,8 @@ public abstract class Pickup extends FlyingObject {
     public static Pickup createLaser() {
         Pickup laser = new Pickup(1) {
             @Override
-            public void doEffect(Player p) {
-                System.out.println("LASERS!");
+            public void doEffect(Player p) {   
+               
             }
         };
         
