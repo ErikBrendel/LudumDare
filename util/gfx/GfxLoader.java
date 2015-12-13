@@ -118,8 +118,16 @@ public class GfxLoader {
                 }
             }
             return ret;
+        } else {
+            int delta = (img.getWidth() - img.getHeight()) / 2;
+            BufferedImage ret = new BufferedImage(img.getWidth(), img.getWidth(), BufferedImage.TYPE_INT_ARGB);
+            for (int x = 0; x < img.getWidth(); x++) {
+                for (int y = 0; y < img.getHeight(); y++) {
+                    ret.setRGB(x, y + delta, img.getRGB(x, y));
+                }
+            }
+            return ret;
         }
-        return null; //todo if width is bigger than height
     }
 
     public static BufferedImage getCompatibleImage(BufferedImage img) {

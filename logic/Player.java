@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 import particles.ParticleEmitter;
 import particles.Smoke;
 import util.controls.KeyBoard;
@@ -24,6 +25,9 @@ public class Player {
     private static BufferedImage[] damageOverlays;
     private static BufferedImage shieldOverlay;
 
+    private static BufferedImage[] destroyedTiles;
+    private static Point[] destroyTileCenter;
+
     private ParticleEmitter emitter1;
     private ParticleEmitter emitter2;
     private ParticleEmitter emitter3;
@@ -37,6 +41,7 @@ public class Player {
     static {
         int lookCount = 3;
         int damageOverlayCount = 4;
+        int destroyedTileCount = 5;
 
         looks = new BufferedImage[lookCount];
         for (int i = 0; i < lookCount; i++) {
@@ -47,6 +52,32 @@ public class Player {
             damageOverlays[i] = GfxLoader.loadImage("damage_" + i);
         }
         shieldOverlay = GfxLoader.loadImage("playerShieldOverlay");
+
+        destroyedTiles = new BufferedImage[destroyedTileCount];
+        destroyTileCenter = new Point[destroyedTileCount];
+        for (int i = 0; i < destroyedTileCount; i++) {
+            destroyedTiles[i] = GfxLoader.loadImage("destroyed_" + i);
+            switch (i) {
+                case 0:
+                    destroyTileCenter[i] = new Point(230, 50);
+                    break;
+                case 1:
+                    destroyTileCenter[i] = new Point(160, 25);
+                    break;
+                case 2:
+                    destroyTileCenter[i] = new Point(150, 70);
+                    break;
+                case 3:
+                    destroyTileCenter[i] = new Point(75, 65);
+                    break;
+                case 4:
+                    destroyTileCenter[i] = new Point(86, 25);
+                    break;
+                default:
+                    destroyTileCenter[i] = new Point(0, 0);
+
+            }
+        }
     }
 
     private final int UPSPEED = 3000;
@@ -204,14 +235,14 @@ public class Player {
         return health;
     }
 
-    void damage(int damage) {
+    void damage(int damage, Game g) {
         if (shieldEnabled && damage > 0) {
             shieldEnabled = false;
             return;
         }
         health -= damage;
         if (health <= 0) {
-            //Lost Game
+            gameLost(g);
             health = 0;
         }
     }
@@ -226,6 +257,41 @@ public class Player {
 
     public ArrayList<Laser> getLaser() {
         return laser;
+    }
+
+    public void gameLost(Game g) {
+        //in teile zersplittern
+        final int destroyedTilesTopOffset = (int)(b.getWidth() - b.getHeight())/2;
+        for (int i = 0; i < destroyedTiles.length; i++) {
+            final int id = i;
+            FlyingObject tile = new FlyingObject() {
+                {
+                    Random r = new Random();
+                    location = new Point(x, y - destroyedTilesTopOffset);
+                    moveVector = new Point(r.nextFloat() * 100 - 50, r.nextFloat() * 100 - 50);
+                    rotateSpeed = -100 + r.nextFloat() * 200;
+                    b = new Rect(x, y, 308, 200);
+                }
+
+                @Override
+                public void render(Graphics2D g, float height) {
+                    render = GfxLoader.rotateImageDegree(destroyedTiles[id], rotation, destroyTileCenter[id].getIntX(), destroyTileCenter[id].getIntY());
+                    g.drawImage(render, location.getIntX(), location.getIntY(), null);
+                }
+
+                @Override
+                public int update(float deltaTime) {
+                    rotation += rotateSpeed * deltaTime;
+                    location = location.plus(moveVector.multiply(deltaTime));
+                    b.setX(location.getX());
+                    b.setY(location.getY());
+                    return 0;
+                }
+            };
+            g.getLayers()[(int) (g.getFocus())].getAsteroids().add(tile);
+        }
+        //teile animieren
+        //explosionspartikel
     }
 
 }

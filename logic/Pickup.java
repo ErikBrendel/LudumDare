@@ -88,7 +88,7 @@ public abstract class Pickup extends FlyingObject {
             @Override
             public void doEffect(Player p) {
                 SoundManager.playSound(SoundManager.Sounds.pickup_repair);
-                p.damage(Math.max(p.getHealth() - 100, -25));
+                p.damage(Math.max(p.getHealth() - 100, -25), null);
             }
 
         };

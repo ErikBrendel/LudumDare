@@ -72,6 +72,14 @@ public class Game extends MenuState {
         return pm;
     }
 
+    public Layer[] getLayers() {
+        return layers;
+    }
+
+    public float getFocus() {
+        return focus;
+    }
+
     @Override
     public boolean onKeyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
