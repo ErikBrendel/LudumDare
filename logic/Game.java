@@ -49,7 +49,7 @@ public class Game extends MenuState {
         layers[0] = new Layer();
         layers[1] = new Layer();
         hud = new HUD(player, layers);
-        
+
         //pm.addEmitter(new ParticleEmitter(new Smoke(500, 500), 0.001));
     }
 
@@ -69,12 +69,11 @@ public class Game extends MenuState {
         pm.render(g);
         hud.draw(g);
 
-        
         if (gos != null) {
             gos.draw(g);
         }
     }
-    
+
     public void createGameOvercreen() {
         gos = new GameOverScreen();
     }
@@ -142,6 +141,9 @@ public class Game extends MenuState {
             if (KeyBoard.isKeyDown(KeyEvent.VK_ESCAPE)) {
                 KeyBoard.setAllReleased();
                 return 0;
+            }
+            if (gos != null) {
+                gos.update(timeSinceLastFrame);
             }
         }
 
