@@ -40,7 +40,7 @@ public class HUD {
             g.drawImage(healthbar.getSubimage(0, 0, healthBarWidth, healthbar.getHeight()), 16, 16, null);
         }
         int endImageWidth = Math.min(healthbar_end.getWidth(), 500 - healthBarWidth);
-        if (endImageWidth > 0) {
+        if (endImageWidth > 0 && p.getHealth() > 0) {
             g.drawImage(healthbar_end.getSubimage(0, 0, endImageWidth, healthbar_end.getHeight()), 16 + healthBarWidth, 16, null);
         }
 
