@@ -2,6 +2,5 @@ Was noch zu tun wäre:
 - ganz viele powerups (bombe / schild)
 - sounds überall: jedes powerup / schaden / start/ende / laser / feuer
 - mehr steinsbrocken-texturen
-- bessere Flugbahnen der FO
 - mehr partikel (bei berührung / einnehmen von pickups)
-- Gesicht von irgendwem bei der textbox
+- Gesicht von hasso bei der textbox

@@ -8,8 +8,6 @@ package logic;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.Random;
-import util.geometry.Point;
 import util.geometry.Rect;
 import util.gfx.GfxLoader;
 
@@ -25,7 +23,7 @@ public abstract class Pickup extends FlyingObject {
 
     private Pickup(int id) {
         this.id = id;
-        b = new Rect(0, 0, 10, 10);
+        b = new Rect(0, 0, 100, 100);
     }
 
     @Override
@@ -93,10 +91,7 @@ public abstract class Pickup extends FlyingObject {
 
         };
 
-        Random r = new Random();
-        p.location = new Point(1700, -200 + r.nextInt(1100));
-        p.moveVector = new Point(-150 + r.nextInt(100), 40 - r.nextInt(80));
-        p.rotateSpeed = -100 + r.nextInt(200);
+        p.init();
         return p;
     }
 
@@ -108,10 +103,7 @@ public abstract class Pickup extends FlyingObject {
             }
         };
         
-        Random r = new Random();
-        laser.location = new Point(1700, -200 + r.nextInt(1100));
-        laser.moveVector = new Point(-150 + r.nextInt(100), 40 - r.nextInt(80));
-        laser.rotateSpeed = -100 + r.nextInt(200);
+        laser.init();
         return laser;
     }
 

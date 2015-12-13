@@ -4,7 +4,6 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-import util.geometry.Point;
 import util.geometry.Rect;
 import util.gfx.GfxLoader;
 
@@ -29,7 +28,13 @@ public class Asteroid extends FlyingObject {
         if (unHarmFulSecs > 0) {
             return 0;
         } else {
-            return 11;
+            switch (id) {
+                case 1:
+                    return 20;
+                case 0:
+                default:
+                    return 11;
+            }
         }
     }
 
@@ -117,10 +122,7 @@ public class Asteroid extends FlyingObject {
      */
     public static Asteroid createRandomShape() {
         Asteroid a = new Asteroid(new Random().nextInt(asteroidCount));
-        Random r = new Random();
-        a.location = new Point(1700, -200 + r.nextInt(1100));
-        a.moveVector = new Point(-150 + r.nextInt(100), 40 - r.nextInt(80));
-        a.rotateSpeed = -100 + r.nextInt(200);
+        a.init();
         return a;
     }
 
