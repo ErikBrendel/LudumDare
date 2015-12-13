@@ -203,7 +203,7 @@ public class Player {
     }
 
     void damage(int damage) {
-        if (shieldEnabled) {
+        if (shieldEnabled && damage > 0) {
             shieldEnabled = false;
             return;
         }
