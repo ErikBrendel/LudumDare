@@ -130,7 +130,8 @@ public class Physics {
                 if (l.getStart().intersects(fo.getB()) || l.getEnd().intersects(fo.getB())) {
                     player.getLaser().remove(o);
                     o--;
-                    fo.remove();
+                    fo.remove();                    
+                    showTouchParticles(fo.location.plus(fo.getB().getSize().multiply(0.5f)), g);
                     break;
                 }
             }
