@@ -33,7 +33,7 @@ public class TextBoxView extends View {
     private Font font;
 
     public TextBoxView(String text) {
-        this(text, 20, 550, 1560, 330, new Font("Helvetica", Font.PLAIN, 100));
+        this(text, 20, 550, 1560, 330, new Font(Font.MONOSPACED, Font.PLAIN, 65));
     }
 
     public TextBoxView(String text, Font f) {
@@ -90,7 +90,7 @@ public class TextBoxView extends View {
 
             int end = lines.size() - scrollProgress;
 
-            int linesVisible = (int) (getSize().y / (double) g.getFont().getSize());
+            int linesVisible = (int) ((getSize().y - 20) / (double) g.getFont().getSize());
 
             if (end <= linesVisible - 2) {
                 canBeRemoved = true;
@@ -116,28 +116,32 @@ public class TextBoxView extends View {
         }
     }
 
-    public static final ArrayList<String> splitIntoLines(String fulltext, Graphics2D g, int maxPixelSize) {
-        String[] words = fulltext.split(" ");
-        for (int i = 0; i < words.length; i++) {
-            words[i] += " ";
-        }
-
-        ArrayList<String> lines = new ArrayList<>();
-
-        int counter = 0;
-
-        while (counter < words.length) {
-            String line = words[counter];
-
-            while (counter < words.length - 1 && getSize(g, line).getWidth() + getSize(g, words[counter + 1]).getWidth() < maxPixelSize) {
-                counter++;
-                line += words[counter];
+    public static final ArrayList<String> splitIntoLines(String fullText, Graphics2D g, int maxPixelSize) {
+        ArrayList<String> result = new ArrayList<>();
+        String[] givenLines = fullText.split("\\n");
+        for (String givenLine : givenLines) {
+            String[] words = givenLine.split(" ");
+            for (int i = 0; i < words.length; i++) {
+                words[i] += " ";
             }
-            lines.add(line);
-            counter++;
-        }
 
-        return lines;
+            ArrayList<String> lines = new ArrayList<>();
+
+            int counter = 0;
+
+            while (counter < words.length) {
+                String line = words[counter];
+
+                while (counter < words.length - 1 && getSize(g, line).getWidth() + getSize(g, words[counter + 1]).getWidth() < maxPixelSize) {
+                    counter++;
+                    line += words[counter];
+                }
+                lines.add(line);
+                counter++;
+            }
+            result.addAll(lines);
+        }
+        return result;
     }
 
     public static Rectangle2D getSize(Graphics g, String s) {
