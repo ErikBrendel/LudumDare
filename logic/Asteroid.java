@@ -125,7 +125,11 @@ public class Asteroid extends FlyingObject {
      * @return
      */
     public static Asteroid createRandomShape() {
-        Asteroid a = new Asteroid(new Random().nextInt(asteroidCount));
+        int asteroidID = new Random().nextInt(asteroidCount + 1); //generate more small ones
+        if (asteroidID == asteroidCount) {
+            asteroidID = 2;
+        }
+        Asteroid a = new Asteroid(asteroidID);
         a.init();
         return a;
     }
