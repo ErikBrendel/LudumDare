@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import main.Options;
 import util.controls.KeyBoard;
 import util.geometry.Circle;
 

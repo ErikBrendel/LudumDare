@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+import main.Options;
 import particles.ImageParticle;
 import particles.ParticleEmitter;
 import particles.Smoke;
@@ -262,6 +263,7 @@ public class Player {
 
     public void gameLost(final Game g) {
 
+        Options.gameOver = true;
         g.removePlayer();
         g.getParticleManager().removeEmitter(emitter1);
         g.getParticleManager().removeEmitter(emitter2);

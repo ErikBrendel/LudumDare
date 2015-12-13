@@ -49,12 +49,13 @@ public class HUD {
     }
 
     public void update(float deltaTime) {
-        Options.score += deltaTime;
+        if (!Options.gameOver) {
+            Options.score += deltaTime;
+        }
     }
 
     public float getScore() {
         return Options.score;
     }
-    
-    
+
 }

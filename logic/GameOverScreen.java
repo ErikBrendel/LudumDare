@@ -8,7 +8,9 @@ package logic;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import main.Options;
+import util.controls.KeyBoard;
 import util.gfx.TextBoxView;
 
 /**
@@ -19,8 +21,12 @@ public class GameOverScreen {
 
     float timeVisible = 0;
 
-    void update(float timeSinceLastFrame) {
+    int update(float timeSinceLastFrame) {
         timeVisible += timeSinceLastFrame;
+        if(KeyBoard.isKeyDown(KeyEvent.VK_ENTER)){
+            return 0;
+        }
+        return 1;
     }
 
     void draw(Graphics2D g) {
