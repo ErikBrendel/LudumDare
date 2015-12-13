@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class TextBoxView extends View {
 
     public static final int msPerLetter = 20;
+    public static final int animationMS = 100;
 
     private String text;
     private ArrayList<String> lines = null;
@@ -31,6 +33,10 @@ public class TextBoxView extends View {
     private int scrollProgress = 0;
     private final Object scrollLock = new Object();
     private Font font;
+
+    private boolean showFace = false;
+    private BufferedImage[] faces = null;
+    private long animateStart = -1;
 
     public TextBoxView(String text) {
         this(text, 20, 550, 1560, 330, new Font(Font.MONOSPACED, Font.PLAIN, 65));
@@ -48,6 +54,20 @@ public class TextBoxView extends View {
         super(start, size);
         this.text = text;
         this.font = f;
+    }
+
+    public boolean isAnimating() {
+        return isAnimating;
+    }
+
+    public void showFace(boolean show) {
+        this.showFace = show;
+    }
+
+    public void setFaces(String f1, String f2) {
+        faces = new BufferedImage[2];
+        faces[0] = GfxLoader.loadImage(f1);
+        faces[1] = GfxLoader.loadImage(f2);
     }
 
     @Override
@@ -71,7 +91,7 @@ public class TextBoxView extends View {
         synchronized (scrollLock) {
             Font oldFont = g.getFont();
             g.setFont(font);
-            g.setColor(Color.BLACK);
+            g.setColor(Color.GRAY);
             g.fillRect(0, 0, getSize().x, getSize().y);
             g.setColor(new Color(30, 30, 30));
             g.fillRect(5, 5, getSize().x - 10, getSize().y - 10);
@@ -79,7 +99,11 @@ public class TextBoxView extends View {
             g.setColor(new Color(200, 200, 220));
             //g.drawString(text, 20, 100);
             if (lines == null) {
-                lines = splitIntoLines(text, g, getSize().x - 20);
+                int maxWidth = getSize().x - 20;
+                if (showFace) {
+                    maxWidth -= viewSize.y;
+                }
+                lines = splitIntoLines(text, g, maxWidth);
             }
             if (startTypingAnimation < 0) {
                 startTypingAnimation = System.currentTimeMillis();
@@ -109,7 +133,31 @@ public class TextBoxView extends View {
                         displayedLetterCount += lineNow.length();
                     }
                 }
-                g.drawString(lineNow, 10, g.getFont().getSize() + (i * g.getFont().getSize()));
+                int drawX = 10;
+                if (showFace) {
+                    drawX += viewSize.y;
+                }
+                g.drawString(lineNow, drawX, g.getFont().getSize() + (i * g.getFont().getSize()));
+            }
+
+            if (showFace) {
+                int img = 0;
+                if (isAnimating) {
+                    if (animateStart == -1) {
+                        animateStart = System.currentTimeMillis();
+                    }
+                    int delta = (int) (System.currentTimeMillis() - animateStart);
+                    if (delta % (2 * animationMS) >= animationMS) {
+                        img = 0;
+                    } else {
+                        img = 1;
+
+                    }
+                } else {
+                    img = 0;
+                    animateStart = -1;
+                }
+                g.drawImage(faces[img], 10, 10, viewSize.y - 20, viewSize.y - 20, null);
             }
 
             g.setFont(oldFont);

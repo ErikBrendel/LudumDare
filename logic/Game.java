@@ -36,6 +36,8 @@ public class Game extends MenuState {
         //CONSTRUUCTOR!
 
         welcomeBox = new TextBoxView(Options.WelcomeBox);
+        welcomeBox.setFaces("face_0", "face_1");
+        welcomeBox.showFace(true);
         new Thread() {
             public void run() {
                 Main.get().addViewOnTop(welcomeBox);

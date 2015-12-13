@@ -16,8 +16,8 @@ import java.awt.event.KeyEvent;
  */
 public abstract class View {
 
-    private Point startPoint = null;
-    private Point viewSize = null;
+    protected Point startPoint = null;
+    protected Point viewSize = null;
     protected boolean canBeRemoved = false;
 
     public View() {
