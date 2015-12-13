@@ -62,10 +62,10 @@ public class Layer {
         }
         for (Asteroid a : asteroids) {
             a.update(timeSinceLastFrame); //move
-            if (a.getB().getX() + a.getB().getWidth() < -100 ||
-                    a.getB().getY() + a.getB().getHeight() < -100 ||
-                    a.getB().getY() > 1000 ||
-                    a.getB().getX() > 1800) {
+            if (a.getB().getX() + a.getB().getWidth() < -200 ||
+                    a.getB().getY() + a.getB().getHeight() < -200 ||
+                    a.getB().getY() > 1100 ||
+                    a.getB().getX() > 1900) {
                 a.remove();
                 layerScore += a.getDamage();
             }
