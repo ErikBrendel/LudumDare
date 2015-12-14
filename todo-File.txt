@@ -3,7 +3,6 @@ Was noch zu tun wäre:
   --> verschlüsselung der scores, damit nichts gefälscht werden kann
 
 -Rebalance. More Speed Increasment. Less spawning increasment
--antialias on rotate image
 
 -GAME TITLE!!! (bei credits  als logo im menü)
   
