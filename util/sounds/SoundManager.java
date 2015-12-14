@@ -105,6 +105,9 @@ public class SoundManager implements Runnable {
         sounds.add(loadClip("button_press"));
         sounds.add(loadClip("typing"));
         
+        Options.playMusic = true;
+        Options.playSounds = true;
+        
         playMusic(Music.music);
     }
 }
