@@ -25,7 +25,7 @@ public class MainMenu extends MenuState {
     private static BufferedImage mainMenu;
 
     static {
-        mainMenu = GfxLoader.loadImage("mainmenu");
+       mainMenu = GfxLoader.loadImage("menu");
     }
 
     private Button start = new Button("Start Game", new Circle(400, 556, 150)) {

@@ -263,6 +263,7 @@ public class Player {
 
     public void gameLost(final Game g) {
 
+        SoundManager.playSound(SoundManager.Sounds.explosion);
         Options.gameOver = true;
         g.removePlayer();
         g.getParticleManager().removeEmitter(emitter1);
