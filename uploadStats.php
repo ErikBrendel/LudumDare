@@ -19,8 +19,7 @@ $score = mysql_escape_string($score);
 //echo 'debug:escaped<br>' . "\n";
 
 //connect to db
-$link = mysql_connect($dbHost, $dbUser, $dbPwd)
-        or die('Error: no connection');
+$link = mysql_connect($dbHost, $dbUser, $dbPwd) or die('Error: no connection');
 //echo 'debug:linked<br>' . "\n";
 mysql_select_db($databaseName) or die('Error: Database not found');
 //echo 'debug:selected<br>' . "\n";
@@ -32,7 +31,7 @@ mysql_query($createQuery) or die('Error: Could not create table');
 
 //get old score from db
 $query = 'SELECT score FROM Stats WHERE name="' . $name . '" ORDER BY score DESC';
-$result = mysql_query($query) or die('Error: unbkannter user');
+$result = mysql_query($query) or die('Error: unknow user');
 //echo 'debug:selectQuery<br>' . "\n";
 
 $oldScore = 0;
