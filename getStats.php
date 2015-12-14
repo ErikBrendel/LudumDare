@@ -16,7 +16,7 @@ mysql_select_db($databaseName) or die('Error: Database not found');
 //echo 'debug:connected<br>'."\n";
 
 //maybe create table
-$createQuery = 'CREATE TABLE IF NOT EXISTS Stats (name varchar(255), score int);';
+$createQuery = 'CREATE TABLE IF NOT EXISTS Stats (name varchar(255), mac varchar(255), score int);';
 mysql_query($createQuery) or die('Error: Could not create table');
 //echo 'debug:createQuery Started<br>'."\n";
 
