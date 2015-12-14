@@ -81,7 +81,7 @@ public class GameOverScreen {
             int userNameTextWidth = (int) TextBoxView.getSize(g, usernameText).getWidth();
             int restartWidth = (int) TextBoxView.getSize(g, restart).getWidth();
 
-            if (timeVisible % 0.5f < 0.3f) {
+            if (!showHighScores && timeVisible % 0.5f < 0.3f) {
                 usernameText += "|";
             }
 

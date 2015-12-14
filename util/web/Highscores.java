@@ -5,6 +5,8 @@
  */
 package util.web;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +18,7 @@ public class Highscores {
     private static final String host = "http://87.106.83.248/";
 
     public static void upload(String username, int score) {
-        String fullUrl = host + "uploadStats.php?name=" + username + "&score=" + score;
+        String fullUrl = host + "uploadStats.php?name=" + username + "&score=" + Crypt.encode(score) + "&mac=" + getMac();
         String returnString = StaticConnections.getWebContent(fullUrl);
         System.err.println("returnString = " + returnString);
     }
@@ -56,5 +58,20 @@ public class Highscores {
         pack[0] = playerNames;
         pack[1] = playerScores;
         return pack;
+    }
+    
+    public static String getMac() {
+        try {
+            NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+            byte[] mac = network.getHardwareAddress();
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mac.length; i++) {
+                sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+            }
+            return sb.toString();
+        } catch (Exception ex) {
+        }
+        return "NO-MAC-FOUND";
     }
 }

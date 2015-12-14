@@ -40,12 +40,12 @@ public class Main extends Project {
     public void update() {
         if (isFocusOwner()) {
             m.update(timeSinceLastFrame);
-            if(m.getState() == 1){
+            if (m.getState() == 1) {
                 setCursor(java.awt.Toolkit.getDefaultToolkit().createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR), new java.awt.Point(0, 0), "NOCURSOR"));
-            }else{
+            } else {
                 setCursor(java.awt.Cursor.getDefaultCursor());
             }
-                
+
         } else {
             KeyBoard.setAllReleased();
             Mouse.setAllReleased();
@@ -107,7 +107,6 @@ public class Main extends Project {
 
     public static void main(String[] args) {
         new Main();
-        
     }
 
     int getMenuState() {
