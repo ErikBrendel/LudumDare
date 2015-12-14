@@ -6,8 +6,6 @@
 package util.web;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -34,26 +32,21 @@ public class Highscores {
         String fullUrl = host + "getStats.php";
         String returnString = StaticConnections.getWebContent(fullUrl);
         
+        ArrayList<String> playerNames = new ArrayList<>();
+        ArrayList<Integer> playerScores = new ArrayList<>();
         
+        String[] scorePairs = returnString.split(";");
+        for (String scorePair: scorePairs) {
+            String[] data = scorePair.split("=");
+            String name = data[0];
+            int score = Crypt.decode(data[1]);
+            playerNames.add(name);
+            playerScores.add(score);
+        }
         
-        
-        
-        ArrayList<String> playerNames = new ArrayList<String>() {
-            {
-                add("test1");
-                add("test2");
-            }
-        };
-        ArrayList<Integer> playerScores = new ArrayList<Integer>() {
-            {
-                add(123);
-                add(63);
-            }
-        };
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
-            Logger.getLogger(Highscores.class.getName()).log(Level.SEVERE, null, ex);
         }
         ArrayList[] pack = new ArrayList[2];
         pack[0] = playerNames;

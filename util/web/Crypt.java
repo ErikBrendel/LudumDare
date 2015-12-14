@@ -32,6 +32,6 @@ public class Crypt {
         return complete;
     }
     public static int decode(String msg) {
-        return 0;
+        return Integer.valueOf(msg);
     }
 }

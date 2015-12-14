@@ -44,7 +44,7 @@ while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
 if ($score > $oldScore) {
     //insert better score
     //echo 'debug:better!<br>' . "\n";
-    $query = "INSERT INTO `$databaseName`.`Stats` (`id`, `name`, `score`) VALUES (NULL, '$name', '$score')";
+    $query = "INSERT INTO `$databaseName`.`Stats` (`name`, `score`) VALUES ('$name', '$score')";
     $result = mysql_query($query) or die('Error: not able to insert new score');
     echo 'better';
 } else {
