@@ -4,4 +4,7 @@ Was noch zu tun wäre:
 -ein kleiner filter über hasso - damit es aussieht wie eine schlechte videoübertragung
 -antialias on rotate image
 
--GAME TITLE!!! (bei credits sowie als logo im menü)
+-GAME TITLE!!! (bei credits  als logo im menü)
+  
+
+-menu schöner machen
