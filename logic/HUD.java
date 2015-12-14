@@ -24,7 +24,7 @@ public class HUD {
     private BufferedImage overlay = GfxLoader.loadImage("overlay");
     private BufferedImage healthbar = GfxLoader.loadImage("healthbar");
     private BufferedImage healthbar_end = GfxLoader.loadImage("healthbar_end");
-    
+
     private float lastHealth = -1;
     private static final float HealthBarAnimationSpeedUp = 3;
 
@@ -62,7 +62,11 @@ public class HUD {
             lastHealth = p.getHealth();
         }
         float factor = deltaTime * HealthBarAnimationSpeedUp;
-        lastHealth = lastHealth * (1 - factor) + p.getHealth() * factor;
+        if (Math.abs(lastHealth - p.getHealth()) < 0.1f) {
+            lastHealth = p.getHealth();
+        } else {
+            lastHealth = lastHealth * (1 - factor) + p.getHealth() * factor;
+        }
     }
 
     public float getScore() {
