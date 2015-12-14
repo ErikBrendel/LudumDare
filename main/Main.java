@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import util.controls.KeyBoard;
 import util.controls.Mouse;
@@ -39,6 +40,12 @@ public class Main extends Project {
     public void update() {
         if (isFocusOwner()) {
             m.update(timeSinceLastFrame);
+            if(m.getState() == 1){
+                setCursor(java.awt.Toolkit.getDefaultToolkit().createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR), new java.awt.Point(0, 0), "NOCURSOR"));
+            }else{
+                setCursor(java.awt.Cursor.getDefaultCursor());
+            }
+                
         } else {
             KeyBoard.setAllReleased();
             Mouse.setAllReleased();
