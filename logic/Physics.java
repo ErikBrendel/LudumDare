@@ -109,8 +109,6 @@ public class Physics {
                         Point m1 = a.getB().getLocation().plus(a.getB().getSize().multiply(0.5f));
                         Point m2 = player.getBounding().getLocation().plus(player.getBounding().getSize().multiply(0.5f));
                         Point center = m1.plus(m2).multiply(0.5f);
-                        showTouchParticles(intersect.plus(player.getBounding().getLocation()), g);
-                        SoundManager.playSound(SoundManager.Sounds.hurt);
                         Point v1 = m1.minus(center);
 
                         Point mv1 = a.getMoveVector().plus(v1.multiply(15f));
@@ -119,7 +117,12 @@ public class Physics {
 
                         Point v2 = m2.minus(center);
 
-                        player.damage(a.getDamage(), g);
+                        int dmg = a.getDamage();
+                        if (dmg != 0) {
+                            showTouchParticles(intersect.plus(player.getBounding().getLocation()), g);
+                            SoundManager.playSound(SoundManager.Sounds.hurt);
+                            player.damage(dmg, g);
+                        }
                         if (player.getHealth() > 0) {
                             player.setSpeed(player.getSpeed() * -0.3f);
                         }
