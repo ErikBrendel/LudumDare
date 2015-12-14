@@ -67,11 +67,13 @@ public class GameOverScreen {
 
             String go = "Game Over";
             String score = "Score: " + (int) Options.score;
+            String usernameText = "Username: " + Options.username;
             String restart = "Press ENTER to restart";
 
-            int gowidth = (int) TextBoxView.getSize(g, "Game Over").getWidth();
-            int scorewidth = (int) TextBoxView.getSize(g, "Score: " + (int) Options.score).getWidth();
+            int gowidth = (int) TextBoxView.getSize(g, go).getWidth();
+            int scorewidth = (int) TextBoxView.getSize(g, score).getWidth();
             g.setFont(small);
+            int userNameTextWidth = (int) TextBoxView.getSize(g, usernameText).getWidth();
             int restartWidth = (int) TextBoxView.getSize(g, restart).getWidth();
 
             int drawBoxWidth = 1200;
@@ -82,8 +84,9 @@ public class GameOverScreen {
             g.setFont(big);
             g.drawString(go, 200 + (drawBoxWidth - gowidth) / 2, 330);
             g.drawString(score, 200 + (drawBoxWidth - scorewidth) / 2, 450);
-
+            
             g.setFont(small);
+            g.drawString(usernameText, 200 + (drawBoxWidth - userNameTextWidth)/2, 520);
             g.drawString(restart, 200 + (drawBoxWidth - restartWidth) / 2, 620);
 
             g.setFont(smaller);
@@ -124,4 +127,19 @@ public class GameOverScreen {
         }
     }
 
+    public boolean onKeyPressed(KeyEvent e) {
+        char c = e.getKeyChar();
+        if (TextBoxView.isPrintableChar(c)) {
+            if (c != ' ' && c != ':' && c != ';' && c != '=') {
+                Options.username += c;
+            }
+            return true;
+        } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            if (Options.username.length() > 0) {
+                Options.username = Options.username.substring(0, Options.username.length() - 1);
+            }
+            return true;
+        }
+        return false;
+    }
 }

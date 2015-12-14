@@ -9,7 +9,6 @@ import util.controls.Mouse;
 import util.gfx.View;
 import util.menu.Menu;
 import util.sounds.SoundManager;
-import util.web.Crypt;
 
 public class Main extends Project {
 
@@ -107,9 +106,9 @@ public class Main extends Project {
     }
 
     public static void main(String[] args) {
-        //new Main();
-        Integer test = 123;
-        System.err.println("test = " + Crypt.encode(test));
+        new Main();
+        //Integer test = 123;
+        //System.err.println("test = " + Crypt.encode(test));
         
     }
 

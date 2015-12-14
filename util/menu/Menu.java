@@ -3,12 +3,12 @@ package util.menu;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import logic.Game;
 import main.Options;
 import util.controls.Mouse;
 import util.gfx.View;
+import util.web.Highscores;
 
 public class Menu extends View {
 
@@ -35,7 +35,7 @@ public class Menu extends View {
 
                 if (Options.gameOver) {
                     Options.gameOver = false;
-                    //TODO SCOREBOARD
+                    Highscores.upload(Options.username, (int)(Options.score));
                     Options.score = 0;
                     menuStates.set(1, new Game());
                 }

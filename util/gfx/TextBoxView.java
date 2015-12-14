@@ -209,4 +209,12 @@ public class TextBoxView extends View {
         FontMetrics fm = g.getFontMetrics(g.getFont());
         return fm.getStringBounds(s, g);
     }
+    
+    public static boolean isPrintableChar(char c) {
+        Character.UnicodeBlock block = Character.UnicodeBlock.of(c);
+        return (!Character.isISOControl(c))
+                && c != KeyEvent.CHAR_UNDEFINED
+                && block != null
+                && block != Character.UnicodeBlock.SPECIALS;
+    }
 }
