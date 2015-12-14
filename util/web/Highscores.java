@@ -19,9 +19,6 @@ public class Highscores {
         String fullUrl = host + "uploadStats.php?name=" + username + "&score=" + score;
         String returnString = StaticConnections.getWebContent(fullUrl);
         System.err.println("returnString = " + returnString);
-        if (!returnString.equals("ok")) {
-            System.err.println("ERROR: Unexpected server response: \"" + returnString + "\"");
-        }
     }
 
     /**

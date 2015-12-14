@@ -15,7 +15,7 @@ public class Options {
     public static boolean playMusic = false;
     public static boolean playSounds = false;
     public static float score = 0;
-    public static String username = System.getProperty("user.name");
+    public static String username = System.getProperty("user.name").replaceAll(" ", "").replaceAll("=", "").replaceAll(":", "").replaceAll(";", "");
     public static String WelcomeBox = 
             "(press CTRL to skip)\n\n"
             + "Okay Commander, can you here me?\n"

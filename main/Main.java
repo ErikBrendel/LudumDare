@@ -107,8 +107,6 @@ public class Main extends Project {
 
     public static void main(String[] args) {
         new Main();
-        //Integer test = 123;
-        //System.err.println("test = " + Crypt.encode(test));
         
     }
 

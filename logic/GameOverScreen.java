@@ -33,12 +33,17 @@ public class GameOverScreen {
         timeVisible += timeSinceLastFrame;
         if (KeyBoard.isKeyDown(KeyEvent.VK_ENTER)) {
             if (showHighScores) {
-                return 0;
+                if (Options.username.length() >= 3) {
+                    return 0;
+                } else {
+                    return 1;
+                }
             } else {
                 showHighScores = true;
                 KeyBoard.setReleased(KeyEvent.VK_ENTER);
                 new Thread() {
                     public void run() {
+                        Highscores.upload(Options.username, (int) (Options.score));
                         ArrayList[] stats = Highscores.getStats(); //this method may take a while
                         playerNames = stats[0];
                         playerScores = stats[1];
@@ -76,6 +81,10 @@ public class GameOverScreen {
             int userNameTextWidth = (int) TextBoxView.getSize(g, usernameText).getWidth();
             int restartWidth = (int) TextBoxView.getSize(g, restart).getWidth();
 
+            if (timeVisible % 0.5f < 0.3f) {
+                usernameText += "|";
+            }
+
             int drawBoxWidth = 1200;
             if (showHighScores) {
                 drawBoxWidth = 600;
@@ -84,9 +93,9 @@ public class GameOverScreen {
             g.setFont(big);
             g.drawString(go, 200 + (drawBoxWidth - gowidth) / 2, 330);
             g.drawString(score, 200 + (drawBoxWidth - scorewidth) / 2, 450);
-            
+
             g.setFont(small);
-            g.drawString(usernameText, 200 + (drawBoxWidth - userNameTextWidth)/2, 520);
+            g.drawString(usernameText, 200 + (drawBoxWidth - userNameTextWidth) / 2, 520);
             g.drawString(restart, 200 + (drawBoxWidth - restartWidth) / 2, 620);
 
             g.setFont(smaller);
@@ -120,25 +129,27 @@ public class GameOverScreen {
                 } else {
                     String loading = "Loading highscores...";
                     Rectangle2D loadingSize = TextBoxView.getSize(g, loading);
-                    g.drawString(loading, highStart.x + (int)(highSize.x - loadingSize.getWidth())/2, 
-                            highStart.y + (int)(highSize.y - loadingSize.getHeight())/2);
+                    g.drawString(loading, highStart.x + (int) (highSize.x - loadingSize.getWidth()) / 2,
+                            highStart.y + (int) (highSize.y - loadingSize.getHeight()) / 2);
                 }
             }
         }
     }
 
     public boolean onKeyPressed(KeyEvent e) {
-        char c = e.getKeyChar();
-        if (TextBoxView.isPrintableChar(c)) {
-            if (c != ' ' && c != ':' && c != ';' && c != '=') {
-                Options.username += c;
+        if (!showHighScores) {
+            char c = e.getKeyChar();
+            if (TextBoxView.isPrintableChar(c)) {
+                if (c != ' ' && c != ':' && c != ';' && c != '=') {
+                    Options.username += c;
+                }
+                return true;
+            } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                if (Options.username.length() > 0) {
+                    Options.username = Options.username.substring(0, Options.username.length() - 1);
+                }
+                return true;
             }
-            return true;
-        } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-            if (Options.username.length() > 0) {
-                Options.username = Options.username.substring(0, Options.username.length() - 1);
-            }
-            return true;
         }
         return false;
     }
