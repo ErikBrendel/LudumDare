@@ -3,3 +3,5 @@ Was noch zu tun wäre:
 -Rebalance. More Speed Increasment. Less spawning increasment
 -ein kleiner filter über hasso - damit es aussieht wie eine schlechte videoübertragung
 -antialias on rotate image
+
+-GAME TITLE!!! (bei credits sowie als logo im menü)
