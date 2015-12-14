@@ -2,3 +2,4 @@ Was noch zu tun wäre:
 -Scoreboard
 -Rebalance. More Speed Increasment. Less spawning increasment
 -ein kleiner filter über hasso - damit es aussieht wie eine schlechte videoübertragung
+-antialias on rotate image
