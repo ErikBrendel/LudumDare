@@ -1,5 +1,7 @@
 Was noch zu tun wäre:
 -Scoreboard
+  --> verschlüsselung der scores, damit nichts gefälscht werden kann
+
 -Rebalance. More Speed Increasment. Less spawning increasment
 -antialias on rotate image
 
