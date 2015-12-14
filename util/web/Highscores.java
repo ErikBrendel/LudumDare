@@ -17,10 +17,17 @@ public class Highscores {
 
     private static final String host = "http://87.106.83.248/";
 
-    public static void upload(String username, int score) {
+    /**
+     *
+     * @param username
+     * @param score
+     * @return true if new personal highscore
+     */
+    public static boolean upload(String username, int score) {
         String fullUrl = host + "uploadStats.php?name=" + username + "&score=" + Crypt.encode(score) + "&mac=" + getMac();
         String returnString = StaticConnections.getWebContent(fullUrl);
         System.err.println("returnString = " + returnString);
+        return returnString.equals("better");
     }
 
     /**
