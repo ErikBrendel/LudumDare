@@ -133,7 +133,7 @@ public abstract class Project extends Canvas implements Runnable {
 
         g.setColor(Color.ORANGE);
         g.setFont(new Font("Arial", 0, 40));
-        g.drawString(String.valueOf((int) (1 / timeSinceLastFrame)), 10, 40);
+        //g.drawString(String.valueOf((int) (1 / timeSinceLastFrame)), 10, 40);
 
         g.dispose();
         bs.show();
