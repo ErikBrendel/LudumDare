@@ -69,7 +69,7 @@ public abstract class FlyingObject {
         Point spawnPoint = spawnCircleCenter.plus(spawnVector);
         Point rawMoveVector = targetPoint.minus(spawnPoint);
         
-        moveVector = rawMoveVector.trim(Options.score + 150 + r.nextInt(150));
+        moveVector = rawMoveVector.trim(Options.score + 100 + r.nextInt(220));
         location = spawnPoint.minus(getB().getSize().multiply(0.5f));
         rotateSpeed = -100 + r.nextInt(200);
     }

@@ -53,9 +53,9 @@ public class Layer {
 
     public int update(float timeSinceLastFrame, Game g) {
         timeSinceLastSpawn += timeSinceLastFrame;
-        if (timeSinceLastSpawn >= 1.7 - Options.score / 200) {
+        if (timeSinceLastSpawn >= Math.max(1.7f - (Options.score / 200f), 0.5f)) {
             timeSinceLastSpawn = 0;
-            int r = new Random().nextInt(30);
+            int r = new Random().nextInt(30 + (int)(Options.score / 10f));
             switch (r) {
                 case 0:
                     asteroids.add(Pickup.createRepairKit());
