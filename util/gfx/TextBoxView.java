@@ -37,6 +37,7 @@ public class TextBoxView extends View {
 
     private boolean showFace = false;
     private BufferedImage[] faces = null;
+    private ImageFilter filter = null;
     private long animateStart = -1;
 
     public TextBoxView(String text) {
@@ -69,6 +70,10 @@ public class TextBoxView extends View {
         faces = new BufferedImage[2];
         faces[0] = GfxLoader.loadImage(f1);
         faces[1] = GfxLoader.loadImage(f2);
+    }
+
+    public void setFilter(ImageFilter filter) {
+        this.filter = filter;
     }
 
     @Override
@@ -161,13 +166,17 @@ public class TextBoxView extends View {
                     img = 0;
                     animateStart = -1;
                 }
-                g.drawImage(faces[img], 10, 10, viewSize.y - 20, viewSize.y - 20, null);
+                BufferedImage draw = faces[img];
+                if (filter != null) {
+                    draw = filter.filter(draw);
+                }
+                g.drawImage(draw, 10, 10, viewSize.y - 20, viewSize.y - 20, null);
             }
 
             g.setFont(oldFont);
         }
     }
-
+    
     public static final ArrayList<String> splitIntoLines(String fullText, Graphics2D g, int maxPixelSize) {
         ArrayList<String> result = new ArrayList<>();
         String[] givenLines = fullText.split("\\n");

@@ -7,6 +7,7 @@ import main.Options;
 import particles.ParticleManager;
 import util.controls.KeyBoard;
 import util.gfx.TextBoxView;
+import util.gfx.VideoTransmissionFilter;
 import util.menu.MenuState;
 
 /**
@@ -38,6 +39,7 @@ public class Game extends MenuState {
         welcomeBox = new TextBoxView(Options.WelcomeBox);
         welcomeBox.setFaces("face_0", "face_1");
         welcomeBox.showFace(true);
+        welcomeBox.setFilter(new VideoTransmissionFilter());
         new Thread() {
             public void run() {
                 Main.get().addViewOnTop(welcomeBox);
