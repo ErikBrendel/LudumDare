@@ -92,15 +92,25 @@ public class Game extends MenuState {
         return focus;
     }
 
+    private boolean switchLock = false;
     @Override
     public boolean onKeyPressed(KeyEvent e) {
         if (gos != null) {
             return gos.onKeyPressed(e);
         }
-        if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+        if (e.getKeyCode() == KeyEvent.VK_CONTROL && !switchLock) {
+            switchLock = true;
             animateFocus = true;
             animateFocusUp = focus < 0.5f;
-        }
+        }/**/
+        return false;
+    }
+    
+    @Override
+    public boolean onKeyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+            switchLock = false;
+        }/**/
         return false;
     }
 

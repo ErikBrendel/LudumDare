@@ -28,6 +28,7 @@ public class GameOverScreen {
     private boolean highScoresAvailable = false;
     private ArrayList<String> playerNames = null;
     private ArrayList<Integer> playerScores = null;
+    private boolean newHighscore = false;
 
     int update(float timeSinceLastFrame) {
         timeVisible += timeSinceLastFrame;
@@ -43,7 +44,7 @@ public class GameOverScreen {
                 KeyBoard.setReleased(KeyEvent.VK_ENTER);
                 new Thread() {
                     public void run() {
-                        Highscores.upload(Options.username, (int) (Options.score));
+                        newHighscore = Highscores.upload(Options.username, (int) (Options.score));
                         ArrayList[] stats = Highscores.getStats(); //this method may take a while
                         playerNames = stats[0];
                         playerScores = stats[1];
@@ -74,6 +75,7 @@ public class GameOverScreen {
             String score = "Score: " + (int) Options.score;
             String usernameText = "Username: " + Options.username;
             String restart = "Press ENTER to restart";
+            String newHigh = "New personal best!";
 
             int gowidth = (int) TextBoxView.getSize(g, go).getWidth();
             int scorewidth = (int) TextBoxView.getSize(g, score).getWidth();

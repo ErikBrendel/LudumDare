@@ -26,11 +26,11 @@ $link = mysql_connect($dbHost, $dbUser, $dbPwd) or die('Error: no connection');
 mysql_select_db($databaseName) or die('Error: Database not found');
 //echo 'debug:selected<br>' . "\n";
 //maybe create table
-$createQuery = 'CREATE TABLE IF NOT EXISTS '.$tableName.' (name varchar(255), mac varchar(255), score int);';
+$createQuery = 'CREATE TABLE IF NOT EXISTS ' . $tableName . ' (name varchar(255), mac varchar(255), score int);';
 mysql_query($createQuery) or die('Error: Could not create table');
 //echo 'debug:createQuery<br>' . "\n";
 //get old score from db
-$query = 'SELECT score FROM '.$tableName.' WHERE name="' . $name . '" AND mac="' . $mac . '" ORDER BY score DESC';
+$query = 'SELECT score FROM ' . $tableName . ' WHERE name="' . $name . '" AND mac="' . $mac . '" ORDER BY score DESC';
 $result = mysql_query($query) or die('Error: unknow user');
 //echo 'debug:selectQuery<br>' . "\n";
 
@@ -62,13 +62,17 @@ exit;
 
 function decrypt($rawScore) {
     $len = strlen($rawScore);
+    if ($len % 10 != 0 || $len < 20) {
+        echo 'Stop trying to hack me!';
+        exit;
+    }
     $singleLen = $len / 10;
     $realValue = -1;
     for ($i = 0; $i < 10; $i++) {
         $data = substr($rawScore, $i * $singleLen, $singleLen);
         $offset = (int) substr($data, 0, 1);
         $data = substr($data, 1, $singleLen - 1);
-        
+
         $value = '';
         for ($j = 0; $j < $singleLen - 1; $j++) {
             $digit = (int) substr($data, $j, 1);
