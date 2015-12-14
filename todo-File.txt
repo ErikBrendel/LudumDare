@@ -2,3 +2,6 @@ Was noch zu tun wäre:
 -Scoreboard
 
   
+-game end explosion sound / sound on laser-destroy of FO
+
+-menu schöner machen

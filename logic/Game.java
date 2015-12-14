@@ -94,6 +94,9 @@ public class Game extends MenuState {
 
     @Override
     public boolean onKeyPressed(KeyEvent e) {
+        if (gos != null) {
+            return gos.onKeyPressed(e);
+        }
         if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
             animateFocus = true;
             animateFocusUp = focus < 0.5f;
