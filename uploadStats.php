@@ -26,11 +26,11 @@ $link = mysql_connect($dbHost, $dbUser, $dbPwd) or die('Error: no connection');
 mysql_select_db($databaseName) or die('Error: Database not found');
 //echo 'debug:selected<br>' . "\n";
 //maybe create table
-$createQuery = 'CREATE TABLE IF NOT EXISTS Stats (name varchar(255), mac varchar(255), score int);';
+$createQuery = 'CREATE TABLE IF NOT EXISTS '.$tableName.' (name varchar(255), mac varchar(255), score int);';
 mysql_query($createQuery) or die('Error: Could not create table');
 //echo 'debug:createQuery<br>' . "\n";
 //get old score from db
-$query = 'SELECT score FROM Stats WHERE name="' . $name . '" AND mac="' . $mac . '" ORDER BY score DESC';
+$query = 'SELECT score FROM '.$tableName.' WHERE name="' . $name . '" AND mac="' . $mac . '" ORDER BY score DESC';
 $result = mysql_query($query) or die('Error: unknow user');
 //echo 'debug:selectQuery<br>' . "\n";
 
@@ -41,7 +41,7 @@ while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
 //echo 'debug:oldScore' . $oldScore . '<br>' . "\n";
 
 if ($oldScore == -1) { //never played before
-    $query = "INSERT INTO `$databaseName`.`Stats` (`name`, `mac`, `score`) VALUES ('$name', '$mac', '$score')";
+    $query = "INSERT INTO `$databaseName`.`$tableName` (`name`, `mac`, `score`) VALUES ('$name', '$mac', '$score')";
     $result = mysql_query($query) or die('Error: not able to insert score');
     echo 'better';
 }
@@ -50,7 +50,7 @@ if ($oldScore == -1) { //never played before
 if ($score > $oldScore) {
     //insert better score
     //echo 'debug:better!<br>' . "\n";
-    $query = "UPDATE `$databaseName`.`Stats` SET `score` = '$score' WHERE `name` = '$name' AND `mac` = '$mac'";
+    $query = "UPDATE `$databaseName`.`$tableName` SET `score` = '$score' WHERE `name` = '$name' AND `mac` = '$mac'";
     $result = mysql_query($query) or die('Error: not able to update new score');
     echo 'better';
 } else {
