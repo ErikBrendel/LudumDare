@@ -58,6 +58,7 @@ public abstract class Project extends Canvas implements Runnable {
         addMouseListener(new Mouse());
         addMouseMotionListener(new Mouse());
         addMouseListener(new Mouse());
+        addMouseWheelListener(new Mouse());
 
         f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 //		f.setSize(new Dimension(1000, 300));
