@@ -3,13 +3,16 @@ package util.controls;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import util.geometry.Point;
 
-public class Mouse implements MouseListener, MouseMotionListener {
+public class Mouse implements MouseListener, MouseMotionListener, MouseWheelListener {
 
     private static boolean[] keys = new boolean[16];
     private static Point p = new Point(0, 0);
     private static double scale = 1;
+    public static int wheelRotation = 0;
 
     public static void setAllReleased() {
         for (int i = 0; i < keys.length; i++) {
@@ -84,6 +87,11 @@ public class Mouse implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         p.setX(e.getX() / (float) scale);
         p.setY(e.getY() / (float) scale);
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        wheelRotation += e.getWheelRotation();
     }
 
 }
