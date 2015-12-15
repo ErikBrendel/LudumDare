@@ -125,6 +125,8 @@ public class Physics {
                         }
                         if (player.getHealth() > 0) {
                             player.setSpeed(player.getSpeed() * -0.3f);
+                        } else {
+                            player.update(0.2f);
                         }
                         a.setUnHarmFul(0.2f);
 
