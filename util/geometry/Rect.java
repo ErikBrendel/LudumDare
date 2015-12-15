@@ -44,4 +44,8 @@ public class Rect extends Bounding {
     protected boolean intersects(float x, float y) {
         return x > this.x && x < this.x + this.width && y > this.y && y < this.y + this.height;
     }
+    
+    public String toString() {
+        return "Bounding->Rect: " + getLocation() + " and size " + getSize();
+    }
 }

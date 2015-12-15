@@ -42,13 +42,13 @@ public class ImageParticle extends Particle {
         super(x - img.getWidth()/2 + ran.nextInt(img.getWidth()), y - img.getHeight()/2 + ran.nextInt(img.getHeight()), colors.get(ran.nextInt(colors.size())), ran.nextInt(3) + 2, ran.nextFloat() * 3f + 0.5f, new ParticleMover() {
 
             float dir = ran.nextFloat() * 360f;
-            Point moveVector = new Point(50 + ran.nextFloat() * 70f, 0).rotate(dir);
+            Point moveVector = new Point(100f + ran.nextFloat() * 100f, 0).rotate(dir);
 
             @Override
             public Point move(float x, float y, float deltaTime) {
                 Point p = new Point(x, y);
 
-                Point v = moveVector.trim(deltaTime * 100f);
+                Point v = moveVector.trim(deltaTime * moveVector.hypot());
                 p = p.plus(v);
 
                 return p;

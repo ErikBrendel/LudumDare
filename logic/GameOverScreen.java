@@ -14,6 +14,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import main.Options;
 import util.controls.KeyBoard;
+import util.controls.Mouse;
 import util.gfx.TextBoxView;
 import util.web.Highscores;
 
@@ -22,6 +23,10 @@ import util.web.Highscores;
  * @author Erik
  */
 public class GameOverScreen {
+
+    public GameOverScreen() {
+        Mouse.wheelRotation = 0;
+    }
 
     float timeVisible = 0;
     private boolean showHighScores = false;
@@ -58,6 +63,7 @@ public class GameOverScreen {
     }
 
     void draw(Graphics2D g) {
+        int wheelRotation = Mouse.wheelRotation;
         if (timeVisible < 2) {
             g.setColor(new Color(50, 50, 50, (int) (timeVisible * 110f)));
             g.fillRect(200, 200, 1200, 500);
@@ -110,7 +116,7 @@ public class GameOverScreen {
                     g.setFont(small);
                     g.setColor(new Color(150, 0, 0));
                     g.drawString(newHigh, 200 + (drawBoxWidth - newHighWidth) / 2, 240);
-            g.setColor(Color.LIGHT_GRAY);
+                    g.setColor(Color.LIGHT_GRAY);
                     g.setFont(smaller);
                 }
 
@@ -120,10 +126,18 @@ public class GameOverScreen {
                     int segmentHieght = 50;
                     int maxAmount = highSize.y / segmentHieght;
                     int showAmount = Math.min(playerNames.size(), maxAmount);
+                    if (wheelRotation > playerNames.size() - maxAmount) {
+                        Mouse.wheelRotation = Math.max(0, playerNames.size() - maxAmount);
+                        wheelRotation = Mouse.wheelRotation;
+                    }
+                    if (wheelRotation < 0) {
+                        Mouse.wheelRotation = 0;
+                        wheelRotation = Mouse.wheelRotation;
+                    }
                     Point segSize = new Point(highSize.x, segmentHieght);
                     for (int i = 0; i < showAmount; i++) {
                         Color bg;
-                        if (i % 2 == 0) {
+                        if ((i + wheelRotation) % 2 == 0) {
                             bg = new Color(0, 0, 0, 50);
                         } else {
                             bg = new Color(0, 0, 0, 20);
@@ -132,8 +146,9 @@ public class GameOverScreen {
                         g.setColor(bg);
                         g.fillRect(segmentStart.x, segmentStart.y, segSize.x, segSize.y);
                         g.setColor(Color.WHITE);
-                        g.drawString(playerNames.get(i), segmentStart.x + 10, segmentStart.y + segSize.y - 13);
-                        String pScore = "" + playerScores.get(i);
+                        g.drawString((i + wheelRotation + 1) + ":", segmentStart.x + 10, segmentStart.y + segSize.y - 13);
+                        g.drawString(playerNames.get(i + wheelRotation), segmentStart.x + 60, segmentStart.y + segSize.y - 13);
+                        String pScore = "" + playerScores.get(i + wheelRotation);
                         Rectangle2D pScoreSize = TextBoxView.getSize(g, pScore);
                         g.drawString(pScore, segmentStart.x + segSize.x - (int) (pScoreSize.getWidth()) - 10, segmentStart.y + segSize.y - 13);
                     }
@@ -152,7 +167,9 @@ public class GameOverScreen {
             char c = e.getKeyChar();
             if (TextBoxView.isPrintableChar(c)) {
                 if (c != ' ' && c != ':' && c != ';' && c != '=') {
-                    Options.username += c;
+                    if (Options.username.length() < 20) {
+                        Options.username += c;
+                    }
                 }
                 return true;
             } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {

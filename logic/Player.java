@@ -311,6 +311,10 @@ public class Player {
         //explosionspartikel
         ImageParticle.setImage(look.getSubimage(0, 50, look.getWidth(), look.getHeight() - 100));
         Point bCenter = b.getLocation().plus(b.getSize().multiply(0.5f));
+        if (g.getFocus() == 1) {
+            bCenter.plus(new Point(50, 0));
+        }
+        System.err.println("b = " + b);
         final ParticleEmitter explosionEmitter = new ParticleEmitter(new ImageParticle(bCenter.getIntX(), bCenter.getIntY()), 0.0001);
         g.getParticleManager().addEmitter(explosionEmitter);
 
