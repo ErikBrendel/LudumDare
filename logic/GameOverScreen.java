@@ -69,7 +69,6 @@ public class GameOverScreen {
             Font big = new Font("Helvetica", Font.BOLD, 100);
             Font small = new Font("Helvetica", Font.BOLD, 40);
             Font smaller = new Font("Helvetica", Font.BOLD, 30);
-            g.setFont(big);
 
             String go = "Game Over";
             String score = "Score: " + (int) Options.score;
@@ -77,11 +76,13 @@ public class GameOverScreen {
             String restart = "Press ENTER to restart";
             String newHigh = "New personal best!";
 
+            g.setFont(big);
             int gowidth = (int) TextBoxView.getSize(g, go).getWidth();
             int scorewidth = (int) TextBoxView.getSize(g, score).getWidth();
             g.setFont(small);
             int userNameTextWidth = (int) TextBoxView.getSize(g, usernameText).getWidth();
             int restartWidth = (int) TextBoxView.getSize(g, restart).getWidth();
+            int newHighWidth = (int) TextBoxView.getSize(g, newHigh).getWidth();
 
             if (!showHighScores && timeVisible % 0.5f < 0.3f) {
                 usernameText += "|";
@@ -104,6 +105,14 @@ public class GameOverScreen {
             if (showHighScores) {
                 Point highStart = new Point(200 + drawBoxWidth + 50, 200 + 50);
                 Point highSize = new Point(1200 - drawBoxWidth - 100, 500 - 100);
+
+                if (newHighscore) {
+                    g.setFont(small);
+                    g.setColor(new Color(150, 0, 0));
+                    g.drawString(newHigh, 200 + (drawBoxWidth - newHighWidth) / 2, 240);
+            g.setColor(Color.LIGHT_GRAY);
+                    g.setFont(smaller);
+                }
 
                 if (highScoresAvailable) {
                     //g.setColor(Color.LIGHT_GRAY);
