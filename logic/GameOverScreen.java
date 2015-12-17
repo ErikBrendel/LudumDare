@@ -152,6 +152,8 @@ public class GameOverScreen {
                         Rectangle2D pScoreSize = TextBoxView.getSize(g, pScore);
                         g.drawString(pScore, segmentStart.x + segSize.x - (int) (pScoreSize.getWidth()) - 10, segmentStart.y + segSize.y - 13);
                     }
+                    g.setColor(Color.DARK_GRAY);
+                    g.fillRect(1350, 250 + (int)(((double) wheelRotation / (double) (playerNames.size() - 8)) * 320.), 6, 80);
                 } else {
                     String loading = "Loading highscores...";
                     Rectangle2D loadingSize = TextBoxView.getSize(g, loading);
