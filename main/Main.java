@@ -55,6 +55,7 @@ public class Main extends Project {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                lastFrame = System.nanoTime();
             }
         }
     }

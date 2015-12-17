@@ -21,7 +21,7 @@ public abstract class Project extends Canvas implements Runnable {
     private JFrame f = new JFrame();
 
     private long thisFrame;
-    private long lastFrame;
+    protected long lastFrame;
     public float timeSinceLastFrame;
     Thread t;
 
