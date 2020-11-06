@@ -70,7 +70,7 @@ public class SoundManager implements Runnable {
     @SuppressWarnings("unused")
     private static AudioClip loadClip(String name) {
         try {
-            return Applet.newAudioClip(SoundManager.class.getClass().getResource("/resources/" + name + ".au"));
+            return Applet.newAudioClip(SoundManager.class.getResource("/resources/" + name + ".au"));
         } catch (Exception e) {
             e.printStackTrace();
         }

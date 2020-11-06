@@ -18,7 +18,7 @@ public class GfxLoader {
 
     public static BufferedImage loadImage(String dateiname) {
         try {
-            BufferedImage img = ImageIO.read(GfxLoader.class.getClass().getResourceAsStream("/resources/" + dateiname + ".png"));
+            BufferedImage img = ImageIO.read(GfxLoader.class.getResourceAsStream("/resources/" + dateiname + ".png"));
             return getCompatibleImage(img);
         } catch (IOException e) {
             e.printStackTrace();
